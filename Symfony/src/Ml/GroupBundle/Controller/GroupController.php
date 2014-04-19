@@ -264,6 +264,10 @@ class GroupController extends Controller {
 				}
 			}
 		}
+		
+		if (!isset($group_users)) {
+			$group_users = NULL;
+		}
 			
 		if ($group_data == NULL) {
 				return $this->render('MlGroupBundle:Group:display_group.html.twig', array(
