@@ -172,4 +172,17 @@ class Account
   
     }
 
+
+    /**
+     * Set owner
+     *
+     * @param \Ml\UserBundle\Entity\User $owner
+     * @return Account
+     */
+    public function setOwner(\Ml\UserBundle\Entity\User $owner = null)
+    {
+        $this->owner = $owner;
+    
+        return $this;
+    }
 }

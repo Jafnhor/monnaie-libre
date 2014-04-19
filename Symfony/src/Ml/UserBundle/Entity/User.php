@@ -280,4 +280,17 @@ class User
         return $this->karma;
     }
 
+
+    /**
+     * Set account
+     *
+     * @param \Ml\TransactionBundle\Entity\Account $account
+     * @return User
+     */
+    public function setAccount(\Ml\TransactionBundle\Entity\Account $account)
+    {
+        $this->account = $account;
+    
+        return $this;
+    }
 }
