@@ -1,0 +1,58 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - See - Sale
+{% endblock %}
+	
+{% block service_body %}
+
+	{% if sale is not null %}
+		<div class="well">
+			<h3 id = "title_reservation"><b>{{ sale.title }}</b></h3>
+			<table class="table">
+				<tr>
+					<td>
+						<div class = "well">
+							<h4 class = "service">Creator :</h4> {{ sale.user.login }}
+							<h4 class = "service">Creation Date :</h4> {{ sale.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Comment :</h4> 
+							{% if sale.comment is null %} 
+								No comment 
+							{% endif %} 
+							{% if sale.comment is not null %} 
+								{{ sale.comment }}
+							{% endif %}
+							<h4 class = "service">Price :</h4> {{ sale.price }} Flouzz
+							<h4 class = "service">Associated Group :</h4> 
+							{% if sale.associatedGroup is null %} 
+								No associated group 
+							{% else %} 
+								{{ sale.associatedGroup.name }}
+							{% endif %} 
+						</div>
+					</td>
+					<td>
+						<div class = "well">
+							<h4 class = "service">Picture :</h4>
+							{% if sale.linkHostedPicture is not null %}
+								<h4 class = "service"><img src = "{{ sale.linkHostedPicture }}" width = "300px" heigth = "300px" alt "No picture" />
+							{% else %}
+								<h4 class = "service">No picture
+							{% endif %}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan = "4">
+						<div class = "well">
+							<form action="" method="post">
+								<input type="submit" class="btn btn-primary" id="form_reservation" value = "Reserve" />
+							</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	{% endif %}
+
+{% endblock %}

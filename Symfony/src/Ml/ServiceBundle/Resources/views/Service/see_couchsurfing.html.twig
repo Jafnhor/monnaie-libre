@@ -1,0 +1,62 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - See - CouchSurfing
+{% endblock %}
+	
+{% block service_body %}
+
+	{% if couchsurfing is not null %}
+		<div class="well">
+			<h3 id = "title_reservation"><b>{{ couchsurfing.title }}</b></h3>
+			<table class="table">
+				<tr>
+					<td>
+						<div class = "well">
+							<h4 class = "service">Creator :</h4> {{ couchsurfing.user.login }}
+							<h4 class = "service">Creation Date :</h4> {{ couchsurfing.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Comment :</h4> 
+							{% if couchsurfing.comment is null %} 
+								No comment 
+							{% endif %} 
+							{% if couchsurfing.comment is not null %} 
+								{{ couchsurfing.comment }}
+							{% endif %}
+							<h4 class = "service">Price :</h4> {{ couchsurfing.price }} Flouzz
+							<h4 class = "service">Associated Group :</h4> 
+							{% if couchsurfing.associatedGroup is null %} 
+								No associated group 
+							{% else %} 
+								{{ couchsurfing.associatedGroup.name }}
+							{% endif %} 
+						</div>
+					</td>
+					<td>
+						<div class = "well">
+							<h4 class = "service">Location :</h4> {{ couchsurfing.location }} 
+							<h4 class = "service">Date start :</h4> {{ couchsurfing.dateStart|date("d/m/Y") }}
+							<h4 class = "service">Date end :</h4> {{ couchsurfing.dateEnd|date("d/m/Y") }} 
+							<h4 class = "service">Hour start :</h4> {{ couchsurfing.hourStart|date("H:i") }} 
+							<h4 class = "service">Hour end :</h4> {{ couchsurfing.hourEnd|date("H:i") }} 
+							{% if couchsurfing.limitGuest is sameas(true) %}
+								<h4 class = "service">Limit number of guest :</h4> {{ couchsurfing.limitNumberOfGuest }}
+							{% else %}
+								<h4 class = "service">Limit number of guest :</h4> No limit
+							{% endif %}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan = "4">
+						<div class = "well">
+							<form action="" method="post">
+								<input type="submit" class="btn btn-primary" id="form_reservation" value = "Reserve" />
+							</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	{% endif %}
+
+{% endblock %}

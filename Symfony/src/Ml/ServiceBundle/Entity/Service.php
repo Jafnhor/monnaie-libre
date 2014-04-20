@@ -54,7 +54,7 @@ abstract class Service
      *
      * @ORM\Column(name="indicate", type="integer")
      */
-    private $indicate;
+    private $indicate; //signalement abus
 
      /**
      * @var integer
@@ -68,7 +68,13 @@ abstract class Service
      *
      * @ORM\Column(name="visibility", type="boolean")
      */
-    private $visibility;
+    private $visibility;//visibilité de l'annonce sur le site si abus ou vente terminee
+	
+	/**
+    * @ORM\ManyToOne(targetEntity="Ml\GroupBundle\Entity\Groupp")
+    * @ORM\JoinColumn(nullable=true)
+     */
+    private $associatedGroup;
 
 	
 	public function __construct() {
@@ -76,6 +82,7 @@ abstract class Service
 		$this->indicate = 0;
 		$this->visibility = true;
 		$this->price = 0;
+		$this->associatedGroup = NULL;
 	}
 
     /**
@@ -231,8 +238,32 @@ abstract class Service
 	  {
 		$this->user = $user;
 	  }
+	  
 	  public function getUser()
 	  {
 		return $this->user;
 	  }
+
+    /**
+     * Set associatedGroup
+     *
+     * @param \Ml\UserBundle\Entity\Groupp $associatedGroup
+     * @return Service
+     */
+    public function setAssociatedGroup(\Ml\UserBundle\Entity\Groupp $associatedGroup = null)
+    {
+        $this->associatedGroup = $associatedGroup;
+    
+        return $this;
+    }
+
+    /**
+     * Get associatedGroup
+     *
+     * @return \Ml\UserBundle\Entity\Groupp 
+     */
+    public function getAssociatedGroup()
+    {
+        return $this->associatedGroup;
+    }
 }
