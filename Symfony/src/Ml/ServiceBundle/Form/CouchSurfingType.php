@@ -5,9 +5,8 @@ namespace Ml\ServiceBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\HttpFoundation\Response;
 
-class CarpoolingType extends AbstractType
+class CouchSurfingType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -72,27 +71,16 @@ class CarpoolingType extends AbstractType
         $builder
             ->add('title')
             ->add('comment')
-            ->add('price')
-            ->add('departure')
-            ->add('arrival')
-            ->add('meetingPoint')
-            ->add('arrivalPoint')
-            ->add('bends')
-            ->add('departureDate', 'date')
-            ->add('estimatedDuration', 'time')
-            ->add('estimatedDistance', 'integer', array(
-														'label' => "Estimated distance (km)"))
-            ->add('packageTransport')
-            ->add('packageSize', 'integer', array(
-													'label' => "Package size (kg)",
+			->add('price')
+            ->add('location')
+            ->add('dateStart')
+            ->add('dateEnd')
+            ->add('hourStart')
+            ->add('hourEnd')
+            ->add('limitGuest', 'choice', array( 
+										'choices' => array(true => "Yes", false => "No")))
+            ->add('limitNumberOfGuest', 'integer', array(
 													'required' => false))
-            ->add('car')
-            ->add('smoker', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
-            ->add('pets', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
-            ->add('music', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
 			->add('associatedGroup', 'choice', array( 
 													'choices' => $groups_name,
 													'required' => false,
@@ -106,7 +94,7 @@ class CarpoolingType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ml\ServiceBundle\Entity\Carpooling'
+            'data_class' => 'Ml\ServiceBundle\Entity\CouchSurfing'
         ));
     }
 
@@ -115,6 +103,6 @@ class CarpoolingType extends AbstractType
      */
     public function getName()
     {
-        return 'ml_servicebundle_carpooling';
+        return 'ml_servicebundle_couchsurfing';
     }
 }

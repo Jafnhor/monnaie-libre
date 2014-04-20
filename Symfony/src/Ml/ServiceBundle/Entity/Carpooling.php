@@ -65,9 +65,9 @@ class Carpooling extends Service
     protected $departureDate;
 
     /**
-     * @var integer
+     * @var time
      *
-     * @ORM\Column(name="estimatedDuration", type="integer")
+     * @ORM\Column(name="estimatedDuration", type="time")
      */
     protected $estimatedDuration;
 
@@ -88,7 +88,7 @@ class Carpooling extends Service
     /**
      * @var integer
      *
-     * @ORM\Column(name="packageSize", type="integer")
+     * @ORM\Column(name="packageSize", type="integer", nullable=true)
      */
     protected $packageSize;
 

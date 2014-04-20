@@ -2,6 +2,10 @@ ml_service_homepage:
     pattern: /service
     defaults: { _controller: MlServiceBundle:Service:index }
 
+ml_service_add:
+    pattern: /service/add
+    defaults: { _controller: MlServiceBundle:Service:addService }
+
 ml_service_see_carpooling:
     pattern: /service/see/carpooling/{carpooling}
     defaults: { _controller: MlServiceBundle:Service:seeCarpooling, carpooling: null }
@@ -13,3 +17,27 @@ ml_service_add_carpooling:
 ml_service_delete_carpooling:
     pattern: /service/delete/carpooling
     defaults: { _controller: MlServiceBundle:Service:deleteCarpooling }
+
+ml_service_see_couchsurfing:
+    pattern: /service/see/couchsurfing/{couchsurfing}
+    defaults: { _controller: MlServiceBundle:Service:seeCouchsurfing, couchsurfing: null }
+
+ml_service_add_couchsurfing:
+    pattern: /service/add/couchsurfing
+    defaults: { _controller: MlServiceBundle:Service:addCouchsurfing }
+
+ml_service_delete_couchsurfing:
+    pattern: /service/delete/couchsurfing
+    defaults: { _controller: MlServiceBundle:Service:deleteCouchsurfing }
+
+ml_service_see_sale:
+    pattern: /service/see/sale/{sale}
+    defaults: { _controller: MlServiceBundle:Service:seesale, sale: null }
+
+ml_service_add_sale:
+    pattern: /service/add/sale
+    defaults: { _controller: MlServiceBundle:Service:addsale }
+
+ml_service_delete_sale:
+    pattern: /service/delete/sale
+    defaults: { _controller: MlServiceBundle:Service:deletesale }

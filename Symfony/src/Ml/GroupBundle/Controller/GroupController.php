@@ -35,6 +35,10 @@ class GroupController extends Controller {
 		$message = NULL;
 		
 		if ($groups == NULL) {
+			$groups = NULL;
+		}
+		
+		if ($groups == NULL) {
 			$message = "No group in database";
 		}
 		

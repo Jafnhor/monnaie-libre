@@ -1,7 +1,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - Add - Carpooling
+ {{ parent() }} - Service - Add - CouchSurfing
 {% endblock %}
 	
 {% block service_body %}
@@ -12,7 +12,7 @@
 				<td>
 					<div class="well">
 						<form method="post" class="CouchSurfing" {{ form_enctype(form) }}>
-							<h3 id = "title_form"><b>Create a Carpooling service</b></h3>
+							<h3 id = "title_form"><b>Create a CouchSurfing service</b></h3>
 							{{ form_widget(form) }}
 							<input type="submit" class="btn btn-primary" id="form_validatation" value = "Create" />
 						</form>

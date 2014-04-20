@@ -1,0 +1,30 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - Add
+{% endblock %}
+	
+{% block service_body %}
+
+	<table class="table">
+		<legend><b>Kind of service to create</b></legend>
+		<tr>
+			<td>
+				<div class="well">
+					<center>
+						<h4><b>Choose your kind of service</b></h4><br>
+						<form action="{{ path('ml_service_add') }}" method="post">
+							<select name="type">
+								<option value = "sale">Sale</option>
+								<option value = "carpooling">Carpooling</option>
+								<option value = "couchsurfing">Couchsurfing</option>
+							</select><br><br>
+							<button class="btn btn-primary btn-mini" type="submit">Confirm <i class="icon-white icon-ok-sign"></i> </button>
+						</form>
+					</center>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+{% endblock %}

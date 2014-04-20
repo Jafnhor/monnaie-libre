@@ -1,3 +1,4 @@
+
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
@@ -11,13 +12,15 @@
 			<td>
 				<div class="well">
 					<center>
-						<h4><b>Filtrer</b></h4><br>
+						<h4><b>Choose your service</b></h4><br>
 						<form action="{{ path('ml_service_homepage') }}" method="post">
 							Type
 							<select style = "height:65px; margin-left:15px;" multiple name="type[]">
+								<option value = "sale">Sale</option>
 								<option value = "carpooling">Carpooling</option>
+								<option value = "couchsurfing">Couchsurfing</option>
 							</select><br><br>
-							<button class="btn btn-primary btn-mini" type="submit">Valider <i class="icon-white icon-ok-sign"></i> </button>
+							<button class="btn btn-primary btn-mini" type="submit">Confirm <i class="icon-white icon-ok-sign"></i> </button>
 						</form>
 					</center>
 				</div>
@@ -28,7 +31,7 @@
 				<div class="well">
 					{% if servicess is defined %}
 						{% if servicess is not null %}
-							<table>
+							<table align="center">
 								<tr>
 									<td>
 										<center><b>Title</b></center>
@@ -52,7 +55,15 @@
 								</tr>
 								{% for services in servicess %}
 									{% for service in services %}
-										<tr class = "liste_services" onclick="document.location.href='./service/see/carpooling/{{ service.id }}'">
+										{% if service.type is sameas("Carpooling") %}
+											<tr class = "liste_services" onclick="document.location.href='./service/see/carpooling/{{ service.id }}'">
+										{% endif %}
+										{% if service.type is sameas("CouchSurfing") %}
+											<tr class = "liste_services" onclick="document.location.href='./service/see/couchsurfing/{{ service.id }}'">
+										{% endif %}
+										{% if service.type is sameas("Sale") %}	
+											<tr class = "liste_services" onclick="document.location.href='./service/see/sale/{{ service.id }}'">
+										{% endif %}
 												<td>
 													<center>{{ service.title }}</a></center>
 												</td>
@@ -78,11 +89,17 @@
 												<td>
 													<center>{{ service.type }}</a></center>
 												</td>
-										</tr>
+											</tr>
 									{% endfor %}
 								{% endfor %}
 							</table>
 						{% endif %}
+						{% if servicess is null %}
+							<center>Aucun service</center>
+						{% endif %}
+					{% endif %}
+					{% if servicess is not defined %}
+						<center>Aucun service</center>
 					{% endif %}
 				</div>
 			</td>

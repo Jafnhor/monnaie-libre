@@ -56,11 +56,28 @@ header .pack-end {
 
  /* CSS Service */
  
- .Carpooling #ml_servicebundle_carpooling_departure, #ml_servicebundle_carpooling_arrival, #ml_servicebundle_carpooling_meetingPoint, 
+ .Carpooling #ml_servicebundle_carpooling_departure, #ml_servicebundle_carpooling_price, #ml_servicebundle_carpooling_arrival, #ml_servicebundle_carpooling_meetingPoint, 
  #ml_servicebundle_carpooling_arrivalPoint, #ml_servicebundle_carpooling_bends,
  #ml_servicebundle_carpooling_estimatedDuration, #ml_servicebundle_carpooling_estimatedDistance, #ml_servicebundle_carpooling_packageTransport, 
  #ml_servicebundle_carpooling_packageSize, #ml_servicebundle_carpooling_car, #ml_servicebundle_carpooling_smoker, #ml_servicebundle_carpooling_pets,
  #ml_servicebundle_carpooling_music, #ml_servicebundle_carpooling_title, #ml_servicebundle_carpooling_comment {
+	margin-bottom: 20px;
+ }
+ 
+ .CouchSurfing #ml_servicebundle_couchsurfing_price, #ml_servicebundle_couchsurfing_title, #ml_servicebundle_couchsurfing_comment,
+ #ml_servicebundle_couchsurfing_location, #ml_servicebundle_couchsurfing_limitGuest, #ml_servicebundle_couchsurfing_limitNumberOfGuest, 
+ #ml_servicebundle_couchsurfing_associatedGroup {
+	margin-bottom: 20px;
+ }
+ 
+ .CouchSurfing #ml_servicebundle_couchsurfing_dateStart_year, #ml_servicebundle_couchsurfing_dateStart_month, #ml_servicebundle_couchsurfing_dateStart_day,
+ #ml_servicebundle_couchsurfing_dateEnd_year, #ml_servicebundle_couchsurfing_dateEnd_month, #ml_servicebundle_couchsurfing_dateEnd_day {
+	margin-bottom: 20px;
+	margin-right: 20px;
+ }
+ 
+ .CouchSurfing #ml_servicebundle_couchsurfing_hourStart_hour, #ml_servicebundle_couchsurfing_hourStart_minute,
+ #ml_servicebundle_couchsurfing_hourEnd_hour, #ml_servicebundle_couchsurfing_hourEnd_minute {
 	margin-bottom: 20px;
  }
  
@@ -69,11 +86,32 @@ header .pack-end {
 	margin-right: 20px;
  }
  
+ .Sale #ml_servicebundle_sale_price, #ml_servicebundle_sale_title, #ml_servicebundle_sale_comment,
+ #ml_servicebundle_sale_associatedGroup, #ml_servicebundle_sale_linkHostedPicture {
+	margin-bottom: 20px;
+ }
+ 
+.CouchSurfing #title_form  {
+	margin-left: 300px;
+}
+ 
 .Carpooling #title_form {
 	margin-left: 300px;
 }
 
+.Sale #title_form {
+	margin-left: 300px;
+}
+
+.CouchSurfing #form_validatation  {
+	margin-left: 360px;
+}
+
 .Carpooling #form_validatation {
+	margin-left: 360px;
+}
+
+.Sale #form_validatation {
 	margin-left: 360px;
 }
 
