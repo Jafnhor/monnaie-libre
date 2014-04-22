@@ -65,14 +65,13 @@ class TransactionController extends Controller
 						$amount = $req->request->get('amount');
 						$flag = $req->request->get('flag');
 						$account = &$recipient->getAccount();
-						$account->getAmount();
 						$ret = $user->getAccount()->payment($account,$amount,$flag);
 						$this->getDoctrine()->getManager()->persist($ret);
 						$this->getDoctrine()->getManager()->persist($user->getAccount());
 						$this->getDoctrine()->getManager()->persist($account);
 						$this->getDoctrine()->getManager()->flush();
 						
-		   				return $this->redirect($this->generateUrl('ml_transaction_index'));		
+		   				return $this->redirect($this->generateUrl('ml_transaction_homepage'));		
 					}
 					catch(\Exception $e) {
 						return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>$e->getMessage()));

@@ -136,9 +136,7 @@ class Account
      * @return float The new amount
      */
      private function pay($amount) {
-        $this->amount += $amount;
-        
-        return $this->amount;
+        $this->setAmount($this->getAmount()+$amount);
      }
      
      /**
@@ -147,10 +145,7 @@ class Account
      * @return float The new amount
      */
      private function withdraw($amount) {
-     
-        $this->amount -= $amount;
-        
-        return $this->amount;
+        $this->setAmount($this->getAmount()-$amount);
      }
 
     /**
@@ -159,7 +154,6 @@ class Account
      * @return The transaction done
      */    
     public function payment(&$target,$amount,$flag="") {
-        
         /* Test des préconditions : la cible existe, le montant est positif et le compte peut effectuer le paiement. */
         if($amount <= 0) throw new TransactionException("Amount has to be positive.");
         if($this->getAmount()-$amount < $this->authorizedOverdraft) throw new RefusedTransactionException("Insufficient fund.");
@@ -169,7 +163,6 @@ class Account
         $target->pay($amount);
             
         return new Transaction($this,$target,$amount,$flag);
-  
     }
 
 
