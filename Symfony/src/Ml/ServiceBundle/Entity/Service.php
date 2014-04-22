@@ -71,7 +71,7 @@ abstract class Service
     private $visibility;//visibilité de l'annonce sur le site si abus ou vente terminee
 	
 	/**
-    * @ORM\ManyToOne(targetEntity="Ml\GroupBundle\Entity\Groupp")
+    * @ORM\ManyToOne(targetEntity="Ml\GroupBundle\Entity\Group")
     * @ORM\JoinColumn(nullable=true)
      */
     private $associatedGroup;
