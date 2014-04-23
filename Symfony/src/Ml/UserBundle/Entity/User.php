@@ -104,7 +104,7 @@ class User
      *
      * @return Account 
      */
-    public function getAccount()
+    public function &getAccount()
     {
         return $this->account;
     }    

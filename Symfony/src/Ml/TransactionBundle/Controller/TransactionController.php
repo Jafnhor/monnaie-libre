@@ -59,19 +59,27 @@ class TransactionController extends Controller
 			    $recipient = $this->getDoctrine()
 						->getRepository('MlUserBundle:User')
 						->findOneBy(array('login' => $req->request->get('recipient')));
-			    $amount = $req->request->get('amount');
-			    $flag = $req->request->get('flag');
 				
-				$account = $recipient->getAccount();
-				
-				try {
-				    $this->getDoctrine()->getManager()->persist($user->getAccount()->payment($account,$amount,$flag));
-				    $this->getDoctrine()->getManager()->flush();
-				    
-				    return $this->redirect($this->generateUrl('ml_transaction_homepage'));
+				if($recipient != null) {
+					try {
+						$amount = $req->request->get('amount');
+						$flag = $req->request->get('flag');
+						$account = &$recipient->getAccount();
+						$ret = $user->getAccount()->payment($account,$amount,$flag);
+						$this->getDoctrine()->getManager()->persist($ret);
+						$this->getDoctrine()->getManager()->persist($user->getAccount());
+						$this->getDoctrine()->getManager()->persist($account);
+						$this->getDoctrine()->getManager()->flush();
+						
+		   				return $this->redirect($this->generateUrl('ml_transaction_homepage'));		
+					}
+					catch(\Exception $e) {
+						return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>$e->getMessage()));
+					}
 				}
-				catch(\Exception $e) {
-				    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>$e->getMessage()));
+				else {	
+				    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>
+				    																	'User '.$req->request->get('recipient').'does not exist.'));
 				}
 			    
 			}
