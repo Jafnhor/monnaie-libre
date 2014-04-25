@@ -272,8 +272,15 @@ class ServiceController extends Controller
 
 			$carpooling->setUser($user);
 			
-			if ($req->request->get("form")["associatedGroup"] != NULL) {
-				$carpooling->setAssociatedGroup($req->request->get("form")["associatedGroup"]);
+			//var_dump($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]);die;
+			
+			if (($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]) != NULL) {
+				$group = $this->getDoctrine()
+					->getManager()
+					->getRepository('MlGroupBundle:Groupp')
+					->findOneByName($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]);
+				
+				$carpooling->setAssociatedGroup($group);
 			}
 			
 			$em->persist($carpooling);
@@ -353,8 +360,13 @@ class ServiceController extends Controller
 
 			$couchSurfing->setUser($user);
 			
-			if ($req->request->get("form")["associatedGroup"] != NULL) {
-				$couchSurfing->setAssociatedGroup($req->request->get("form")["associatedGroup"]);
+			if (($req->request->get("ml_servicebundle_couchsurfing")["associatedGroup"]) != NULL) {
+				$group = $this->getDoctrine()
+					->getManager()
+					->getRepository('MlGroupBundle:Groupp')
+					->findOneByName($req->request->get("ml_servicebundle_couchsurfing")["associatedGroup"]);
+				
+				$couchSurfing->setAssociatedGroup($group);
 			}
 			
 			$em->persist($couchSurfing);
@@ -364,7 +376,7 @@ class ServiceController extends Controller
 			
 			$couchSurfing_id = $couchSurfing->getId();
 
-			return $this->redirect($this->generateUrl('ml_service_see_carpooling', array('user'=>$user,'couchsurfing' => $couchSurfing_id)));
+			return $this->redirect($this->generateUrl('ml_service_see_couchsurfing', array('user'=>$user,'couchsurfing' => $couchSurfing_id)));
 		}
 		
 		return $this->render('MlServiceBundle:Service:add_couchsurfing.html.twig', array(
@@ -490,8 +502,13 @@ class ServiceController extends Controller
 
 			$sale->setUser($user);
 			
-			if ($req->request->get("form")["associatedGroup"] != NULL) {
-				$sale->setAssociatedGroup($req->request->get("form")["associatedGroup"]);
+			if (($req->request->get("ml_servicebundle_sale")["associatedGroup"]) != NULL) {
+				$group = $this->getDoctrine()
+					->getManager()
+					->getRepository('MlGroupBundle:Groupp')
+					->findOneByName($req->request->get("ml_servicebundle_sale")["associatedGroup"]);
+				
+				$sale->setAssociatedGroup($group);
 			}
 			
 			$em->persist($sale);
@@ -501,7 +518,7 @@ class ServiceController extends Controller
 			
 			$sale_id = $sale->getId();
 
-			return $this->redirect($this->generateUrl('ml_service_see_carpooling', array('user'=>$user,'sale' => $sale_id)));
+			return $this->redirect($this->generateUrl('ml_service_see_sale', array('user'=>$user,'sale' => $sale_id)));
 		}
 		
 		return $this->render('MlServiceBundle:Service:add_sale.html.twig', array(

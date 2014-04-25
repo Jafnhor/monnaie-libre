@@ -9,3 +9,31 @@ ml_group_creation_group:
 ml_group_display_group:
     pattern: /group/{group_id}
     defaults: { _controller: MlGroupBundle:Group:displayGroup, group_id: null }
+
+ml_group_add_user:
+    pattern: /group/add/user
+    defaults: { _controller: MlGroupBundle:Group:addUser }
+
+ml_group_accept_user:
+    pattern: /group/accept/user
+    defaults: { _controller: MlGroupBundle:Group:addUser }
+
+ml_group_refuse_user:
+    pattern: /group/refuse/user
+    defaults: { _controller: MlGroupBundle:Group:refuseUser }
+
+ml_group_join_group:
+    pattern: /group/join/{group_id}
+    defaults: { _controller: MlGroupBundle:Group:joinGroup, group_id: null }
+
+ml_group_delete_user:
+    pattern: /group/delete/user
+    defaults: { _controller: MlGroupBundle:Group:deleteUser }
+
+ml_group_leave_group:
+    pattern: /group/leave/{group_id}
+    defaults: { _controller: MlGroupBundle:Group:leaveGroup, group_id: null }
+
+ml_group_delete_group:
+    pattern: /group/definitive/delete/{group_id}
+    defaults: { _controller: MlGroupBundle:Group:deleteGroup, group_id: null }

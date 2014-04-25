@@ -52,8 +52,18 @@ class SaleType extends AbstractType
 				  ->getRepository('MlGroupBundle:GroupUser')
 			      ->findByUser($user);
 		
+		$groups_administrator = $kernel
+				  ->getContainer()
+				  ->get('doctrine.orm.entity_manager')
+				  ->getRepository('MlGroupBundle:Groupp')
+			      ->findByAdministrator($user);
+		
 		if ($groups_user == NULL) {
 			$groups_user = NULL;
+		}
+		
+		if ($groups_administrator == NULL) {
+			$groups_administrator = NULL;
 		}
 		
 		$groups_name = NULL;
@@ -64,7 +74,17 @@ class SaleType extends AbstractType
 			}
 			
 			foreach ($groups as $key => $value) {
-				$groups_name[] = $value->getName();
+				$groups_name[$value->getName()] = $value->getName();
+			}
+		}
+		
+		if ($groups_administrator != NULL) {
+			foreach ($groups_administrator as $key => $value) {
+				$groups_a[] = $value;
+			}
+			
+			foreach ($groups_a as $key => $value) {
+				$groups_name[$value->getName()] = $value->getName();
 			}
 		}
 		
