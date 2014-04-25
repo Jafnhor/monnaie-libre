@@ -51,6 +51,9 @@
 											<td>
 												<center><b>Status</b></center>
 											</td>
+											{% if is_administrator is sameas(true) %}
+												<center><b>Delete</b></center>
+											{% endif %}
 										</tr>
 										<tr>
 											<td>
@@ -110,16 +113,238 @@
 														Member
 													</center>
 												</td>
+												{% if is_administrator is sameas(true) %}
+													<td>
+														<center>
+															<form action="{{ path('ml_group_delete_user') }}" method="post">
+																<input type = "hidden" name = "group_id" value = {{ group_id }} />
+																<input type = "hidden" name = "member_id" value = {{ member.user.id }} />
+																<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+															</form>
+														</center>
+													</td>
+												{% endif %}
 											</tr>
 										{% endfor %}
 									</table>
 								</div>
 								<h3>Associated services</h3>
 								<div>
-									<center>
-										Here we can display associated services ???
-									</center>
+									{% if associated_services is defined %}
+										{% if associated_services is not null %}
+											<center>
+												<table>
+													<tr>
+														<td>
+															<center><b>Title</b></center>
+														</td>
+														<td>
+															<center><b>Comment</b></center>
+														</td>
+														<td>
+															<center><b>Creation date</b></center>
+														</td>
+														<td>
+															<center><b>Price</b></center>
+														</td>
+														<td>
+															<center><b>Creator</b></center>
+														</td>
+														{% if administrator is defined %}
+															{% if administrator is sameas(true) %}
+																<td>
+																	<center><b>Delete</b></center>
+																</td>
+															{% endif %}
+														{% endif %}
+													</tr>
+													{% for service in associated_services %}
+														{% if is_valid is sameas(true) %}
+															{% if service.type is sameas("Carpooling") %}
+																<tr class = "liste_services" onclick="document.location.href='../service/see/carpooling/{{ service.id }}'">
+															{% endif %}
+															{% if service.type is sameas("CouchSurfing") %}
+																<tr class = "liste_services" onclick="document.location.href='../service/see/couchsurfing/{{ service.id }}'">
+															{% endif %}
+															{% if service.type is sameas("Sale") %}
+																<tr class = "liste_services" onclick="document.location.href='../service/see/sale/{{ service.id }}'">
+															{% endif %}
+														{% endif %}
+														{% if is_valid is sameas(false) %}
+															<tr>
+														{% endif %}
+															<td>
+																<center>{{ service.title }}</center>
+															</td>
+															<td>
+																{% if service.comment is not null %}
+																	<center>{{ service.comment }}</center>
+																{% else %}
+																	<center>No comment</center>
+																{% endif %}
+															</td>
+															<td>
+																<center>{{ service.creationDate|date("d/m/y") }} </center>
+															</td>
+															<td>
+																<center>{{ service.price }} Flouzz</center>
+															</td>
+															<td>
+																<center>{{ service.user.login }}</center>
+															</td>
+															{% if is_administrator is defined %}
+																{% if is_administrator is sameas(true) %}
+																	<td>
+																		<center>
+																			{% if service.type is sameas("Carpooling") %}
+																				<form action="{{ path('ml_service_delete_carpooling') }}" method="post">
+																			{% endif %}
+																			{% if service.type is sameas("CouchSurfing") %}
+																				<form action="{{ path('ml_service_delete_couchsurfing') }}" method="post">
+																			{% endif %}
+																			{% if service.type is sameas("Sale") %}
+																				<form action="{{ path('ml_service_delete_sale') }}" method="post">
+																			{% endif %}
+																				<input type = "hidden" name = "group_id" value = {{ group_id }} />
+																				<input type = "hidden" name = "service_id" value = {{ service.id }} />
+																				<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+																			</form>
+																		</center>
+																	</td>
+																{% endif %}
+															{% endif %}
+														</tr>
+													{% endfor %}
+												</table>
+											</center>
+										{% endif %}
+										{% if associated_services is null %}
+											No service associated to this group
+										{% endif %}
+									{% endif %}   
+									{% if associated_services is not defined %}
+										No service associated to this group
+									{% endif %}
 								</div>
+								{% if is_administrator is defined %}
+									{% if is_administrator is sameas(true) %}
+										<h3>Requests to join the group</h3>
+										{% if requests is not null %}
+											<div>
+												<table align = "center">
+													<tr>
+														<td>
+															<center><b>Last name</b></center>
+														</td>
+														<td>
+															<center><b>First name</b></center>
+														</td>
+														<td>
+															<center><b>Login</b></center>
+														</td>
+														<td>
+															<center><b>Message</b></center>
+														</td>
+														<td>
+															<center><b>Accept</b></center>
+														</td>
+														<td>
+															<center><b>Refuse</b></center>
+														</td>
+													</tr>
+													{% for request in requests %}
+														<tr>
+															<td>
+																<center>{{ request.user.lastName }}</center>
+															</td>
+															<td>
+																<center>{{ request.user.firstName }} </center>
+															</td>
+															<td>
+																<center>{{ request.user.login }}</center>
+															</td>
+															<td>
+																<center>
+																	{% if request.message is sameas(true) %}
+																		{{ request.message }}
+																	{% else %}
+																		No message
+																	{% endif %}
+																</center>
+															</td>
+															<td>
+																<center>
+																	<form action="{{ path('ml_group_accept_user') }}" method="post">
+																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
+																		<input type = "hidden" name = "user_id" value = {{ request.user.id }} />
+																		<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+																	</form>
+																</center>
+															</td>
+															<td>
+																<center>
+																	<form action="{{ path('ml_group_refuse_user') }}" method="post">
+																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
+																		<input type = "hidden" name = "user_id" value = {{ request.user.id }} />
+																		<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+																	</form>
+																</center>
+															</td>
+														</tr>
+													{% endfor %}
+												</table>
+											</div>
+										{% endif %}
+										{% if requests is null %}
+											<div>
+												No request to join group {{ group.name }}
+											</div>
+										{% endif %}
+										{% if users is not null %}
+											<h3>Add users to the group</h3>
+											<div>
+												<table align = "center">
+													<tr>
+														<td>
+															<center><b>Last name</b></center>
+														</td>
+														<td>
+															<center><b>First name</b></center>
+														</td>
+														<td>
+															<center><b>Login</b></center>
+														</td>
+														<td>
+															<center><b>Add</b></center>
+														</td>
+													</tr>
+													{% for user in users %}
+														<tr>
+															<td>
+																<center>{{ user.firstName }}</center>
+															</td>
+															<td>
+																<center>{{ user.lastName }} </center>
+															</td>
+															<td>
+																<center>{{ user.login }}</center>
+															</td>
+															<td>
+																<center>
+																	<form action="{{ path('ml_group_add_user') }}" method="post">
+																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
+																		<input type = "hidden" name = "user_id" value = {{ user.id }} />
+																		<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+																	</form>
+																</center>
+															</td>
+														</tr>
+													{% endfor %}
+												</table>
+											</div>
+										{% endif %}
+									{% endif %}
+								{% endif %}
 							</div>
 						</div>
 					</td>
@@ -128,13 +353,28 @@
 		</tr>
 	</table>
 	<center>
-		<form action="{{ path('ml_home_homepage') }}" method="post">
-			{% if is_member is sameas(false) %}
-				<button class="btn btn-primary btn-mini" type="submit">Join group<i class="icon-white icon-ok-sign"></i> </button>
-			{% endif %}
-			{% if is_member is sameas(true) %}
+		{% if is_member is sameas(false) and is_administrator is sameas(false) and is_waiting is sameas(false) %}
+			<form action="{{ path('ml_group_join_group', { 'group_id': group_id }) }}" method="post">
+				Justify your request : <br>
+				<textarea name = "message_join_group" rows="3" cols="20">
+				</textarea><br><br>
+				<button class="btn btn-primary btn-mini" type="submit">Send request to join {{ group.name }}<i class="icon-white icon-ok-sign"></i> </button>
+			</form>
+		{% endif %}
+		{% if is_member is sameas(true) %}
+			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
 				<button class="btn btn-primary btn-mini" type="submit">Leave group<i class="icon-white icon-ok-sign"></i> </button>
-			{% endif %}
-		</form>
+			</form>
+		{% endif %}
+		{% if is_administrator is sameas(true) %}
+			<form action="{{ path('ml_group_delete_group', { 'group_id': group_id }) }}" method="post">
+				<button class="btn btn-primary btn-mini" type="submit">Delete group<i class="icon-white icon-ok-sign"></i> </button>
+			</form>
+		{% endif %}
+		{% if is_waiting is sameas(true) %}
+			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
+				<button class="btn btn-primary btn-mini" type="submit">Cancel the request<i class="icon-white icon-ok-sign"></i> </button>
+			</form>
+		{% endif %}
 	</center>
 {% endblock %}

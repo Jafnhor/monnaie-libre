@@ -247,10 +247,10 @@ abstract class Service
     /**
      * Set associatedGroup
      *
-     * @param \Ml\UserBundle\Entity\Groupp $associatedGroup
+     * @param \Ml\GroupBundle\Entity\Groupp $associatedGroup
      * @return Service
      */
-    public function setAssociatedGroup(\Ml\UserBundle\Entity\Groupp $associatedGroup = null)
+    public function setAssociatedGroup(\Ml\GroupBundle\Entity\Groupp $associatedGroup = null)
     {
         $this->associatedGroup = $associatedGroup;
     
