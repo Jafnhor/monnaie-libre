@@ -1,0 +1,100 @@
+{% extends "MlForumBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Forum - Topic - {{ topic.id }}
+{% endblock %}
+	
+{% block forum_body %}
+
+	{% if topic is not null %}
+		<div class="well">
+			<h3 id = "title_topic">
+				<b>
+					{% if topic.author is not sameas(user) %}
+						<form method = "POST" action = "{{ path('ml_forum_disliker_topic', { 'topic': topic.id }) }}">
+							<button type = "submit" value = "disliker" class = "btn  btn-link" name = "disliker"><i style = 'margin-bottom: 10px' class='icon-thumbs-down'></i></button>
+						</form>
+					{% endif %}
+					{{ topic.name }}
+					{% if topic.author is not sameas(user) %}
+						<form method = "POST" action = "{{ path('ml_forum_liker_topic', { 'topic': topic.id }) }}">
+							<button type = "submit" value = "liker" class = "btn  btn-link" name = "liker"><i style = 'margin-bottom: 10px' class='icon-thumbs-up'></i></button>
+						</form>
+					{% endif %}
+				</b>
+			</h3>
+			<table class="table">
+				<tr>
+					<td>
+						<h4>Created by {{ topic.author.login }} <div id = "date_location"> {{ topic.creationDate|date("Y/m/d H:i") }} </div></h4>
+					</td>
+				</tr>
+			</table>
+			<table class="table">
+				<tr>
+					<td>
+						<b>Description :</b> {{ topic.description }}
+					</td>
+				</tr>
+			</table>
+			{% if topiccomments is defined %}
+				{% if topiccomments is not null %}
+					<table class="table_maison">
+						{% for topiccomment in topiccomments %} 
+							<tr>
+								<td>
+									<center>
+										{{ topiccomment.comment.author.login }}
+									</center>
+								</td>
+								<td>
+									<center>
+										{{ topiccomment.comment.message }}
+									</center>
+								</td>
+								<td>
+									<center>
+										{{ topiccomment.comment.creationDate|date("Y/m/d H:i") }}
+									</center>
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+					<table class="table">
+						<tr>
+							<td>
+								<form method="post" class="Comment" {{ form_enctype(form) }}>
+									{{ form_widget(form) }}
+									<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+								</form>
+							</td>
+						</tr>
+					</table>
+				{% else %}
+					<table class="table">
+						<tr>
+							<td>
+								<form method="post" class="Comment" {{ form_enctype(form) }}>
+									{{ form_widget(form) }}
+									<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+								</form>
+							</td>
+						</tr>
+					</table>
+				{% endif %}
+			{% else %}
+				<table class="table">
+					<tr>
+						<td>
+							<form method="post" class="Comment" {{ form_enctype(form) }}>
+								{{ form_widget(form) }}
+								<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+							</form>
+						</td>
+					</tr>
+				</table>
+			{% endif %}
+		</div>
+	{% endif %}
+
+{% endblock %}

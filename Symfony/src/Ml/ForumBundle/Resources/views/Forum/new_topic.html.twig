@@ -1,0 +1,25 @@
+{% extends "MlForumBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Topic - New
+{% endblock %}
+	
+{% block forum_body %}
+
+	{% if form is defined %}
+		<table class="table">
+			<tr>
+				<td>
+					<div class="well">
+						<form method="post" class="Topic" {{ form_enctype(form) }}>
+							<h3 id = "title_form"><b>Create your topic</b></h3>
+							{{ form_widget(form) }}
+							<input type="submit" class="btn btn-primary" id="form_validatation" value = "Create" />
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	{% endif %}
+
+{% endblock %}

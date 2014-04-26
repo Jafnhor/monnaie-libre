@@ -1,0 +1,89 @@
+{% extends "MlForumBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Forum
+{% endblock %}
+
+{% block forum_body %}
+
+	<table class="table">
+		<legend>
+			<b>Forum</b> 
+			<div id = "new_topic">
+				<form action="{{ path('ml_forum_new_topic') }}">
+					<input type = "submit" value = "Create a new topic" class = "btn btn-warning btn-medium-large">
+				</form>
+			</div>
+		</legend>
+		{% if message is not null %}
+			<div class = "well">
+				<center>{{ message }}</center>
+			</div>
+		{% endif %}
+		{% if message is null %}
+			<tr>
+				<td>
+					<div class="well">
+						{% if topics is defined %}
+							{% if topics is not null %}
+								<table align = "center">
+									<tr>
+										<td>
+											<center><h4><b>Ratio Likes/Dislikes</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Name</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Description</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Author</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Views</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Creation date</b></h4></center>
+										</td>
+										<td>
+											<center><h4><b>Last message</b></h4></center>
+										</td>
+									</tr>
+									{% set cpt = 0 %}
+									{% for topic in topics %}
+										<tr class = "list_topics" onclick="document.location.href='forum/see/topic/{{ topic.id }}'">
+											<td>
+												<center><h5>{{ ratios[cpt] }}</h5></center>
+											</td>
+											<td>
+												<center><h5>{{ topic.name }}</h5></center>
+											</td>
+											<td>
+												<center><h5>{{ topic.description }}</h5></center>
+											</td>
+											<td>
+												<center><h5>{{ topic.author.login }}</h5></center>
+											</td>
+											<td>
+												<center><h5>{{ topic.nbViews }}</h5></center>
+											</td>
+											<td>
+												<center><h5>{{ topic.creationDate|date("Y/m/d H:i") }}</h5></center>
+											</td>
+											<td>
+												<center><h5>Par {{ last_message[cpt][0] }} le {{ last_message[cpt][1]|date("Y/m/d") }} à {{ last_message[cpt][1]|date("H:i") }}</h5></center>
+											</td>
+										</tr>
+										{% set cpt = cpt + 1 %}
+									{% endfor %}
+								</table>
+							{% endif %}
+						{% endif %}
+					</div>
+				</td>
+			</tr>
+		{% endif %}
+	</table>
+
+{% endblock %}

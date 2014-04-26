@@ -1,0 +1,7 @@
+parameters:
+#    ml_forum.example.class: Ml\ForumBundle\Example
+
+services:
+#    ml_forum.example:
+#        class: %ml_forum.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

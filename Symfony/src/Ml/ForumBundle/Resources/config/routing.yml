@@ -1,0 +1,19 @@
+ml_forum_homepage:
+    pattern:  /forum
+    defaults: { _controller: MlForumBundle:Forum:index }
+
+ml_forum_new_topic:
+   pattern: /forum/new/topic
+   defaults: { _controller: MlForumBundle:Forum:newTopic }
+
+ml_forum_see_topic:
+   pattern: /forum/see/topic/{topic}
+   defaults: { _controller: MlForumBundle:Forum:seeTopic, topic: null }
+
+ml_forum_disliker_topic:
+   pattern: /forum/see/topic/{topic}
+   defaults: { _controller: MlForumBundle:Forum:seeTopic, topic: null }
+
+ml_forum_liker_topic:
+   pattern: /forum/see/topic/{topic}
+   defaults: { _controller: MlForumBundle:Forum:seeTopic, topic: null }
