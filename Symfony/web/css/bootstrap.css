@@ -181,6 +181,61 @@ form {
 { 
    background-color: lightblue; 
 } 
+
+ /* CSS FORUM */
+ 
+#new_topic {
+	float: right;
+}
+
+.Topic #title_form {
+	margin-left: 300px;
+	margin-bottom : 20px;
+}
+
+.Topic #form_validatation {
+	margin-left: 360px;
+}
+
+.Topic #ml_forumbundle_topic_name, #ml_forumbundle_topic_description {
+	margin-bottom : 20px;
+	margin-left: 300px;
+}
+
+.Topic label[for = ml_forumbundle_topic_name], label[for = ml_forumbundle_topic_description] {
+	margin-left: 300px;
+}
+
+#date_location {
+	float: right;
+}
+
+.Comment label[for = ml_forumbundle_comment_message] {
+	margin-left: 380px;
+}
+
+.Comment #ml_forumbundle_comment_message {
+	margin-bottom : 20px;
+	margin-left: 380px;
+}
+
+#title_topic {
+	margin-left: 410px;
+	margin-bottom : 20px;
+}
+
+.Comment #form_validatation {
+	margin-left: 440px;
+}
+
+.list_topics { 
+  cursor: pointer;
+ }
+ 
+.list_topics:hover 
+{ 
+   background-color: lightblue; 
+} 
  
  
  /* CSS BOOTSTRAP à ne pas modifier */
@@ -2181,6 +2236,24 @@ table {
   margin-bottom: 20px;
 }
 
+/** PERSO **/
+.table_maison {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: white;
+  border: 1px solid #dddddd;
+}
+
+.table_maison td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid #dddddd;
+}
+
+/** **/
+
 .table th,
 .table td {
   padding: 8px;
@@ -2985,10 +3058,12 @@ table th[class*="span"],
 
 .icon-thumbs-up {
   background-position: -96px -144px;
+  margin-top: 10px;
 }
 
 .icon-thumbs-down {
   background-position: -120px -144px;
+  margin-top: 10px;
 }
 
 .icon-hand-right {
@@ -3471,6 +3546,17 @@ button.close {
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
+
+/** PERSO **/
+.btn-medium-large {
+  padding: 2px 8px;
+  font-size: 17.5px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+/** **/
 
 .btn-large [class^="icon-"],
 .btn-large [class*=" icon-"] {
