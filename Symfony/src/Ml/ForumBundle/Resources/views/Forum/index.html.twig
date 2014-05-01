@@ -52,7 +52,7 @@
 									</tr>
 									{% set cpt = 0 %}
 									{% for topic in topics %}
-										<tr class = "list_topics" onclick="document.location.href='forum/see/topic/{{ topic.id }}'">
+										<tr class = "list_topics" onclick="document.location.href='{{ path('ml_forum_see_topic', { 'topic': topic.id }) }}'">
 											<td>
 												<center><h5>{{ ratios[cpt] }}</h5></center>
 											</td>

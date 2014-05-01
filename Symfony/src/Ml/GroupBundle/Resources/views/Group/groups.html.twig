@@ -30,7 +30,7 @@
 										</td>
 									</tr>
 									{% for group in groups %}
-										<tr class = "list_groups" onclick="document.location.href='group/{{ group.id }}'">
+										<tr class = "list_groups" onclick="document.location.href='{{ path('ml_group_display_group', { 'group_id': group.id }) }}'">
 												<td>
 													<center>{{ group.name }}</center>
 												</td>

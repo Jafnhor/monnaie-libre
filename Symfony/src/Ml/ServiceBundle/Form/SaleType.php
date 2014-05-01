@@ -92,7 +92,7 @@ class SaleType extends AbstractType
             ->add('title')
             ->add('comment')
             ->add('price')
-			->add('linkHostedPicture', 'text', array(
+			->add('file', 'file', array(
 													'required' => false))
 			->add('associatedGroup', 'choice', array( 
 													'choices' => $groups_name,

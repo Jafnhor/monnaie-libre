@@ -7,20 +7,60 @@
 	
 {% block service_body %}
 	<table class="table">
-		<legend><b>Services list</b></legend>
+		<legend><b>Liste des services</b></legend>
 		<tr>
 			<td>
 				<div class="well">
 					<center>
-						<h4><b>Choose your service</b></h4><br>
+						<h4><b>Choisissez votre service</b></h4><br>
 						<form action="{{ path('ml_service_homepage') }}" method="post">
 							Type
-							<select style = "height:65px; margin-left:15px;" multiple name="type[]">
-								<option value = "sale">Sale</option>
-								<option value = "carpooling">Carpooling</option>
-								<option value = "couchsurfing">Couchsurfing</option>
+							<select style = "height:65px; margin-left:40px;" multiple name="type[]">
+								{% if sale is sameas(true) %}
+									<option value = "sale" selected>Vente</option>
+								{% else %}
+									<option value = "sale">Vente</option>
+								{% endif %}
+								{% if carpooling is sameas(true) %}
+									<option value = "carpooling" selected>Covoiturage</option>
+								{% else %}
+									<option value = "carpooling">Covoiturage</option>
+								{% endif %}
+								{% if couchsurfing is sameas(true) %}
+									<option value = "couchsurfing" selected>Couchsurfing</option>
+								{% else %}
+									<option value = "couchsurfing">Couchsurfing</option>
+								{% endif %}
+							</select><br><br><br>
+							Créateur
+							<select style = "margin-left:15px;" name="creator">
+								{% for user in users %}
+									{% if creator_login is sameas(user.login) %}
+										<option value = "{{ user.login }}" selected>{{ user.login }}</option>
+									{% else %}
+										<option value = "{{ user.login }}">{{ user.login }}</option>
+									{% endif %}
+								{% endfor %}
+							</select><br><br><br>
+							Prix
+							<select style = "margin-left:45px;" name="price">
+								{% if price is sameas("no") %}
+									<option value = "no" selected>Pas de tri</option>
+								{% else %}
+									<option value = "no">Pas de tri</option>
+								{% endif %}
+								{% if price is sameas("asc") %}
+									<option value = "asc" selected>Croissant</option>
+								{% else %}
+									<option value = "asc">Croissant</option>
+								{% endif %}
+								{% if price is sameas("desc") %}
+									<option value = "desc" selected>Décroissant</option>
+								{% else %}
+									<option value = "desc">Décroissant</option>
+								{% endif %}
 							</select><br><br>
-							<button class="btn btn-primary btn-mini" type="submit">Confirm <i class="icon-white icon-ok-sign"></i> </button>
+							<button class="btn btn-primary btn-mini" type="submit">Confirmer <i class="icon-white icon-ok-sign"></i> </button>
 						</form>
 					</center>
 				</div>
@@ -34,19 +74,19 @@
 							<table align="center">
 								<tr>
 									<td>
-										<center><b>Title</b></center>
+										<center><b>Titre</b></center>
 									</td>
 									<td>
-										<center><b>Creator</b></center>
+										<center><b>Créateur</b></center>
 									</td>
 									<td>
-										<center><b>Comment</b></center>
+										<center><b>Commentaire</b></center>
 									</td>
 									<td>
-										<center><b>Creation date</b></center>
+										<center><b>Date de création</b></center>
 									</td>
 									<td>
-										<center><b>Price</b></center>
+										<center><b>Prix</b></center>
 									</td>
 									<td>
 										<center><b>Type</b></center>
@@ -84,7 +124,7 @@
 													<center>{{ service.creationDate|date("d/m/y") }}</center>
 												</td>
 												<td>
-													<center>{{ service.price }} €</a></center>
+													<center>{{ service.price }} ₱</a></center>
 												</td>
 												<td>
 													<center>{{ service.type }}</a></center>

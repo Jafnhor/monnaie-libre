@@ -3,6 +3,7 @@
 namespace Ml\ServiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Ml\ServiceBundle\Entity\Service;
 use Ml\ServiceBundle\Entity\Carpooling;
@@ -15,12 +16,11 @@ use Ml\ServiceBundle\Entity\Sale;
 use Ml\ServiceBundle\Entity\SaleUser;
 use Ml\ServiceBundle\Form\SaleType;
 use Ml\UserBundle\Entity\User;
+use Ml\ServiceBundle\Entity\Document;
 
-class ServiceController extends Controller
-{
+class ServiceController extends Controller {
 
-	public function indexAction()
-	{
+	public function indexAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
 		
@@ -47,6 +47,17 @@ class ServiceController extends Controller
 			$couchsurfing = false;
 			$sale = false;
 			
+			$price = $req->request->get('price');
+			$creator_login = $req->request->get('creator');
+			$creator = NULL;
+			
+			if ($creator_login != NULL) {
+				$creator = $this->getDoctrine()
+							   ->getManager()
+							   ->getRepository('MlUserBundle:User')
+							   ->findByLogin($creator_login);
+			}
+			
 			if ($req->request->get('type') != null) {
 				foreach ($req->request->get('type') as $key => $value) {
 					if ($value == 'carpooling') {
@@ -62,27 +73,258 @@ class ServiceController extends Controller
 				}
 				
 				if ($carpooling == true) {
-					$carpoolings = $this->getDoctrine()
-								   ->getManager()
-								   ->getRepository('MlServiceBundle:Carpooling')
-								   ->findByVisibility(true);
+					if ($price == "desc") {
+						if ($creator == NULL) {
+							$carpoolings = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Carpooling')
+										   ->findBy(array("visibility" => true), array("price" => 'desc'));
+						}
+						else {
+							$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+						}	
+					}
+					else if ($price == "asc") {
+						if ($creator == NULL) {
+							$carpoolings = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Carpooling')
+										   ->findBy(array("visibility" => true), array("price" => 'asc'));
+						}
+						else {
+							$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+						}	
+					}
+					else {
+						if ($creator == NULL) {
+							$carpoolings = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Carpooling')
+										   ->findByVisibility(true);
+						}
+						else {
+							$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+						}	
+					}
 								   
 					$services[] = $carpoolings;
 				}
 				if ($couchsurfing == true) {
-					$couchsurfings = $this->getDoctrine()
-									 ->getManager()
-									 ->getRepository('MlServiceBundle:CouchSurfing')
-									 ->findByVisibility(true);
+					if ($price == "desc") {
+						if ($creator == NULL) {
+							$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true), array("price" => 'desc'));
+						}
+						else {
+							$couchsurfings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:CouchSurfing')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+						}	
+					}
+					else if ($price == "asc") {
+						if ($creator == NULL) {
+							$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true), array("price" => 'asc'));
+						}
+						else {
+							$couchsurfings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:CouchSurfing')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+						}	
+					}
+					else {
+						if ($creator == NULL) {
+							$couchsurfings = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:CouchSurfing')
+										   ->findByVisibility(true);
+						}
+						else {
+							$couchsurfings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:CouchSurfing')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+						}	
+					}
 									 
 					$services[] = $couchsurfings;
 				}
 				if ($sale == true) {
-					$sales = $this->getDoctrine()
-									 ->getManager()
-									 ->getRepository('MlServiceBundle:Sale')
-									 ->findByVisibility(true);
+					if ($price == "desc") {
+						if ($creator == NULL) {
+							$sales = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:Sale')
+										 ->findBy(array("visibility" => true), array("price" => 'desc'));
+						}
+						else {
+							$sales = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Sale')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+						}
+					}
+					else if ($price == "asc") {
+						if ($creator == NULL) {
+							$sales = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:Sale')
+										 ->findBy(array("visibility" => true), array("price" => 'asc'));
+						}
+						else {
+							$sales = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Sale')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+						}
+					}
+					else {
+						if ($creator == NULL) {
+							$sales = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Sale')
+										   ->findByVisibility(true);
+						}
+						else {
+							$sales = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Sale')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+						}	
+					}
 									 
+					$services[] = $sales;
+				}
+			}
+			else if ($price != NULL) {
+				if ($price == "desc") {
+					/* Récupération de tous les Services du site par prix décroissants */
+					if ($creator == NULL) {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true), array("price" => 'desc'));
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true), array("price" => 'desc'));		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findBy(array("visibility" => true), array("price" => 'desc'));
+					}
+					else {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+					}
+				}
+				else if ($price == "asc") {
+					/* Récupération de tous les Services du site par prix croissants */
+					if ($creator == NULL) {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true), array("price" => 'asc'));
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true), array("price" => 'asc'));		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findBy(array("visibility" => true), array("price" => 'asc'));
+					}
+					else {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+					}
+				}
+				else {
+					/* Récupération de tous les Services sans tri sur le prix*/
+					if ($creator == NULL) {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findByVisibility(true);
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findByVisibility(true);		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findByVisibility(true);
+					}
+					else {
+						$carpoolings = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Carpooling')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+									   
+						$couchsurfings = $this->getDoctrine()
+										 ->getManager()
+										 ->getRepository('MlServiceBundle:CouchSurfing')
+										 ->findBy(array("visibility" => true, "user" => $creator));		
+
+						$sales = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Sale')
+								 ->findBy(array("visibility" => true, "user" => $creator));
+					}
+				}
+				
+				if ($couchsurfings != NULL) {
+					$services[] = $couchsurfings;
+				}
+				if ($carpoolings != NULL) {
+					$services[] = $carpoolings;
+				}
+				if ($sales != NULL) {
 					$services[] = $sales;
 				}
 			}
@@ -148,9 +390,20 @@ class ServiceController extends Controller
 			$services = NULL;
 		}
 		
+		$users = $this->getDoctrine()
+						 ->getManager()
+						 ->getRepository('MlUserBundle:User')
+						 ->findAll();	
+		
 		return $this->render('MlServiceBundle:Service:index.html.twig', array(
 		  'servicess'=>$services,
-		  'user' => $user));
+		  'user' => $user,
+		  'users' => $users,
+		  'price' => $price,
+		  'creator_login' => $creator_login,
+		  'sale' => $sale,
+		  'carpooling' => $carpooling,
+		  'couchsurfing' => $couchsurfing));
 	}
 	
 	public function addServiceAction() {
@@ -504,6 +757,8 @@ class ServiceController extends Controller
 			$em = $this->getDoctrine()->getManager();
 
 			$sale->setUser($user);
+			
+			$sale->upload();
 			
 			if (($req->request->get("ml_servicebundle_sale")["associatedGroup"]) != NULL) {
 				$group = $this->getDoctrine()
