@@ -1,54 +1,10 @@
-{% extends "::layout.html.twig" %}
+{% extends "::headerbar.html.twig" %}
 
 {% block title %}
   {{ parent() }}
 {% endblock %}
 
 {% block body %}
-	<div class = "well">
-		<div align="center">
-			<img src="{{ asset('img/WebSocial.png') }}" alt="Web Social Pour Monnaie Libre"/>
-		</div>
-		<br>
-		<div>
-			<ul class="nav nav-pills nav-stacked">
-				<li><button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Accueil</a></button>
-				<button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_service_homepage') }}">Services</a></button>
-				<button style="margin-right: 5px" class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Groupes</a></button>
-				<button class="btn btn-inverse btn-large"><a href="{{ path('ml_user_homepage') }}">Forum</a></button>
-				{% if user is not defined %}
-					<form action="{{ path('ml_user_connexion') }}" method="post">
-						<span style = "float: right; margin-top: 10px;">Pseudo 
-						<input style="margin-right: 10px" class="input-mini" type="text" id="login" name="login" />
-						Mot de passe 
-						<input style="margin-right: 10px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
-						<button class="btn btn-primary btn-mini" type="submit">Connexion <i class="icon-white icon-ok-sign"></i> </button></span>
-					</form>
-				{% endif %}
-				{% if user is defined %}
-					{% if user != NULL %}
-						<form action="{{ path('ml_user_deconnexion') }}" method="post">
-							<span style = "float: right; margin-top: 10px;"><b>{{ user }}</b>
-							<button style="margin-left: 10px" class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button></span>
-						</form>
-					{% endif %}
-					{% if user == NULL %}
-						<form action="{{ path('ml_user_connexion') }}" method="post">
-							<span style = "float: right; margin-top: 10px;">Pseudo 
-							<input style="margin-right: 5px" class="input-mini" type="text" id="login" name="login" />
-							Mot de passe 
-							<input style="margin-right: 5px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
-							<button class="btn btn-primary btn-mini" type="submit">Connexion <i class="icon-white icon-ok-sign"></i> </button></span>
-						</form>
-					{% endif %}
-				{% endif %}
-				</li>
-			</ul>
-		</div>
-	</div>
-
-  <hr>
- 
   {% block home_body %}
   {% endblock %}
   

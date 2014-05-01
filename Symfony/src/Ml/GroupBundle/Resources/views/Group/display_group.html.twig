@@ -161,13 +161,13 @@
 													{% for service in associated_services %}
 														{% if is_valid is sameas(true) %}
 															{% if service.type is sameas("Carpooling") %}
-																<tr class = "liste_services" onclick="document.location.href='../service/see/carpooling/{{ service.id }}'">
+																<tr class = "liste_services" onclick="document.location.href='{{ path('ml_service_see_carpooling', { 'carpooling': service.id }) }}'">
 															{% endif %}
 															{% if service.type is sameas("CouchSurfing") %}
-																<tr class = "liste_services" onclick="document.location.href='../service/see/couchsurfing/{{ service.id }}'">
+																<tr class = "liste_services" onclick="document.location.href='{{ path('ml_service_see_couchsurfing', { 'couchsurfing': service.id }) }}'">
 															{% endif %}
 															{% if service.type is sameas("Sale") %}
-																<tr class = "liste_services" onclick="document.location.href='../service/see/sale/{{ service.id }}'">
+																<tr class = "liste_services" onclick="document.location.href='{{ path('ml_service_see_sale', { 'sale': service.id }) }}'">
 															{% endif %}
 														{% endif %}
 														{% if is_valid is sameas(false) %}
@@ -187,7 +187,7 @@
 																<center>{{ service.creationDate|date("d/m/y") }} </center>
 															</td>
 															<td>
-																<center>{{ service.price }} Flouzz</center>
+																<center>{{ service.price }} ₱</center>
 															</td>
 															<td>
 																<center>{{ service.user.login }}</center>
