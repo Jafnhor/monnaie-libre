@@ -1,3 +1,7 @@
+ml_forum:
+    resource: "@MlForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ml_home:
     resource: "@MlHomeBundle/Resources/config/routing.yml"
     prefix:   /

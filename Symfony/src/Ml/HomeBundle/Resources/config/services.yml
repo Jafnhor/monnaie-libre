@@ -2,6 +2,5 @@ parameters:
 #    ml_home.example.class: Ml\HomeBundle\Example
 
 services:
-#    ml_home.example:
-#        class: %ml_home.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ml.session:
+        class: Ml\libServices\SessionTested
