@@ -25,7 +25,8 @@ class ServiceController extends Controller
 	public function indexAction()
 	{
 		/* Test connexion */
-		$req = $this->get('request');		
+		$req = $this->get('request');	
+		
 		try {		
 		    $login = $this->container->get('ml.session')->sessionExist($req);
 		}
@@ -41,6 +42,8 @@ class ServiceController extends Controller
 				->getManager()
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
+				
+		$services = NULL;
 
 		if ($req->getMethod() == 'POST') {
 			$carpooling = false;

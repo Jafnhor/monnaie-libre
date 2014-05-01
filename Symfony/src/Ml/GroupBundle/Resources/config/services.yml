@@ -1,5 +1,5 @@
 parameters:
-#    ml_service.example.class: Ml\ServiceBundle\Example
+#    ml_group.example.class: Ml\GroupBundle\Example
 
 services:
     ml.session:

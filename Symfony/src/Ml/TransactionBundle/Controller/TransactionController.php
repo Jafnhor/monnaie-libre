@@ -28,10 +28,16 @@ class TransactionController extends Controller
 			->findOneByLogin($login);
 
 		// On récupère les transactions sortantes
-		$outTransactions = $this->getDoctrine()->getManager()->getRepository('MlTransactionBundle:Transaction')->findBy(array("debitedAccount" => $user),array('date' => 'DESC'));
+		$outTransactions = $this->getDoctrine()
+							->getManager()
+							->getRepository('MlTransactionBundle:Transaction')
+							->findBy(array("debitedAccount" => $user),array('date' => 'DESC'));
 		
 		// Puis les entrantes
-		$inTransactions = $this->getDoctrine()->getManager()->getRepository('MlTransactionBundle:Transaction')->findBy(array("creditedAccount" => $user),array('date' => 'DESC'));
+		$inTransactions = $this->getDoctrine()
+							->getManager()
+							->getRepository('MlTransactionBundle:Transaction')
+							->findBy(array("creditedAccount" => $user),array('date' => 'DESC'));
 		
 		return $this->render('MlTransactionBundle:Transaction:index.html.twig', array(
 		  'outTransactions' => $outTransactions,
