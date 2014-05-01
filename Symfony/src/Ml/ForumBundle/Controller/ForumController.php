@@ -75,24 +75,32 @@ class ForumController extends Controller
 				$name = $value->getAuthor()->getLogin();
 				$date = $value->getCreationDate();
 					
-				$ratios[$key] = $l_d;
-				$last_message[$key][0] = $name;
-				$last_message[$key][1] = $date;
+				$ratios[$value->getId()] = $l_d;
+				$last_message[$value->getId()][0] = $name;
+				$last_message[$value->getId()][1] = $date;
 			}
 		
-			rsort($ratios);
+			arsort($ratios);
 			
 			foreach ($ratios as $key => $value) {
 				$ratio_topic = $em->createQuery(
 							"SELECT t
 							FROM MlForumBundle:Topic t
 							WHERE t.id = :value")
-						    ->setParameter('value', ($key+1));
-								
-				$topic = $ratio_topic->getResult()[0];
+						    ->setParameter('value', ($key));
+				
+				if (is_array($ratio_topic->getResult())) {
+					$topic = $ratio_topic->getResult()[0];
+				}
+				else {
+					$topic = $ratio_topic->getResult();
+				}
 			
 				$topics_final[] = $topic;
 			}
+			
+			rsort($ratios);
+			rsort($last_message);
 		}
 	
         return $this->render('MlForumBundle:Forum:index.html.twig', array(

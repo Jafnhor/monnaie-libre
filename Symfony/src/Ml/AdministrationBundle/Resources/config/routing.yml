@@ -1,0 +1,31 @@
+ml_administration_homepage:
+    pattern:  /administration
+    defaults: { _controller: MlAdministrationBundle:Administration:index }
+
+ml_administration_ban:
+    pattern: /administration/ban
+    defaults: { _controller: MlAdministrationBundle:Administration:ban }
+
+ml_administration_grant:
+    pattern: /administration/grant
+    defaults: { _controller: MlAdministrationBundle:Administration:grant }
+
+ml_administration_grant_master:
+    pattern: /administration/grant/master
+    defaults: { _controller: MlAdministrationBundle:Administration:grantMaster }
+
+ml_administration_delete_group:
+    pattern: /administration/delete/group
+    defaults: { _controller: MlAdministrationBundle:Administration:deleteGroup }
+
+ml_administration_delete_service:
+    pattern: /administration/delete/service
+    defaults: { _controller: MlAdministrationBundle:Administration:deleteService }
+
+ml_administration_delete_comment:
+    pattern: /administration/delete/comment
+    defaults: { _controller: MlAdministrationBundle:Administration:deleteComment }
+
+ml_administration_delete_topic:
+    pattern: /administration/delete/topic
+    defaults: { _controller: MlAdministrationBundle:Administration:deleteTopic }

@@ -90,12 +90,35 @@ class User
      */
     private $karma;
 	
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="moderator", type="boolean")
+	 */
+	private $moderator;
+	
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="master", type="boolean")
+	 */
+	private $master;
+	
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="visible", type="boolean")
+	 */
+	private $visible;
+	
 	public function __construct() {
 		$this->karma = 0;
-		$this->dateNaissance = date_create(date('Y-m-d'));
+		$this->birthDate = date_create(date('Y-m-d'));
 		$this->account = new Account(100.0);
 		$this->premium = false;
-		$this->prestation = null;
+		$this->moderator = false;
+		$this->visibile = true;
+		$this->master = false;
 	}
 
 
@@ -292,5 +315,74 @@ class User
         $this->account = $account;
     
         return $this;
+    }
+
+    /**
+     * Set moderator
+     *
+     * @param boolean $moderator
+     * @return User
+     */
+    public function setModerator($moderator)
+    {
+        $this->moderator = $moderator;
+    
+        return $this;
+    }
+
+    /**
+     * Get moderator
+     *
+     * @return boolean 
+     */
+    public function getModerator()
+    {
+        return $this->moderator;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return User
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean 
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * Set master
+     *
+     * @param boolean $master
+     * @return User
+     */
+    public function setMaster($master)
+    {
+        $this->master = $master;
+    
+        return $this;
+    }
+
+    /**
+     * Get master
+     *
+     * @return boolean 
+     */
+    public function getMaster()
+    {
+        return $this->master;
     }
 }
