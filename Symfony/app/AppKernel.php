@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Ml\HomeBundle\MlHomeBundle(),
 			new Ml\GroupBundle\MlGroupBundle(),
             new Ml\ForumBundle\MlForumBundle(),
+            new Ml\AdministrationBundle\MlAdministrationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

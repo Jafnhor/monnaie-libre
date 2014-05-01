@@ -1,0 +1,6 @@
+parameters:
+#    ml_administration.example.class: Ml\AdministrationBundle\Example
+
+services:
+    ml.session:
+        class: Ml\libServices\SessionTested

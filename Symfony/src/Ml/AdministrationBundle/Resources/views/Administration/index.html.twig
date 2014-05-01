@@ -1,0 +1,409 @@
+{% extends "MlAdministrationBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Administration
+{% endblock %}
+
+{% block administration_body %}
+
+	<center><h2>Administration</h2></center><br>
+	
+	<div id="accordion">
+	  <h3>Liste des utilisateurs</h3>
+	  <div>
+		{% if members is not null %}
+			<table align = "center" class = "table">
+				<tr>
+					<td>
+						<center><b>Login</b></center>
+					</td>
+					<td>
+						<center><b>Nom</b></center>
+					</td>
+					<td>
+						<center><b>Prénom</b></center>
+					</td>
+					<td>
+						<center><b>Karma</b></center>
+					</td>
+					<td>
+						<center><b>Premium</b></center>
+					</td>
+					<td>
+						<center><b>Modérateur</b></center>
+					</td>
+					<td>
+						<center><b>Bannir</b></center>
+					</td>
+					<td>
+						<center><b>Privilégier</b></center>
+					</td>
+					{% if user.master is sameas(true) %}
+						<td>
+							<center><b>Master</b></center>
+						</td>
+					{% endif %}
+				</tr>
+				{% for member in members %}
+					<tr>
+						<td>
+							<center>{{ member.login }}</center>
+						</td>
+						<td>
+							<center>{{ member.lastName }} </center>
+						</td>
+						<td>
+							<center>{{ member.firstName }}</center>
+						</td>
+						<td>
+							<center>{{ member.karma }}</center>
+						</td>
+						<td>
+							{% if member.premium is sameas(false) %}
+								<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
+							{% endif %}
+							{% if member.premium is sameas(true) %}
+								<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
+							{% endif %}
+						</td>
+						<td>
+							{% if member.moderator is sameas(false) %}
+								<center>Non</center>
+							{% endif %}
+							{% if member.moderator is sameas(true) %}
+								<center>Oui</center>
+							{% endif %}
+						</td>
+						{% if member is not sameas(user) %}
+							{% if member.master is not sameas(true) %}
+								<td>
+									<center>
+										<form action="{{ path('ml_administration_ban') }}" method="post">
+											<input type = "hidden" name = "member_id" value = {{ member.id }} />
+											{% if member.visible is sameas(true) %}
+												<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+											{% else %}
+												<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+											{% endif %}
+										</form>
+									</center>
+								</td>
+								<td>
+									<center>
+										<form action="{{ path('ml_administration_grant') }}" method="post">
+											<input type = "hidden" name = "member_id" value = {{ member.id }} />
+											{% if member.moderator is sameas(false) %}
+												<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-plus"></i> </button>
+											{% else %}
+												<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-minus"></i> </button>
+											{% endif %}
+										</form>
+									</center>
+								</td>
+							{% else %}
+								<td>
+								</td>
+								<td>
+								</td>
+							{% endif %}
+						{% else %}
+							<td>
+							</td>
+							<td>
+							</td>
+						{% endif %}
+						{% if user.master is sameas(true) %}
+							{% if member.master is sameas(false) %}
+								<td>
+									<center>
+										<form action="{{ path('ml_administration_grant_master') }}" method="post">
+											<input type = "hidden" name = "member_id" value = {{ member.id }} />
+											<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-plus"></i> </button>
+										</form>
+									</center>
+								</td>
+							{% else %}
+								<td>
+								</td>
+							{% endif %}
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
+		  {% else %}
+			<center>Aucun utilisateur</center>
+		  {% endif %}
+		</div>
+	  <h3>Liste des groupes</h3>
+	  <div>
+		{% if groups is not null %}
+			<table align = "center" class = "table">
+				<tr>
+					<td>
+						<center><b>Nom</b></center>
+					</td>
+					<td>
+						<center><b>Description</b></center>
+					</td>
+					<td>
+						<center><b>Administrateur</b></center>
+					</td>
+					<td>
+						<center><b>Supprimer</b></center>
+					</td>
+				</tr>
+				{% for group in groups %}
+					<tr>
+						<td>
+							<center>{{ group.name }}</center>
+						</td>
+						<td>
+							<center>{{ group.description }} </center>
+						</td>
+						<td>
+							<center>{{ group.administrator.login }}</center>
+						</td>
+						<td>
+							<center>
+								<form action="{{ path('ml_administration_delete_group') }}" method="post">
+									<input type = "hidden" name = "group_id" value = {{ group.id }} />
+									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+								</form>
+							</center>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+		{% if groups is null %}
+			<center>Aucun groupe</center>
+		{% endif %}
+	  </div>
+	  <h3>Liste des services</h3>
+	  <div>
+		{% if services is not null %}
+			<table align = "center" class = "table">
+				<tr>
+					<td>
+						<center><b>Type</b></center>
+					</td>
+					<td>
+						<center><b>Nom</b></center>
+					</td>
+					<td>
+						<center><b>Description</b></center>
+					</td>
+					<td>
+						<center><b>Prix</b></center>
+					</td>
+					<td>
+						<center><b>Date de création</b></center>
+					</td>
+					<td>
+						<center><b>Groupe associé</b></center>
+					</td>
+					<td>
+						<center><b>Créateur</b></center>
+					</td>
+					<td>
+						<center><b>Supprimer</b></center>
+					</td>
+				</tr>
+				{% for service in services %}
+					<tr>
+						<td>
+							{% if service.type is sameas('Carpooling') %}
+								<center>Carpooling</center>
+							{% endif %} 
+							{% if service.type is sameas('Couchsurfing') %}
+								<center>Couchsurfing</center>
+							{% endif %}
+							{% if service.type is sameas('Sale') %}
+								<center>Sale</center>
+							{% endif %}
+						</td>
+						<td>
+							<center>{{ service.title }}</center>
+						</td>
+						<td>
+							{% if service.comment is not null %}
+								<center>{{ service.comment }} </center>
+							{% else %}
+								<center>Aucune</center>
+							{% endif %}
+						</td>
+						<td>
+							<center>{{ service.price }} ₱ </center>
+						</td>
+						<td>
+							<center>{{ service.creationDate|date("d/m/y") }}</center>
+						</td>
+						<td>
+							{% if service.associatedGroup is not null %}
+								<center>{{ service.associatedGroup.name }}</center>
+							{% endif %}
+							{% if service.associatedGroup is null %}
+								<center>Aucun</center>
+							{% endif %}
+						</td>
+						<td>
+							<center>{{ service.user.login }}</center>
+						</td>
+						<td>
+							<center>
+								{% if service.visibility is sameas(true) %}
+									<form action="{{ path('ml_administration_delete_service') }}" method="post">
+										<input type = "hidden" name = "service_id" value = {{ service.id }} />
+										<input type = "hidden" name = "service_type" value = {{ service.type }} />
+										<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+									</form>
+								{% else %}
+									<form action="{{ path('ml_administration_delete_service') }}" method="post">
+										<input type = "hidden" name = "service_id" value = {{ service.id }} />
+										<input type = "hidden" name = "service_type" value = {{ service.type }} />
+										<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+									</form>
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+		{% if services is null %}
+			<center>Aucun vote</center>
+		{% endif %}
+	  </div>
+	  <h3>Liste des topics du forum</h3>
+	  <div>
+		{% if topics is not null %}
+			<table align = "center" class = "table">
+				<tr>
+					<td>
+						<center><b>Ratio</b></center>
+					</td>
+					<td>
+						<center><b>Nom</b></center>
+					</td>
+					<td>
+						<center><b>Description</b></center>
+					</td>
+					<td>
+						<center><b>Créateur</b></center>
+					</td>
+					<td>
+						<center><b>Nombre de vues</b></center>
+					</td>
+					<td>
+						<center><b>Date de création</b></center>
+					</td>
+					<td>
+						<center><b>Supprimer</b></center>
+					</td>
+				</tr>
+				{% set cpt = 0 %}
+				{% for topic in topics %}
+					<tr>
+						<td>
+							<center>{{ ratios[cpt] }}</center>
+						</td>
+						<td>
+							<center>{{ topic.name }}</center>
+						</td>
+						<td>
+							<center>{{ topic.description }}</center>
+						</td>
+						<td>
+							<center>{{ topic.author.login }}</center>
+						</td>
+						<td>
+							<center>{{ topic.nbViews }}</center>
+						</td>
+						<td>
+							<center>{{ topic.creationDate|date("Y/m/d H:i") }}</center>
+						</td>
+						<td>
+							<center>
+								<form action="{{ path('ml_administration_delete_topic') }}" method="post">
+									<input type = "hidden" name = "topic_id" value = {{ topic.id }} />
+									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+								</form>
+							</center>
+						</td>
+					</tr>
+					{% set cpt = cpt + 1 %}
+				{% endfor %}
+			</table>
+		{% endif %}
+		{% if topics is null %}
+			<center>Aucun topic sur le forum</center>
+		{% endif %}
+	  </div>
+	  <h3>Liste des commentaires sur les topics du forum</h3>
+	  <div>
+		{% if comments is not null %}
+			<table align = "center" class = "table">
+				<tr>
+					<td>
+						<center><b>Topic</b></center>
+					</td>
+					<td>
+						<center><b>Description</b></center>
+					</td>
+					<td>
+						<center><b>Créateur du topic</b></center>
+					</td>
+					<td>
+						<center><b>Message</b></center>
+					</td>
+					<td>
+						<center><b>Date de création du message</b></center>
+					</td>
+					<td>
+						<center><b>Auteur du message</b></center>
+					</td>
+					<td>
+						<center><b>Supprimer</b></center>
+					</td>
+				</tr>
+				{% for item in comments %}
+					<tr>
+						<td>
+							<center>{{ item.topic.name }}</center>
+						</td>
+						<td>
+							<center>{{ item.topic.description }}</center>
+						</td>
+						<td>
+							<center>{{ item.topic.author.login }}</center>
+						</td>
+						<td>
+							<center>{{ item.comment.message }}</center>
+						</td>
+						<td>
+							<center>{{ item.comment.creationDate|date("d/m/y") }}</center>
+						</td>
+						<td>
+							<center>{{ item.comment.author.login }}</center>
+						</td>
+						<td>
+							<center>
+								<form action="{{ path('ml_administration_delete_comment') }}" method="post">
+									<input type = "hidden" name = "comment_id" value = {{ item.comment.id }} />
+									<input type = "hidden" name = "topic_id" value = {{ item.topic.id }} />
+									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+								</form>
+							</center>
+						</td>
+					</tr>			
+				{% endfor %}
+			</table>
+		{% endif %}
+		{% if comments is null %}
+			<center>Aucun commentaire</center>
+		{% endif %}
+	  </div>
+	</div>
+			
+
+{% endblock %}

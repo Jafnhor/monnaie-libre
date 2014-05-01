@@ -143,13 +143,18 @@ class UserController extends Controller
 										'password' => $request->request->get('mot_de_passe')));
 			/* login+password OK -> redirection vers notre page */
 			if ($user != NULL) {
-				$session = new Session();
-				$session->start();
-			
-				$session->set('login', $request->request->get('login')); 
+				if ($user->getVisible() == true) {
+					$session = new Session();
+					$session->start();
 				
-				return $this->render('MlUserBundle:User:see.html.twig', array(
-					'user' => $user));
+					$session->set('login', $request->request->get('login')); 
+					
+					return $this->render('MlUserBundle:User:see.html.twig', array(
+						'user' => $user));
+				}
+				else { /* user ban */
+					return $this->redirect($this->generateUrl('ml_user_add'));
+				}
 			}
 			else { /* login+password FAIL -> redirection inscription */
 				return $this->redirect($this->generateUrl('ml_user_add'));
