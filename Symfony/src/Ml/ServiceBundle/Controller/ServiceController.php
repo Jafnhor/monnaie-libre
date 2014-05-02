@@ -592,10 +592,6 @@ class ServiceController extends Controller
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -612,5 +608,58 @@ class ServiceController extends Controller
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
+
+    public function seeMyServicesAction() {
+        
+        $req = $this->get('request');	
+        	
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+				
+		$user = $this->getDoctrine()
+				->getManager()
+				->getRepository('MlUserBundle:User')
+				->findOneByLogin($login);
+		
+		$carpoolings = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:Carpooling')
+						   ->findBy(array('user'=>$user,'visibility'=>true));
+							   
+	    $couchsurfings = $this->getDoctrine()
+							 ->getManager()
+							 ->getRepository('MlServiceBundle:CouchSurfing')
+							 ->findBy(array('user'=>$user,'visibility'=>true));		
+
+		$sales = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('MlServiceBundle:Sale')
+					 ->findBy(array('user'=>$user,'visibility'=>true));
+							 
+							 
+		$services = array_merge($couchsurfings,$carpoolings,$sales);
+		
+		
+		$carpoolingsReserved = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:CarpoolingUser')
+						   ->findByOwner($user);
+							   
+	    $couchsurfingsReserved = $this->getDoctrine()
+							 ->getManager()
+							 ->getRepository('MlServiceBundle:CouchSurfingUser')
+						     ->findByOwner($user);	
+
+		$salesReserved = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('MlServiceBundle:SaleUser')
+				     ->findByOwner($user);
+			
+		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
+    }
 }
 

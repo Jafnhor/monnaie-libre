@@ -11,5 +11,10 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class CouchSurfingUserRepository extends EntityRepository
-{
+{    
+    public function findByOwner($user) {
+        $reqRes = $this->createQueryBuilder("c")->leftJoin('c.couchsurfing', 'b')->where('b.user=:user')->setParameter('user', $user);
+        
+        return $reqRes->getQuery()->getResult();;
+    }
 }

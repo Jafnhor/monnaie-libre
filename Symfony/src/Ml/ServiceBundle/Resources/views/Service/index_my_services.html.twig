@@ -1,0 +1,70 @@
+
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - List
+{% endblock %}
+	
+{% block service_body %}
+    <div class="well">
+        <h3>Les services que vous proposez</h3>
+        <table>
+            <tr>
+                <th>Titre</th>
+                <th>Commentaire</th>
+                <th>Prix</th>
+            </tr>
+            {% for service in services %}
+                    <td>{{service.title}}</td>
+                    <td>{{service.comment}}</td>
+                    <td>{{service.price}}</td></a>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <div class="well">        
+        <h3>Les services qu'on vous a réservé</h3>
+        <table>
+            <tr>
+                <th>Vente</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+            </tr>
+            {% for reservation in salesReserved %}
+                <tr>
+                    <td>{{reservation.sale.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr>
+                <th>Offre d'hébergement</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+            </tr>
+            {% for reservation in couchsurfingsReserved %}
+                <tr>
+                    <td>{{reservation.couchsurfing.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr>
+                <th>Covoiturage</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+            </tr>
+            {% for reservation in carpoolingsReserved %}
+                <tr>
+                    <td>{{reservation.carpooling.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
