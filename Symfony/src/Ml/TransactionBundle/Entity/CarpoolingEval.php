@@ -12,20 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CarpoolingEval extends Evaluation
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
 	  * @ORM\ManyToOne(targetEntity="Ml\ServiceBundle\Entity\Carpooling")
 	  */
     private $service;
-
 
     /**
      * Get id

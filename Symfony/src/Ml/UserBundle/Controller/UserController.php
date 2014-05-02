@@ -22,7 +22,6 @@ class UserController extends Controller
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 
-
         $user=$this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);

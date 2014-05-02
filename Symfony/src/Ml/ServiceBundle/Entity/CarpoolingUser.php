@@ -13,13 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 class CarpoolingUser
 {
     /**
-	  * @ORM\Id
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
 	  * @ORM\ManyToOne(targetEntity="Ml\ServiceBundle\Entity\Carpooling")
 	  */
 	private $carpooling;
 
 	/**
-	  * @ORM\Id
 	  * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User")
 	  */
 	private $applicant;
@@ -72,5 +79,15 @@ class CarpoolingUser
     public function getDateReservation()
     {
         return $this->dateReservation;
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

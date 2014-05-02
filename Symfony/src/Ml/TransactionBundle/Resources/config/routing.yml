@@ -5,3 +5,11 @@ ml_transaction_homepage:
 ml_transaction_payment:
     pattern:  /transaction/pay
     defaults: { _controller: MlTransactionBundle:Transaction:payment }
+    
+ml_transaction_eval_index:
+    pattern:  /evaluation
+    defaults: { _controller: MlTransactionBundle:Evaluation:index }
+    
+ml_transaction_evaluation:
+    pattern:  /evaluation/{serviceType}/{id}
+    defaults: { _controller: MlTransactionBundle:Evaluation:evaluation }

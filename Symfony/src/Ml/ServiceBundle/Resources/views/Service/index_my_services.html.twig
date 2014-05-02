@@ -2,7 +2,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - List
+ {{ parent() }} - Service - Liste
 {% endblock %}
 	
 {% block service_body %}
@@ -29,12 +29,25 @@
                 <th>Vente</th>
                 <th>Date</th>
                 <th>Utilisateur</th>
+                <th>Valider</th>
             </tr>
             {% for reservation in salesReserved %}
                 <tr>
                     <td>{{reservation.sale.title}}</td>
                     <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
                     <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.sale.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="sale" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucune vente en attente</td>
                 </tr>
             {% endfor %}
         </table>
@@ -43,12 +56,25 @@
                 <th>Offre d'hébergement</th>
                 <th>Date</th>
                 <th>Utilisateur</th>
+                <th>Valider</th>
             </tr>
             {% for reservation in couchsurfingsReserved %}
                 <tr>
                     <td>{{reservation.couchsurfing.title}}</td>
                     <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
                     <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.couchsurfing.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="couchsurfing" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucune offre en attente</td>
                 </tr>
             {% endfor %}
         </table>
@@ -57,12 +83,25 @@
                 <th>Covoiturage</th>
                 <th>Date</th>
                 <th>Utilisateur</th>
+                <th>Valider</th>
             </tr>
             {% for reservation in carpoolingsReserved %}
                 <tr>
                     <td>{{reservation.carpooling.title}}</td>
                     <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
                     <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.carpooling.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="carpooling" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucun service en attente</td>
                 </tr>
             {% endfor %}
         </table>

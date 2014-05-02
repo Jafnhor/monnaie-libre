@@ -19,7 +19,7 @@ abstract class Evaluation
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
     * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="service")
@@ -102,5 +102,30 @@ abstract class Evaluation
     public function getEval()
     {
         return $this->eval;
+    }    
+
+
+    public function setSubscriber($sub)
+    {
+        $this->subscriber = $sub;
+
+        return $this;
+    }
+
+    public function getSubscriber()
+    {
+        return $this->subscriber;
+    }    
+    
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }
