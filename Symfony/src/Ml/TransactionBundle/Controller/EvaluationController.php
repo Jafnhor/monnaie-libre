@@ -86,9 +86,38 @@ class EvaluationController extends Controller {
 		    $this->getDoctrine()->getManager()->persist($eval->getSubscriber()->getAccount());
 		    $this->getDoctrine()->getManager()->flush();
 		    
+		    $this->evalKarma($eval->getOwner());
+		    
 		    return $this->redirect($this->generateUrl('ml_transaction_eval_index'));
 		}
 		
 	    return $this->render('MlTransactionBundle:Transaction:evaluation.html.twig',array('user'=>$user,'evaluation'=>$eval,'serviceType'=>$serviceType));
+    }
+    
+    public function evalKarma($user) {
+        $carpooling = $this->getDoctrine()
+	            ->getRepository('MlTransactionBundle:CarpoolingEval')
+	            ->findBy(array('owner'=>$user,'payed'=>true));		
+        $couchsurfing = $this->getDoctrine()
+	            ->getRepository('MlTransactionBundle:CouchsurfingEval')
+	            ->findBy(array('owner'=>$user,'payed'=>true));
+        $sale = $this->getDoctrine()
+	            ->getRepository('MlTransactionBundle:SaleEval')
+	            ->findBy(array('owner'=>$user,'payed'=>true));
+	            
+	    $evaluations = array_merge($carpooling,$couchsurfing,$sale);
+	    
+	    $karma = 0;
+	    
+	    foreach($evaluations as $eval) {
+	        $karma += $eval->getEval()*10;
+	    }
+	    
+	    $karma /= count($evaluations);
+	    
+	    $user->setKarma($karma);
+	    
+	    $this->getDoctrine()->getManager()->persist($user);
+	    $this->getDoctrine()->getManager()->flush();
     }
 }
