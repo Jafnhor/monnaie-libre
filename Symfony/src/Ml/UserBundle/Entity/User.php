@@ -117,7 +117,7 @@ class User
 		$this->account = new Account(100.0);
 		$this->premium = false;
 		$this->moderator = false;
-		$this->visibile = true;
+		$this->visible = true;
 		$this->master = false;
 	}
 
