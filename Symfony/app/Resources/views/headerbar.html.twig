@@ -3,17 +3,28 @@
 {% block shell %}
 	{% block header %}
 		<header>
-			<div class='sidebar'><div id='profile'><a href="{{ path('ml_user_homepage') }}">{{ user.login }}</a></div></div>
-			<div id='prestations' class='pack-start'><a href="{{ path('ml_service_homepage') }}">Services</a></div>
-			<div id='groups' class='pack-start'><a href="{{ path('ml_group_homepage') }}">Groups</a></div>
-			<div id='forum' class='pack-start'><a href="{{ path('ml_forum_homepage') }}">Forum</a></div>
-			<div id='logout' class='pack-end'>
-				<form action="{{ path('ml_user_deconnexion') }}" method="post">
-					<button class="btn btn-primary btn-mini" type="submit">Logout <i class="icon-white icon-ok-sign"></i> </button></span>
+			<div id='homepage' class='pack-start'>
+				<form action="#" method="post">
+					<button class="btn" type="submit"><img src="{{ asset('img/poavr-24.png') }}"/></button>
 				</form>
 			</div>
-			<div class='pack-end'>Karma</div>
-			<div class='pack-end'>Balance</div>
+			<div id='prestations' class='pack-start'><a href="{{ path('ml_service_homepage') }}">Prestations</a></div>
+			<div id='nouvelle-prestation' class='pack-start'>
+				<form action="{{ path('ml_service_add_carpooling') }}" method="post">
+					<button class="btn" type="submit">En proposer une <i class="icon-plus-sign"></i></button>
+				</form>
+			</div>
+			<div id='groups' class='pack-start'><a href="{{ path('ml_group_homepage') }}">Groups</a></div>
+			<div id='forum' class='pack-start'><a href="{{ path('ml_forum_homepage') }}">Forum</a></div>
+			
+			<div id='logout' class='pack-end'>
+				<form action="{{ path('ml_user_deconnexion') }}" method="post">
+					<button class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button>
+				</form>
+			</div>
+			<div class='pack-end'><img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}</div>
+			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> ???</div>
+			<div id='profile' class='pack-end'><a href="{{ path('ml_user_homepage') }}">{{ user.firstName }} {{ user.lastName }}</a></div>
 		</header>
 	{% endblock %}
 	
