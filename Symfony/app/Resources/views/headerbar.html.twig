@@ -19,6 +19,13 @@
 					<button class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button>
 				</form>
 			</div>
+			{% if user.master %}
+			<div id='admin' class='pack-end'>
+				<form action="{{ path('ml_administration_homepage') }}" method="post">
+					<button class="btn btn-primary btn-mini" type="submit">Administration</button>
+				</form>
+			</div></div>
+			{% endif %}
 			<div class='pack-end'><img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}</div>
 			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> {{user.account.amount}} ₱</div>
 			<div id='profile' class='pack-end'><a href="{{ path('ml_user_homepage') }}">{{ user.firstName }} {{ user.lastName }}</a></div>
