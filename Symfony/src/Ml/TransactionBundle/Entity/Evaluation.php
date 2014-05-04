@@ -25,27 +25,27 @@ abstract class Evaluation
     * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="service")
     * @ORM\JoinColumn(nullable=false)
      */
-    private $subscriber;
+    protected $subscriber;
 
     /**
     * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User",inversedBy="service")
     * @ORM\JoinColumn(nullable=false)
      */
-    private $owner;
+    protected $owner;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="payed", type="boolean")
      */
-    private $payed;
+    protected $payed;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="eval", type="integer")
      */
-    private $eval;
+    protected $eval;
 
 
     /**
