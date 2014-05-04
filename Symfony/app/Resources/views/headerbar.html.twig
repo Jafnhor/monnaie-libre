@@ -23,7 +23,7 @@
 				</form>
 			</div>
 			<div class='pack-end'><img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}</div>
-			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> ???</div>
+			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> {{user.account.amount}} ₱</div>
 			<div id='profile' class='pack-end'><a href="{{ path('ml_user_homepage') }}">{{ user.firstName }} {{ user.lastName }}</a></div>
 		</header>
 	{% endblock %}
