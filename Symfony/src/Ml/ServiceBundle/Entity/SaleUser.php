@@ -11,15 +11,22 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Ml\ServiceBundle\Entity\SaleUserRepository")
  */
 class SaleUser
-{
+{    
     /**
-	  * @ORM\Id
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
 	  * @ORM\ManyToOne(targetEntity="Ml\ServiceBundle\Entity\Sale")
 	  */
 	private $sale;
 
 	/**
-	  * @ORM\Id
 	  * @ORM\ManyToOne(targetEntity="Ml\UserBundle\Entity\User")
 	  */
 	private $applicant;
@@ -72,5 +79,15 @@ class SaleUser
     public function getDateReservation()
     {
         return $this->dateReservation;
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

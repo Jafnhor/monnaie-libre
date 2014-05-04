@@ -41,3 +41,11 @@ ml_service_add_sale:
 ml_service_delete_sale:
     pattern: /service/delete/sale
     defaults: { _controller: MlServiceBundle:Service:deletesale }
+    
+ml_service_see_mine:
+    pattern: /service/mine
+    defaults: { _controller: MlServiceBundle:Service:seeMyServices }
+    
+ml_service_done:
+    pattern: /service/done
+    defaults: { _controller: MlServiceBundle:Service:serviceDone }

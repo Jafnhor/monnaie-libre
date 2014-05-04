@@ -16,6 +16,9 @@ use Ml\ServiceBundle\Entity\Sale;
 use Ml\ServiceBundle\Entity\SaleUser;
 use Ml\ServiceBundle\Form\SaleType;
 use Ml\UserBundle\Entity\User;
+use Ml\TransactionBundle\Entity\CouchsurfingEval;
+use Ml\TransactionBundle\Entity\SaleEval;
+use Ml\TransactionBundle\Entity\CarpoolingEval;
 use Ml\ServiceBundle\Entity\Document;
 
 class ServiceController extends Controller {
@@ -850,10 +853,6 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -870,5 +869,129 @@ class ServiceController extends Controller {
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
+
+    public function seeMyServicesAction() {
+        
+        $req = $this->get('request');	
+        	
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+				
+		$user = $this->getDoctrine()
+				->getManager()
+				->getRepository('MlUserBundle:User')
+				->findOneByLogin($login);
+		
+		$carpoolings = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:Carpooling')
+						   ->findBy(array('user'=>$user,'visibility'=>true));
+							   
+	    $couchsurfings = $this->getDoctrine()
+							 ->getManager()
+							 ->getRepository('MlServiceBundle:CouchSurfing')
+							 ->findBy(array('user'=>$user,'visibility'=>true));		
+
+		$sales = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('MlServiceBundle:Sale')
+					 ->findBy(array('user'=>$user,'visibility'=>true));
+							 
+							 
+		$services = array_merge($couchsurfings,$carpoolings,$sales);
+		
+		
+		$carpoolingsReserved = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:CarpoolingUser')
+						   ->findByOwner($user);
+							   
+	    $couchsurfingsReserved = $this->getDoctrine()
+							 ->getManager()
+							 ->getRepository('MlServiceBundle:CouchSurfingUser')
+						     ->findByOwner($user);	
+
+		$salesReserved = $this->getDoctrine()
+					 ->getManager()
+					 ->getRepository('MlServiceBundle:SaleUser')
+				     ->findByOwner($user);
+			
+		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
+    }
+    
+    public function serviceDoneAction() {
+         $req = $this->get('request');	
+        	
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+		
+		if($req->getMethod() != 'POST') {
+		    return $this->redirect($this->generateUrl('ml_service_see_mine'));
+		}
+		else {
+		    switch($req->request->get('type')) {
+		        case 'sale':
+		            $eval = new SaleEval();
+		            $service = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:Sale')
+                            ->findOneById($req->request->get('id'));
+                    $reservation = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:SaleUser')
+                            ->findOneById($req->request->get('reservation-id'));
+		            break;
+		        case 'couchsurfing':
+		            $eval = new CouchsurfingEval();
+		            $service = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:Couchsurfing')
+                            ->findOneById($req->request->get('id'));
+                    $reservation = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:CouchsurfingUser')
+                            ->findOneById($req->request->get('reservation-id'));
+		            break;
+		        case 'carpooling':
+		            $eval = new CarpoolingEval();
+		            $service = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:Carpooling')
+                            ->findOneById($req->request->get('id'));
+                    $reservation = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:CarpoolingUser')
+                            ->findOneById($req->request->get('reservation-id'));
+		            break;
+		        default:
+		            $eval = null;
+		            $service = null;
+		            $reservation = null;
+		            break;
+		    }
+		    		    
+		    if(($eval == null) || ($service == null) || ($reservation == null)) {
+		        return $this->redirect($this->generateUrl('ml_service_see_mine'));
+		    }
+		    
+		    $eval->setService($service);
+		    $eval->setPayed(false);
+		    $eval->setSubscriber($reservation->getApplicant());
+		    $eval->setOwner($service->getUser());
+		    $eval->setEval(0);
+		    
+		    $service->setVisibility(true);
+		    
+		    $this->getDoctrine()->getManager()->remove($reservation);
+		    $this->getDoctrine()->getManager()->persist($eval);
+		    $this->getDoctrine()->getManager()->persist($service);
+			$this->getDoctrine()->getManager()->flush();
+		    
+		}
+		
+        return $this->redirect($this->generateUrl('ml_service_see_mine'));
+    }
 }
 

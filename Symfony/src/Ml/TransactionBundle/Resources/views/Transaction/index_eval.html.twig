@@ -1,0 +1,72 @@
+{% extends "MlTransactionBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Evaluation - Liste
+{% endblock %}
+	
+{% block transaction_body %}
+	<div class="well">
+	    <h2>Service(s) à évaluer</h2>
+	    <table style="text-align: center;">
+	        <tr>
+	            <th>Vente</th>
+	            <th>Prix</th>
+	            <th>Réalisateur du service</th>
+	            <th>Évaluer</th>
+	        </tr>
+	        {% for evaluation in sale%}
+                <tr>
+                    <td>{{evaluation.service.title}}</td>
+                    <td>{{evaluation.service.price}}</td>
+                    <td>{{evaluation.service.user.login}}</td>
+                    <td>
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
+                    </td>
+                 </tr>
+	        {% else %}
+	            <tr><td colspan="3">Vous n'avez aucun service à évaluer</td></tr>
+	        {% endfor %}
+	    </table>
+	    <table style="text-align: center;">
+	        <tr>
+	            <th>Offre d'hébergement</th>
+	            <th>Prix</th>
+	            <th>Réalisateur du service</th>
+	            <th>Évaluer</th>
+	        </tr>
+	        {% for evaluation in couchsurfing %}
+                <tr>
+                    <td>{{evaluation.service.title}}</td>
+                    <td>{{evaluation.service.price}}</td>
+                    <td>{{evaluation.service.user.login}}</td>
+                    <td>
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'couchsurfing','id':evaluation.id})}}">Évaluer</a>
+                    </td>
+                 </tr>
+	        {% else %}
+	            <tr><td colspan="3">Vous n'avez aucun service à évaluer</td></tr>
+	        {% endfor %}
+	    </table>
+	    <table style="text-align: center;">
+	        <tr>
+	            <th>Covoiturage</th>
+	            <th>Prix</th>
+	            <th>Réalisateur du service</th>
+	            <th>Évaluer</th>
+	        </tr>
+	        {% for evaluation in carpooling %}
+                <tr>
+                    <td>{{evaluation.service.title}}</td>
+                    <td>{{evaluation.service.price}}</td>
+                    <td>{{evaluation.service.user.login}}</td>
+                    <td>
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'carpooling','id':evaluation.id})}}">Évaluer</a>
+                    </td>
+                 </tr>
+	        {% else %}
+	            <tr><td colspan="3">Vous n'avez aucun service à évaluer</td></tr>
+	        {% endfor %}
+	    </table>
+	</div>
+
+{% endblock %}

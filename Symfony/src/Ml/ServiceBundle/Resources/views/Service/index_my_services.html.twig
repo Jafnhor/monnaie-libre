@@ -1,0 +1,109 @@
+
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - Liste
+{% endblock %}
+	
+{% block service_body %}
+    <div class="well">
+        <h3>Les services que vous proposez</h3>
+        <table>
+            <tr>
+                <th>Titre</th>
+                <th>Commentaire</th>
+                <th>Prix</th>
+            </tr>
+            {% for service in services %}
+                    <td>{{service.title}}</td>
+                    <td>{{service.comment}}</td>
+                    <td>{{service.price}}</td></a>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <div class="well">        
+        <h3>Les services qu'on vous a réservé</h3>
+        <table>
+            <tr>
+                <th>Vente</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+                <th>Valider</th>
+            </tr>
+            {% for reservation in salesReserved %}
+                <tr>
+                    <td>{{reservation.sale.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.sale.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="sale" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucune vente en attente</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr>
+                <th>Offre d'hébergement</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+                <th>Valider</th>
+            </tr>
+            {% for reservation in couchsurfingsReserved %}
+                <tr>
+                    <td>{{reservation.couchsurfing.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.couchsurfing.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="couchsurfing" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucune offre en attente</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr>
+                <th>Covoiturage</th>
+                <th>Date</th>
+                <th>Utilisateur</th>
+                <th>Valider</th>
+            </tr>
+            {% for reservation in carpoolingsReserved %}
+                <tr>
+                    <td>{{reservation.carpooling.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.carpooling.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="carpooling" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucun service en attente</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

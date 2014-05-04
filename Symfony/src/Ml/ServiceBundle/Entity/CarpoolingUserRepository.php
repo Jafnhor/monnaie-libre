@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class CarpoolingUserRepository extends EntityRepository
 {
+    public function findByOwner($user) {
+        $reqRes = $this->createQueryBuilder("c")->leftJoin('c.carpooling', 'b')->where('b.user=:user')->setParameter('user', $user);
+        
+        return $reqRes->getQuery()->getResult();;
+    }
 }

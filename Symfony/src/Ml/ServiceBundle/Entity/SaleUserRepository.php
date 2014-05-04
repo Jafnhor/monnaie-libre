@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class SaleUserRepository extends EntityRepository
 {
+    public function findByOwner($user) {
+        $reqRes = $this->createQueryBuilder("c")->leftJoin('c.sale', 's')->where('s.user=:user')->setParameter('user', $user);
+        
+        return $reqRes->getQuery()->getResult();;
+    }
 }
