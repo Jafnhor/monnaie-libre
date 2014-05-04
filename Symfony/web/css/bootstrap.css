@@ -25,10 +25,10 @@ header:after {
 	margin-left: 1em;
 }
 header .pack-start, header .pack-end {
-	margin-left: 0.5em;
-	margin-right: 0.5em;
+	margin-left: 1em;
+	margin-right: 1em;
 }
-#profile {
+#profile, #homepage {
 	font-size: 1.2em;
 	font-weight:bold;
 }
