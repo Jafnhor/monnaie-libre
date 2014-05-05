@@ -31,13 +31,13 @@ class TransactionController extends Controller
 		$outTransactions = $this->getDoctrine()
 							->getManager()
 							->getRepository('MlTransactionBundle:Transaction')
-							->findBy(array("debitedAccount" => $user),array('date' => 'DESC'));
+							->findBy(array("debitedAccount" => $user->getAccount()),array('date' => 'DESC'));
 		
 		// Puis les entrantes
 		$inTransactions = $this->getDoctrine()
 							->getManager()
 							->getRepository('MlTransactionBundle:Transaction')
-							->findBy(array("creditedAccount" => $user),array('date' => 'DESC'));
+							->findBy(array("creditedAccount" => $user->getAccount()),array('date' => 'DESC'));
 		
 		return $this->render('MlTransactionBundle:Transaction:index.html.twig', array(
 		  'outTransactions' => $outTransactions,
