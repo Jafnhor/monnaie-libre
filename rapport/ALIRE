@@ -1,0 +1,8 @@
+Paquets requis pour compiler le document sous Ubuntu 14.04 :
+	texlive-lang-french
+N'hésitez par à compléter la liste au besoin.
+
+Dans ce dossier, exécuter :
+	make
+Cela devrait produire rapport.pdf.
+
