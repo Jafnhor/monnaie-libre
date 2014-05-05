@@ -15,7 +15,11 @@ use Ml\ServiceBundle\Form\CouchSurfingType;
 use Ml\ServiceBundle\Entity\Sale;
 use Ml\ServiceBundle\Entity\SaleUser;
 use Ml\ServiceBundle\Form\SaleType;
+use Ml\ServiceBundle\Entity\Basic;
+use Ml\ServiceBundle\Entity\BasicUser;
+use Ml\ServiceBundle\Form\BasicType;
 use Ml\UserBundle\Entity\User;
+use Ml\TransactionBundle\Entity\BasicEval;
 use Ml\TransactionBundle\Entity\CouchsurfingEval;
 use Ml\TransactionBundle\Entity\SaleEval;
 use Ml\TransactionBundle\Entity\CarpoolingEval;
@@ -34,10 +38,6 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -49,6 +49,7 @@ class ServiceController extends Controller {
 			$carpooling = false;
 			$couchsurfing = false;
 			$sale = false;
+			$basic = false;
 			
 			$price = $req->request->get('price');
 			$creator_login = $req->request->get('creator');
@@ -72,7 +73,57 @@ class ServiceController extends Controller {
 					else if ($value == 'sale') {
 						$sale = true;
 					}
+					else if ($value == 'basic') {
+						$basic = true;
+					}
 
+				}
+				
+				if ($basic == true) {
+					if ($price == "desc") {
+						if ($creator == NULL) {
+							$basic = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Basic')
+										   ->findBy(array("visibility" => true), array("price" => 'desc'));
+						}
+						else {
+							$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+						}	
+					}
+					else if ($price == "asc") {
+						if ($creator == NULL) {
+							$basic = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:Basic')
+										   ->findBy(array("visibility" => true), array("price" => 'asc'));
+						}
+						else {
+							$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+						}	
+					}
+					else {
+						if ($creator == NULL) {
+							$basic = $this->getDoctrine()
+										   ->getManager()
+										   ->getRepository('MlServiceBundle:BAsic')
+										   ->findByVisibility(true);
+						}
+						else {
+							$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+						}	
+					}
+								   
+					$services[] = $basic;
 				}
 				
 				if ($carpooling == true) {
@@ -218,6 +269,11 @@ class ServiceController extends Controller {
 				if ($price == "desc") {
 					/* Récupération de tous les Services du site par prix décroissants */
 					if ($creator == NULL) {
+						$basic = $this->getDoctrine()
+								 ->getManager()
+								 ->getRepository('MlServiceBundle:Basic')
+								 ->findBy(array("visibility" => true), array("price" => 'desc'));
+								 
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -234,6 +290,11 @@ class ServiceController extends Controller {
 								 ->findBy(array("visibility" => true), array("price" => 'desc'));
 					}
 					else {
+						$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'desc'));
+									   
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -253,6 +314,11 @@ class ServiceController extends Controller {
 				else if ($price == "asc") {
 					/* Récupération de tous les Services du site par prix croissants */
 					if ($creator == NULL) {
+						$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true), array("price" => 'asc'));
+							
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -269,6 +335,11 @@ class ServiceController extends Controller {
 								 ->findBy(array("visibility" => true), array("price" => 'asc'));
 					}
 					else {
+						$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator), array("price" => 'asc'));
+						
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -288,6 +359,11 @@ class ServiceController extends Controller {
 				else {
 					/* Récupération de tous les Services sans tri sur le prix*/
 					if ($creator == NULL) {
+						$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findByVisibility(true);
+							
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -304,6 +380,11 @@ class ServiceController extends Controller {
 								 ->findByVisibility(true);
 					}
 					else {
+						$basic = $this->getDoctrine()
+									   ->getManager()
+									   ->getRepository('MlServiceBundle:Basic')
+									   ->findBy(array("visibility" => true, "user" => $creator));
+						
 						$carpoolings = $this->getDoctrine()
 									   ->getManager()
 									   ->getRepository('MlServiceBundle:Carpooling')
@@ -321,6 +402,9 @@ class ServiceController extends Controller {
 					}
 				}
 				
+				if ($basic != NULL) {
+					$services[] = $basic;
+				}
 				if ($couchsurfings != NULL) {
 					$services[] = $couchsurfings;
 				}
@@ -334,6 +418,11 @@ class ServiceController extends Controller {
 			else {
 				/* Récupération de tous les Services du site */
 
+				$basic = $this->getDoctrine()
+							   ->getManager()
+							   ->getRepository('MlServiceBundle:Basic')
+							   ->findByVisibility(true);
+				
 				$carpoolings = $this->getDoctrine()
 							   ->getManager()
 							   ->getRepository('MlServiceBundle:Carpooling')
@@ -348,7 +437,10 @@ class ServiceController extends Controller {
 						 ->getManager()
 						 ->getRepository('MlServiceBundle:Sale')
 						 ->findByVisibility(true);						
-								 
+				
+				if ($basic != NULL) {
+					$services[] = $basic;
+				}				 
 				if ($couchsurfings != NULL) {
 					$services[] = $couchsurfings;
 				}
@@ -362,6 +454,10 @@ class ServiceController extends Controller {
 		}
 		else {
 			/* Récupération de tous les Services du site */
+			$basic = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:Basic')
+						   ->findByVisibility(true);
 			
 			$carpoolings = $this->getDoctrine()
 						   ->getManager()
@@ -377,7 +473,10 @@ class ServiceController extends Controller {
 					 ->getManager()
 					 ->getRepository('MlServiceBundle:Sale')
 					 ->findByVisibility(true);						
-							 
+			
+			if ($basic != NULL) {
+				$services[] = $basic;
+			}			 
 			if ($couchsurfings != NULL) {
 				$services[] = $couchsurfings;
 			}
@@ -404,6 +503,7 @@ class ServiceController extends Controller {
 		  'users' => $users,
 		  'price' => $price,
 		  'creator_login' => $creator_login,
+		  'basic' => $basic,
 		  'sale' => $sale,
 		  'carpooling' => $carpooling,
 		  'couchsurfing' => $couchsurfing));
@@ -418,17 +518,16 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
 
 		if($req->getMethod() == 'POST') {
-			if ($req->request->get("type") == "carpooling") {
+			if ($req->request->get("type") == "basic") {
+				return $this->redirect($this->generateUrl('ml_service_add_basic'));
+			}
+			else if ($req->request->get("type") == "carpooling") {
 				return $this->redirect($this->generateUrl('ml_service_add_carpooling'));
 			}
 			else if ($req->request->get("type") == "couchsurfing") {
@@ -443,7 +542,8 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
-	public function seeCarpoolingAction($carpooling = null) {
+
+	public function seeBasicAction($basic = null) {
 		/* Test connexion */
 		$req = $this->get('request');		
 		try {		
@@ -453,8 +553,137 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
+		$user = $this->getDoctrine()
+				->getManager()
+				->getRepository('MlUserBundle:User')
+				->findOneByLogin($login);
+				
+		$em = $this->getDoctrine()->getManager();
+		$data_basic = $em->getRepository('MlServiceBundle:Basic')->findOneById($basic);
+		
+		/* Si le Service demandé n'existe pas */
+		if ($data_basic == null){
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
+		if ($data_basic->getVisibility() == false) {
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
+		if($req->getMethod() != 'POST'){			
+			return $this->render('MlServiceBundle:Service:see_basic.html.twig', array('user' => $user,'basic' => $data_basic));
+		}
+		else {				
+			if ($user == $data_basic->getUser()) {
+				return $this->redirect($this->generateUrl('ml_service_homepage'));
+			}
+			
+			$basicUser = new BasicUser;
+			
+			$basicUser->setApplicant($user);
+			$basicUser->setBasic($data_basic);
+			
+			$em->persist($basicUser);
+			$em->flush();
+			
+			$data_basic->setVisibility(false);
+			
+			$em->persist($data_basic);
+			$em->flush();
+
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+	}
+	
+	public function addBasicAction(){
+		/* Test connexion */
+		$req = $this->get('request');		
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+		
+		$user = $this->getDoctrine()
+				->getManager()
+				->getRepository('MlUserBundle:User')
+				->findOneByLogin($login);
+	
+		$basic = new Basic;
+		
+		$form = $this->createForm(new BasicType(),$basic);
+
+
+		if($req->getMethod() == 'POST'){
+			//lien requête<->form
+			$form->bind($req);
+		
+			$em = $this->getDoctrine()->getManager();
+
+			$basic->setUser($user);
+			
+			//var_dump($req->request->get("ml_servicebundle_basic")["associatedGroup"]);die;
+			
+			if (($req->request->get("ml_servicebundle_basic")["associatedGroup"]) != NULL) {
+				$group = $this->getDoctrine()
+					->getManager()
+					->getRepository('MlGroupBundle:Groupp')
+					->findOneByName($req->request->get("ml_servicebundle_basic")["associatedGroup"]);
+				
+				$basic->setAssociatedGroup($group);
+			}
+			
+			$em->persist($basic);
+			$em->flush();
+
+			//$this->get('session')->getFlashBag->add('ajouter', 'Votre service est ajoutée');
+			
+			$basic_id = $basic->getId();
+
+			return $this->redirect($this->generateUrl('ml_service_see_basic', array('user'=>$user,'basic' => $basic_id)));
+		}
+		
+		return $this->render('MlServiceBundle:Service:add_basic.html.twig', array(
+			'form' => $form->createView(),
+		    'user' => $user));
+	}
+
+	public function deleteBasicAction(/*Service $service*/) {
+		/* Test connexion */
+		$req = $this->get('request');		
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
+		}
+		
+		$user = $this->getDoctrine()
+				->getManager()
+				->getRepository('MlUserBundle:User')
+				->findOneByLogin($login);
+
+	
+		$em=$this->getDoctrine()->getManager();
+		$service=$em->getRepository('MlServiceBundle:Basic')->findById('3');
+		
+		$em->remove($service[0]);
+		$em->flush();
+
+		//$this->get('session')->getFlashBag->add('supprimer','Votre service a été supprimé');
+		return $this->redirect($this->generateUrl('ml_service_homepage'));
+	}
+	
+	
+	public function seeCarpoolingAction($carpooling = null) {
+		/* Test connexion */
+		$req = $this->get('request');		
+		try {		
+		    $login = $this->container->get('ml.session')->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
 		$user = $this->getDoctrine()
@@ -507,10 +736,6 @@ class ServiceController extends Controller {
 		}
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
-		}
-		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
 		$user = $this->getDoctrine()
@@ -567,10 +792,6 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -595,10 +816,6 @@ class ServiceController extends Controller {
 		}
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
-		}
-		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
 		$user = $this->getDoctrine()
@@ -653,10 +870,6 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -709,10 +922,6 @@ class ServiceController extends Controller {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
-		}
-		
 		$user = $this->getDoctrine()
 				->getManager()
 				->getRepository('MlUserBundle:User')
@@ -737,10 +946,6 @@ class ServiceController extends Controller {
 		}
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
-		}
-		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
 		$user = $this->getDoctrine()
@@ -795,10 +1000,6 @@ class ServiceController extends Controller {
 		}
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
-		}
-		
-		if ($login == NULL) {
-			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
 		$user = $this->getDoctrine()
@@ -886,6 +1087,11 @@ class ServiceController extends Controller {
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
 		
+		$basic = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:Basic')
+						   ->findBy(array('user'=>$user,'visibility'=>true));
+		
 		$carpoolings = $this->getDoctrine()
 						   ->getManager()
 						   ->getRepository('MlServiceBundle:Carpooling')
@@ -902,8 +1108,12 @@ class ServiceController extends Controller {
 					 ->findBy(array('user'=>$user,'visibility'=>true));
 							 
 							 
-		$services = array_merge($couchsurfings,$carpoolings,$sales);
+		$services = array_merge($basic,$couchsurfings,$carpoolings,$sales);
 		
+		$basicReserved = $this->getDoctrine()
+						   ->getManager()
+						   ->getRepository('MlServiceBundle:BasicUser')
+						   ->findByOwner($user);
 		
 		$carpoolingsReserved = $this->getDoctrine()
 						   ->getManager()
@@ -920,7 +1130,7 @@ class ServiceController extends Controller {
 					 ->getRepository('MlServiceBundle:SaleUser')
 				     ->findByOwner($user);
 			
-		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
+		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'basicReserved' => $basicReserved,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
     }
     
     public function serviceDoneAction() {
@@ -938,6 +1148,15 @@ class ServiceController extends Controller {
 		}
 		else {
 		    switch($req->request->get('type')) {
+		        case 'basic':
+		            $eval = new SaleEval();
+		            $service = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:BAsic')
+                            ->findOneById($req->request->get('id'));
+                    $reservation = $this->getDoctrine()
+                            ->getRepository('MlServiceBundle:BasicUser')
+                            ->findOneById($req->request->get('reservation-id'));
+		            break;
 		        case 'sale':
 		            $eval = new SaleEval();
 		            $service = $this->getDoctrine()
