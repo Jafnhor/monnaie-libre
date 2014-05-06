@@ -672,11 +672,18 @@ class ServiceController extends Controller {
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
 
-	
-		$em=$this->getDoctrine()->getManager();
-		$service=$em->getRepository('MlServiceBundle:Basic')->findById('3');
+		if ($user == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 		
-		$em->remove($service[0]);
+		$basic_id = $req->request->get("basic_id");
+	
+		$em = $this->getDoctrine()->getManager();
+		
+		$basic = $em->getRepository('MlServiceBundle:Basic')
+			->findOneById($basic_id);
+
+		$em->remove($basic);
 		$em->flush();
 
 		//$this->get('session')->getFlashBag->add('supprimer','Votre service a été supprimé');

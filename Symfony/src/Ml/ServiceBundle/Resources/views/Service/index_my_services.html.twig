@@ -32,14 +32,14 @@
         <h3>Les services qu'on vous a réservé</h3><br>
         <table align = "center" class = "table">
             <tr>
-                <td align = "center"><b>Vente</b></td>
+                <td align = "center"><b>Service basic</b></td>
                 <td align = "center"><b>Date</b></td>
                 <td align = "center"><b>Utilisateur</b></td>
                 <td align = "center"><b>Valider</b></td>
             </tr>
             {% for reservation in basicReserved %}
                 <tr>
-                    <td align = "center">{{reservation.sale.title}}</td>
+                    <td align = "center">{{reservation.basic.title}}</td>
                     <td align = "center">{{reservation.dateReservation|date('d/m/Y')}}</td>
                     <td align = "center">{{reservation.applicant.login}}</td>
                     <td align = "center">
@@ -53,13 +53,13 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td align = "center" colspan="4">Vous n'avez aucune vente en attente</td>
+                    <td align = "center" colspan="4">Vous n'avez aucune service basic en attente</td>
                 </tr>
             {% endfor %}
         </table><br><br>
         <table align = "center" class = "table">
             <tr>
-                <td align = "center"><b>Offre d'hébergement</b></td>
+                <td align = "center"><b>Vente</b></td>
                 <td align = "center"><b>Date</b></td>
                 <td align = "center"><b>Utilisateur</b></td>
                 <td align = "center"><b>Valider</b></td>
