@@ -16,6 +16,11 @@
 						<form action="{{ path('ml_service_homepage') }}" method="post">
 							Type
 							<select style = "height:65px; margin-left:40px;" multiple name="type[]">
+								{% if basic is sameas(true) %}
+									<option value = "basic" selected>Basique</option>
+								{% else %}
+									<option value = "basic">Basique</option>
+								{% endif %}
 								{% if sale is sameas(true) %}
 									<option value = "sale" selected>Vente</option>
 								{% else %}
@@ -95,6 +100,9 @@
 								</tr>
 								{% for services in servicess %}
 									{% for service in services %}
+										{% if service.type is sameas("Basic") %}
+											<tr class = "liste_services" onclick="document.location.href='./service/see/basic/{{ service.id }}'">
+										{% endif %}
 										{% if service.type is sameas("Carpooling") %}
 											<tr class = "liste_services" onclick="document.location.href='./service/see/carpooling/{{ service.id }}'">
 										{% endif %}

@@ -1,0 +1,48 @@
+{% extends "MlServiceBundle::layout.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Service - See - Basic
+{% endblock %}
+	
+{% block service_body %}
+
+	{% if basic is not null %}
+		<div class="well">
+			<h3 id = "title_reservation"><b>{{ basic.title }}</b></h3>
+			<table class="table">
+				<tr>
+					<td>
+						<div class = "well">
+							<h4 class = "service">Creator :</h4> {{ basic.user.login }}
+							<h4 class = "service">Creation Date :</h4> {{ basic.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Comment :</h4> 
+							{% if basic.comment is null %} 
+								No comment 
+							{% endif %} 
+							{% if basic.comment is not null %} 
+								{{ basic.comment }}
+							{% endif %}
+							<h4 class = "service">Price :</h4> {{ basic.price }} ₱
+							<h4 class = "service">Associated Group :</h4> 
+							{% if basic.associatedGroup is null %} 
+								No associated group 
+							{% else %} 
+								{{ basic.associatedGroup.name }}
+							{% endif %} 
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan = "4">
+						<div class = "well">
+							<form action="" method="post">
+								<input type="submit" class="btn btn-primary" id="form_reservation" value = "Reserve" />
+							</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	{% endif %}
+
+{% endblock %}

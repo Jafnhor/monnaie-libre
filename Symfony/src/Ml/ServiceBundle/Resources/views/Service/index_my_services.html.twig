@@ -22,8 +22,34 @@
         </table>
     </div>
     
-    <div class="well">        
+    <div class="well">      
         <h3>Les services qu'on vous a réservé</h3>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Utilisateur</th>
+                <th>Valider</th>
+            </tr>
+            {% for reservation in basicReserved %}
+                <tr>
+                    <td>{{reservation.basic.title}}</td>
+                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td>{{reservation.applicant.login}}</td>
+                    <td>
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.basic.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="basic" />
+                            <input type="submit" value="Service effectué" />
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Vous n'avez aucun service de base en attente</td>
+                </tr>
+            {% endfor %}
+        </table>
         <table>
             <tr>
                 <th>Vente</th>

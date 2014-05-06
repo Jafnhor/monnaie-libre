@@ -20,6 +20,9 @@ class EvaluationController extends Controller {
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
 
+            $basic = $this->getDoctrine()
+	            ->getRepository('MlTransactionBundle:BasicEval')
+	            ->findBy(array('subscriber'=>$user,'payed'=>false));
             $carpooling = $this->getDoctrine()
 	            ->getRepository('MlTransactionBundle:CarpoolingEval')
 	            ->findBy(array('subscriber'=>$user,'payed'=>false));		
@@ -30,7 +33,7 @@ class EvaluationController extends Controller {
 	            ->getRepository('MlTransactionBundle:SaleEval')
 	            ->findBy(array('subscriber'=>$user,'payed'=>false));
 	    
-		return $this->render('MlTransactionBundle:Transaction:index_eval.html.twig',array('user'=>$user,'carpooling'=>$carpooling,'couchsurfing'=>$couchsurfing,'sale'=>$sale));
+		return $this->render('MlTransactionBundle:Transaction:index_eval.html.twig',array('user'=>$user,'basic'=>$basic,'carpooling'=>$carpooling,'couchsurfing'=>$couchsurfing,'sale'=>$sale));
     }
 
     public function evaluationAction($serviceType,$id) {
@@ -49,6 +52,11 @@ class EvaluationController extends Controller {
 			->findOneByLogin($login);
 		
 		switch($serviceType) {
+		    case 'basic':
+		        $eval = $this->getDoctrine()
+			        ->getRepository('MlTransactionBundle:BasicEval')
+			        ->findOneById($id);		    
+		        break;
 		    case 'carpooling':
 		        $eval = $this->getDoctrine()
 			        ->getRepository('MlTransactionBundle:CarpoolingEval')
@@ -95,6 +103,9 @@ class EvaluationController extends Controller {
     }
     
     public function evalKarma($user) {
+        $basic = $this->getDoctrine()
+	            ->getRepository('MlTransactionBundle:BasicEval')
+	            ->findBy(array('owner'=>$user,'payed'=>true));		
         $carpooling = $this->getDoctrine()
 	            ->getRepository('MlTransactionBundle:CarpoolingEval')
 	            ->findBy(array('owner'=>$user,'payed'=>true));		
@@ -105,7 +116,7 @@ class EvaluationController extends Controller {
 	            ->getRepository('MlTransactionBundle:SaleEval')
 	            ->findBy(array('owner'=>$user,'payed'=>true));
 	            
-	    $evaluations = array_merge($carpooling,$couchsurfing,$sale);
+	    $evaluations = array_merge($basic,$carpooling,$couchsurfing,$sale);
 	    
 	    $karma = 0;
 	    

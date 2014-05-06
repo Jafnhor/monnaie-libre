@@ -160,6 +160,9 @@
 													</tr>
 													{% for service in associated_services %}
 														{% if is_valid is sameas(true) %}
+															{% if service.type is sameas("Basic") %}
+																<tr class = "liste_services" onclick="document.location.href='{{ path('ml_service_see_basic', { 'basic': service.id }) }}'">
+															{% endif %}
 															{% if service.type is sameas("Carpooling") %}
 																<tr class = "liste_services" onclick="document.location.href='{{ path('ml_service_see_carpooling', { 'carpooling': service.id }) }}'">
 															{% endif %}
@@ -196,6 +199,9 @@
 																{% if is_administrator is sameas(true) %}
 																	<td>
 																		<center>
+																			{% if service.type is sameas("Basic") %}
+																				<form action="{{ path('ml_service_delete_basic') }}" method="post">
+																			{% endif %}
 																			{% if service.type is sameas("Carpooling") %}
 																				<form action="{{ path('ml_service_delete_carpooling') }}" method="post">
 																			{% endif %}
