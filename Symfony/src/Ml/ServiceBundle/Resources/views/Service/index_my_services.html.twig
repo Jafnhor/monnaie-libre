@@ -37,6 +37,33 @@
                 <td align = "center"><b>Utilisateur</b></td>
                 <td align = "center"><b>Valider</b></td>
             </tr>
+            {% for reservation in basicReserved %}
+                <tr>
+                    <td align = "center">{{reservation.sale.title}}</td>
+                    <td align = "center">{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td align = "center">{{reservation.applicant.login}}</td>
+                    <td align = "center">
+                        <form action="{{path('ml_service_done')}}" method="post">
+                            <input type="hidden" name="id" value="{{reservation.basic.id}}" />
+                            <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
+                            <input type="hidden" name= "type" value="sale" />
+                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td align = "center" colspan="4">Vous n'avez aucune vente en attente</td>
+                </tr>
+            {% endfor %}
+        </table><br><br>
+        <table align = "center" class = "table">
+            <tr>
+                <td align = "center"><b>Offre d'hébergement</b></td>
+                <td align = "center"><b>Date</b></td>
+                <td align = "center"><b>Utilisateur</b></td>
+                <td align = "center"><b>Valider</b></td>
+            </tr>
             {% for reservation in salesReserved %}
                 <tr>
                     <td align = "center">{{reservation.sale.title}}</td>

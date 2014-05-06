@@ -6,6 +6,18 @@ ml_service_add:
     pattern: /service/add
     defaults: { _controller: MlServiceBundle:Service:addService }
 
+ml_service_see_basic:
+    pattern: /service/see/basic/{basic}
+    defaults: { _controller: MlServiceBundle:Service:seeBasic, basic: null }
+
+ml_service_add_basic:
+    pattern: /service/add/basic
+    defaults: { _controller: MlServiceBundle:Service:addBasic }
+
+ml_service_delete_basic:
+    pattern: /service/delete/basic
+    defaults: { _controller: MlServiceBundle:Service:deleteBasic }
+
 ml_service_see_carpooling:
     pattern: /service/see/carpooling/{carpooling}
     defaults: { _controller: MlServiceBundle:Service:seeCarpooling, carpooling: null }

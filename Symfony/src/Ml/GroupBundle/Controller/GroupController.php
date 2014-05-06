@@ -270,6 +270,16 @@ class GroupController extends Controller {
 				}
 			}
 			
+			$basic = $this->getDoctrine()
+				->getRepository('MlServiceBundle:Basic')
+				->findByAssociatedGroup($group_data);
+			
+			if ($basic != NULL) {
+				foreach($basic as $key => $value) {
+					$services[] = $value;
+				}
+			}
+			
 			$sales = $this->getDoctrine()
 				->getRepository('MlServiceBundle:Sale')
 				->findByAssociatedGroup($group_data);
@@ -553,6 +563,16 @@ class GroupController extends Controller {
 		// Set NULL associatedGroup to him created services
 		$associated_services = NULL;
 		
+		$associated_basic = $this->getDoctrine()
+			->getRepository('MlServiceBundle:Basic')
+			->findBy(array("associatedGroup" => $group, "user" => $user));
+			
+		if ($associated_basic != NULL) {
+			foreach ($associated_basic as $key => $value) {
+				$associated_services[] = $value;
+			}
+		}
+		
 		$associated_carpoolings = $this->getDoctrine()
 			->getRepository('MlServiceBundle:Carpooling')
 			->findBy(array("associatedGroup" => $group, "user" => $user));
@@ -679,6 +699,17 @@ class GroupController extends Controller {
 				 // Set NULL associatedGroup to him created services
 				$associated_services = NULL;
 				
+				
+				$associated_basic = $this->getDoctrine()
+					->getRepository('MlServiceBundle:Basic')
+					->findBy(array("associatedGroup" => $group_data, "user" => $user));
+					
+				if ($associated_basic != NULL) {
+					foreach ($associated_basic as $key => $value) {
+						$associated_services[] = $value;
+					}
+				}
+				
 				$associated_carpoolings = $this->getDoctrine()
 					->getRepository('MlServiceBundle:Carpooling')
 					->findBy(array("associatedGroup" => $group_data, "user" => $user));
@@ -767,6 +798,16 @@ class GroupController extends Controller {
 		
 		 // Set NULL associatedGroup to created services
 		$associated_services = NULL;
+		
+		$associated_basic = $this->getDoctrine()
+			->getRepository('MlServiceBundle:Basic')
+			->findByAssociatedGroup($group);
+			
+		if ($associated_basic != NULL) {
+			foreach ($associated_basic as $key => $value) {
+				$associated_services[] = $value;
+			}
+		}
 		
 		$associated_carpoolings = $this->getDoctrine()
 			->getRepository('MlServiceBundle:Carpooling')

@@ -14,6 +14,28 @@
 	            <td align = "center"><b>Réalisateur du service</b></td>
 	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
+	        {% for evaluation in basic%}
+                <tr>
+                    <td align = "center">{{evaluation.service.title}}</td>
+                    <td align = "center">{{evaluation.service.price}}</td>
+                    <td align = "center">{{evaluation.service.user.login}}</td>
+                    <td align = "center">
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
+                    </td>
+                 </tr>
+	        {% else %}
+	            <tr>
+					<td  align = "center" colspan="3">Vous n'avez aucun service à évaluer</td>
+				</tr>
+	        {% endfor %}
+	    </table><br><br>
+	    <table align = "center" class = "table">
+	        <tr>
+	            <td align = "center"><b>Offre d'hébergement</b></td>
+	            <td align = "center"><b>Prix</b></td>
+	            <td align = "center"><b>Réalisateur du service</b></td>
+	            <td align = "center"><b>Évaluer</b></td>
+	        </tr>
 	        {% for evaluation in sale%}
                 <tr>
                     <td align = "center">{{evaluation.service.title}}</td>
