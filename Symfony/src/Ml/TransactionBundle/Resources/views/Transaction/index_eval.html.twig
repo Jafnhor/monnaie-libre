@@ -9,30 +9,32 @@
 	    <h2>Service(s) à évaluer</h2>
 	    <table align = "center" class = "table">
 	        <tr>
-	            <th>Service</th>
-	            <th>Prix</th>
-	            <th>Réalisateur du service</th>
-	            <th>Évaluer</th>
+	            <td align = "center"><b>Vente</b></td>
+	            <td align = "center"><b>Prix</b></td>
+	            <td align = "center"><b>Réalisateur du service</b></td>
+	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
 	        {% for evaluation in basic%}
                 <tr>
-                    <td>{{evaluation.service.title}}</td>
-                    <td>{{evaluation.service.price}}</td>
-                    <td>{{evaluation.service.user.login}}</td>
-                    <td>
-                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'basic','id':evaluation.id})}}">Évaluer</a>
+                    <td align = "center">{{evaluation.service.title}}</td>
+                    <td align = "center">{{evaluation.service.price}}</td>
+                    <td align = "center">{{evaluation.service.user.login}}</td>
+                    <td align = "center">
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
                     </td>
                  </tr>
 	        {% else %}
-	            <tr><td colspan="3">Vous n'avez aucun service à évaluer</td></tr>
+	            <tr>
+					<td  align = "center" colspan="3">Vous n'avez aucun service à évaluer</td>
+				</tr>
 	        {% endfor %}
-	    </table>
-	    <table style="text-align: center;">
+	    </table><br><br>
+	    <table align = "center" class = "table">
 	        <tr>
-	            <th>Vente</th>
-	            <th>Prix</th>
-	            <th>Réalisateur du service</th>
-	            <th>Évaluer</th>
+	            <td align = "center"><b>Offre d'hébergement</b></td>
+	            <td align = "center"><b>Prix</b></td>
+	            <td align = "center"><b>Réalisateur du service</b></td>
+	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
 	        {% for evaluation in sale%}
                 <tr>

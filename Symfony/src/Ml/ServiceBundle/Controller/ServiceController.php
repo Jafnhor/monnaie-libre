@@ -815,7 +815,7 @@ class ServiceController extends Controller {
 		
 		$carpooling = $em->getRepository('MlServiceBundle:Carpooling')
 			->findOneById($carpooling_id);
-		
+
 		$em->remove($carpooling);
 		$em->flush();
 
@@ -1091,7 +1091,7 @@ class ServiceController extends Controller {
 		
 		$sale = $em->getRepository('MlServiceBundle:Sale')
 			->findOneById($sale_id);
-		
+
 		$em->remove($sale);
 		$em->flush();
 
