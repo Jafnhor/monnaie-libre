@@ -80,6 +80,11 @@ header .pack-end {
 	margin-left: 10px;
  }
  
+  .Basic #ml_servicebundle_basic_price, #ml_servicebundle_basic_title, #ml_servicebundle_basic_comment,
+ #ml_servicebundle_basic_associatedGroup {
+	margin-left: 10px;
+ }
+ 
 .CouchSurfing #title_form  {
 	margin-left: 300px;
 }
@@ -92,6 +97,10 @@ header .pack-end {
 	margin-left: 300px;
 }
 
+.Basic #title_form {
+	margin-left: 300px;
+}
+
 .CouchSurfing #form_validatation  {
 	margin-left: 360px;
 }
@@ -101,6 +110,10 @@ header .pack-end {
 }
 
 .Sale #form_validatation {
+	margin-left: 360px;
+}
+
+.Basic #form_validatation {
 	margin-left: 360px;
 }
 
