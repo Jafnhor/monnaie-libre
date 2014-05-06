@@ -44,7 +44,14 @@ class ServiceController extends Controller {
 				->findOneByLogin($login);
 				
 		$services = NULL;
-
+		$price = NULL;
+		$creator = NULL;
+		$creator_login = NULL;
+		$basic = NULL;
+		$sale = NULL;
+		$carpooling = NULL;
+		$couchsurfing = NULL;
+		
 		if ($req->getMethod() == 'POST') {
 			$carpooling = false;
 			$couchsurfing = false;
@@ -54,6 +61,7 @@ class ServiceController extends Controller {
 			$price = $req->request->get('price');
 			$creator_login = $req->request->get('creator');
 			$creator = NULL;
+
 			
 			if ($creator_login != NULL) {
 				$creator = $this->getDoctrine()
@@ -1149,9 +1157,9 @@ class ServiceController extends Controller {
 		else {
 		    switch($req->request->get('type')) {
 		        case 'basic':
-		            $eval = new SaleEval();
+		            $eval = new BasicEval();
 		            $service = $this->getDoctrine()
-                            ->getRepository('MlServiceBundle:BAsic')
+                            ->getRepository('MlServiceBundle:Basic')
                             ->findOneById($req->request->get('id'));
                     $reservation = $this->getDoctrine()
                             ->getRepository('MlServiceBundle:BasicUser')

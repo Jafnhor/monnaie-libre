@@ -9,6 +9,26 @@
 	    <h2>Service(s) à évaluer</h2>
 	    <table style="text-align: center;">
 	        <tr>
+	            <th>Service</th>
+	            <th>Prix</th>
+	            <th>Réalisateur du service</th>
+	            <th>Évaluer</th>
+	        </tr>
+	        {% for evaluation in basic%}
+                <tr>
+                    <td>{{evaluation.service.title}}</td>
+                    <td>{{evaluation.service.price}}</td>
+                    <td>{{evaluation.service.user.login}}</td>
+                    <td>
+                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'basic','id':evaluation.id})}}">Évaluer</a>
+                    </td>
+                 </tr>
+	        {% else %}
+	            <tr><td colspan="3">Vous n'avez aucun service à évaluer</td></tr>
+	        {% endfor %}
+	    </table>
+	    <table style="text-align: center;">
+	        <tr>
 	            <th>Vente</th>
 	            <th>Prix</th>
 	            <th>Réalisateur du service</th>
