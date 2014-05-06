@@ -26,19 +26,21 @@
 					<td>
 						<center><b>Karma</b></center>
 					</td>
-					<td>
-						<center><b>Premium</b></center>
-					</td>
+					{#
+						<td>
+							<center><b>Premium</b></center>
+						</td>
+					#}
 					<td>
 						<center><b>Modérateur</b></center>
 					</td>
 					<td>
 						<center><b>Bannir</b></center>
 					</td>
-					<td>
-						<center><b>Privilégier</b></center>
-					</td>
 					{% if user.master is sameas(true) %}
+						<td>
+							<center><b>Privilégier</b></center>
+						</td>
 						<td>
 							<center><b>Master</b></center>
 						</td>
@@ -58,14 +60,16 @@
 						<td>
 							<center>{{ member.karma }}</center>
 						</td>
-						<td>
-							{% if member.premium is sameas(false) %}
-								<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
-							{% endif %}
-							{% if member.premium is sameas(true) %}
-								<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
-							{% endif %}
-						</td>
+						{#
+							<td>
+								{% if member.premium is sameas(false) %}
+									<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
+								{% endif %}
+								{% if member.premium is sameas(true) %}
+									<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
+								{% endif %}
+							</td>
+						#}
 						<td>
 							{% if member.moderator is sameas(false) %}
 								<center>Non</center>
@@ -81,25 +85,27 @@
 										<form action="{{ path('ml_administration_ban') }}" method="post">
 											<input type = "hidden" name = "member_id" value = {{ member.id }} />
 											{% if member.visible is sameas(true) %}
-												<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+												<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-remove"></i> </button>
 											{% else %}
-												<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+												<button class="btn btn-success btn-xs" type="submit"><i class="glyphicon glyphicon-ok"></i> </button>
 											{% endif %}
 										</form>
 									</center>
 								</td>
-								<td>
-									<center>
-										<form action="{{ path('ml_administration_grant') }}" method="post">
-											<input type = "hidden" name = "member_id" value = {{ member.id }} />
-											{% if member.moderator is sameas(false) %}
-												<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-plus"></i> </button>
-											{% else %}
-												<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-minus"></i> </button>
-											{% endif %}
-										</form>
-									</center>
-								</td>
+								{% if user.master is sameas(true) %}
+									<td>
+										<center>
+											<form action="{{ path('ml_administration_grant') }}" method="post">
+												<input type = "hidden" name = "member_id" value = {{ member.id }} />
+												{% if member.moderator is sameas(false) %}
+													<button class="btn btn-success btn-xs" type="submit"><i class="glyphicon glyphicon-plus"></i> </button>
+												{% else %}
+													<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-minus"></i> </button>
+												{% endif %}
+											</form>
+										</center>
+									</td>
+								{% endif %}
 							{% else %}
 								<td>
 								</td>
@@ -118,7 +124,7 @@
 									<center>
 										<form action="{{ path('ml_administration_grant_master') }}" method="post">
 											<input type = "hidden" name = "member_id" value = {{ member.id }} />
-											<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-plus"></i> </button>
+											<button class="btn btn-success btn-xs" type="submit"><i class="glyphicon glyphicon-plus"></i> </button>
 										</form>
 									</center>
 								</td>
@@ -167,7 +173,7 @@
 							<center>
 								<form action="{{ path('ml_administration_delete_group') }}" method="post">
 									<input type = "hidden" name = "group_id" value = {{ group.id }} />
-									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+									<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-remove"></i> </button>
 								</form>
 							</center>
 						</td>
@@ -215,8 +221,8 @@
 							{% if service.type is sameas('Carpooling') %}
 								<center>Carpooling</center>
 							{% endif %} 
-							{% if service.type is sameas('Couchsurfing') %}
-								<center>Couchsurfing</center>
+							{% if service.type is sameas('CouchSurfing') %}
+								<center>CouchSurfing</center>
 							{% endif %}
 							{% if service.type is sameas('Sale') %}
 								<center>Sale</center>
@@ -255,13 +261,13 @@
 									<form action="{{ path('ml_administration_delete_service') }}" method="post">
 										<input type = "hidden" name = "service_id" value = {{ service.id }} />
 										<input type = "hidden" name = "service_type" value = {{ service.type }} />
-										<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+										<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-remove"></i> </button>
 									</form>
 								{% else %}
 									<form action="{{ path('ml_administration_delete_service') }}" method="post">
 										<input type = "hidden" name = "service_id" value = {{ service.id }} />
 										<input type = "hidden" name = "service_type" value = {{ service.type }} />
-										<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+										<button class="btn btn-success btn-xs" type="submit"><i class="glyphicon glyphicon-ok"></i> </button>
 									</form>
 								{% endif %}
 							</center>
@@ -326,7 +332,7 @@
 							<center>
 								<form action="{{ path('ml_administration_delete_topic') }}" method="post">
 									<input type = "hidden" name = "topic_id" value = {{ topic.id }} />
-									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+									<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-remove"></i> </button>
 								</form>
 							</center>
 						</td>
@@ -391,7 +397,7 @@
 								<form action="{{ path('ml_administration_delete_comment') }}" method="post">
 									<input type = "hidden" name = "comment_id" value = {{ item.comment.id }} />
 									<input type = "hidden" name = "topic_id" value = {{ item.topic.id }} />
-									<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+									<button class="btn btn-danger btn-xs" type="submit"><i class="glyphicon glyphicon-remove"></i> </button>
 								</form>
 							</center>
 						</td>

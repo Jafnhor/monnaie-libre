@@ -28,11 +28,13 @@
 							<div id="accordion">
 								<h3>Group's members list</h3>
 								<div>
-									<table align = "center">
+									<table align = "center" class = "table">
 										<tr>
-											<td>
-												<center><b>Premium</b></center>
-											</td>
+											{# 
+												<td>
+													<center><b>Premium</b></center>
+												</td>
+											#}
 											<td>
 												<center><b>Karma</b></center>
 											</td>
@@ -46,24 +48,25 @@
 												<center><b>Login</b></center>
 											</td>
 											<td>
-												<center><b>Birth Date</b></center>
-											</td>
-											<td>
 												<center><b>Status</b></center>
 											</td>
-											{% if is_administrator is sameas(true) %}
-												<center><b>Delete</b></center>
-											{% endif %}
-										</tr>
-										<tr>
 											<td>
-												{% if administrator_group_data.premium is sameas(false) %}
-													<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
-												{% endif %}
-												{% if administrator_group_data.premium is sameas(true) %}
-													<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
+												{% if is_administrator is sameas(true) %}
+													<center><b>Delete</b></center>
 												{% endif %}
 											</td>
+										</tr>
+										<tr>
+											{#
+												<td>
+													{% if administrator_group_data.premium is sameas(false) %}
+														<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
+													{% endif %}
+													{% if administrator_group_data.premium is sameas(true) %}
+														<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
+													{% endif %}
+												</td>
+											#}
 											<td>
 												<center>{{ administrator_group_data.karma }}</center>
 											</td>
@@ -77,22 +80,23 @@
 												<center>{{ administrator_group_data.login }}</center>
 											</td>
 											<td>
-												<center>{{ administrator_group_data.birthDate|date('d/m/Y') }}</center>
+												<center>Administrator</center>
 											</td>
 											<td>
-												<center>Administrator</center>
 											</td>
 										</tr>
 										{% for member in members %}
 											<tr>
-												<td>
-													{% if member.user.premium is sameas(false) %}
-														<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
-													{% endif %}
-													{% if member.user.premium is sameas(true) %}
-														<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
-													{% endif %}
-												</td>
+												{#
+													<td>
+														{% if member.user.premium is sameas(false) %}
+															<center><img src = "{{ asset('img/not_premium.jpg') }}" /></center>
+														{% endif %}
+														{% if member.user.premium is sameas(true) %}
+															<center><img src = "{{ asset('img/premium.jpg') }}" /></center>
+														{% endif %}
+													</td>
+												#}
 												<td>
 													<center>{{ member.user.karma }}</center>
 												</td>
@@ -106,9 +110,6 @@
 													<center>{{ member.user.login }}</center>
 												</td>
 												<td>
-													<center>{{ member.user.birthDate|date('d/m/Y') }}</center>
-												</td>
-												<td>
 													<center>
 														Member
 													</center>
@@ -119,7 +120,7 @@
 															<form action="{{ path('ml_group_delete_user') }}" method="post">
 																<input type = "hidden" name = "group_id" value = {{ group_id }} />
 																<input type = "hidden" name = "member_id" value = {{ member.user.id }} />
-																<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+																<button class="btn btn-danger btn-xs" type="submit"><i class="icon-white glyphicon glyphicon-remove"></i> </button>
 															</form>
 														</center>
 													</td>
@@ -133,7 +134,7 @@
 									{% if associated_services is defined %}
 										{% if associated_services is not null %}
 											<center>
-												<table>
+												<table align = "center" class = "table">
 													<tr>
 														<td>
 															<center><b>Title</b></center>
@@ -150,8 +151,8 @@
 														<td>
 															<center><b>Creator</b></center>
 														</td>
-														{% if administrator is defined %}
-															{% if administrator is sameas(true) %}
+														{% if is_administrator is defined %}
+															{% if is_administrator is sameas(true) %}
 																<td>
 																	<center><b>Delete</b></center>
 																</td>
@@ -207,7 +208,7 @@
 																			{% endif %}
 																				<input type = "hidden" name = "group_id" value = {{ group_id }} />
 																				<input type = "hidden" name = "service_id" value = {{ service.id }} />
-																				<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+																				<button class="btn btn-danger btn-xs" type="submit"><i class="icon-white glyphicon glyphicon-remove"></i> </button>
 																			</form>
 																		</center>
 																	</td>
@@ -231,7 +232,7 @@
 										<h3>Requests to join the group</h3>
 										{% if requests is not null %}
 											<div>
-												<table align = "center">
+												<table align = "center" class = "table">
 													<tr>
 														<td>
 															<center><b>Last name</b></center>
@@ -277,7 +278,7 @@
 																	<form action="{{ path('ml_group_accept_user') }}" method="post">
 																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
 																		<input type = "hidden" name = "user_id" value = {{ request.user.id }} />
-																		<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+																		<button class="btn btn-success btn-xs" type="submit"><i class="icon-white glyphicon glyphicon-ok"></i> </button>
 																	</form>
 																</center>
 															</td>
@@ -286,7 +287,7 @@
 																	<form action="{{ path('ml_group_refuse_user') }}" method="post">
 																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
 																		<input type = "hidden" name = "user_id" value = {{ request.user.id }} />
-																		<button class="btn btn-danger btn-mini" type="submit"><i class="icon-white icon-remove"></i> </button>
+																		<button class="btn btn-danger btn-xs" type="submit"><i class="icon-white glyphicon glyphicon-remove"></i> </button>
 																	</form>
 																</center>
 															</td>
@@ -303,7 +304,7 @@
 										{% if users is not null %}
 											<h3>Add users to the group</h3>
 											<div>
-												<table align = "center">
+												<table align = "center" class = "table">
 													<tr>
 														<td>
 															<center><b>Last name</b></center>
@@ -334,7 +335,7 @@
 																	<form action="{{ path('ml_group_add_user') }}" method="post">
 																		<input type = "hidden" name = "group_id" value = {{ group_id }} />
 																		<input type = "hidden" name = "user_id" value = {{ user.id }} />
-																		<button class="btn btn-success btn-mini" type="submit"><i class="icon-white icon-ok"></i> </button>
+																		<button class="btn btn-success btn-xs" type="submit"><i class="icon-white glyphicon glyphicon-ok"></i> </button>
 																	</form>
 																</center>
 															</td>
@@ -358,22 +359,22 @@
 				Justify your request : <br>
 				<textarea name = "message_join_group" rows="3" cols="20">
 				</textarea><br><br>
-				<button class="btn btn-primary btn-mini" type="submit">Send request to join {{ group.name }}<i class="icon-white icon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Send request to join {{ group.name }} <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_member is sameas(true) %}
 			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-mini" type="submit">Leave group<i class="icon-white icon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Leave group <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_administrator is sameas(true) %}
 			<form action="{{ path('ml_group_delete_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-mini" type="submit">Delete group<i class="icon-white icon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Delete group <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_waiting is sameas(true) %}
 			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-mini" type="submit">Cancel the request<i class="icon-white icon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Cancel the request <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 	</center>

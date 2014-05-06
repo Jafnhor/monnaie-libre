@@ -19,16 +19,6 @@ class CouchsurfingEval extends Evaluation
     private $service;
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set service
      *
      * @param string $service

@@ -13,8 +13,22 @@
 					<div class="well">
 						<form method="post" class="Sale" {{ form_enctype(form) }}>
 							<h3 id = "title_form"><b>Sale your stuff</b></h3>
-							{{ form_widget(form) }}
-							<input type="submit" class="btn btn-primary" id="form_validatation" value = "Create" />
+							{{ form_label(form.title) }}
+							{{ form_errors(form.title) }}
+							{{ form_widget(form.title) }}<br><br>
+							{{ form_label(form.comment) }}
+							{{ form_errors(form.comment) }}
+							{{ form_widget(form.comment) }}<br><br>
+							{{ form_label(form.price) }}
+							{{ form_errors(form.price) }}
+							{{ form_widget(form.price) }}<br><br>
+							{{ form_label(form.file) }}
+							{{ form_errors(form.file) }}
+							{{ form_widget(form.file) }}<br><br>
+							{{ form_label(form.associatedGroup) }}
+							{{ form_errors(form.associatedGroup) }}
+							{{ form_widget(form.associatedGroup) }}<br><br>
+							<button id="form_validatation" class="btn btn-primary btn-xs" type="submit">Créer <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 						</form>
 					</div>
 				</td>

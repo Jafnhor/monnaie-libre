@@ -84,6 +84,7 @@ class CouchSurfing extends Service
         $this->dateStart = date_create(date('Y-m-d'));
         $this->dateEnd = date_create(date('Y-m-d'));
 		$this->limitNumberOfGuest = NULL;
+		$this->limitGuest = false;
     }
 
     /**

@@ -17,16 +17,7 @@ class CarpoolingEval extends Evaluation
 	  * @ORM\ManyToOne(targetEntity="Ml\ServiceBundle\Entity\Carpooling")
 	  */
     private $service;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
 
     /**
      * Set service
@@ -41,13 +32,4 @@ class CarpoolingEval extends Evaluation
         return $this;
     }
 
-    /**
-     * Get service
-     *
-     * @return string 
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
 }

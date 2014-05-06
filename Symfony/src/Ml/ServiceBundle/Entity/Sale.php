@@ -109,17 +109,55 @@ class Sale extends Service
 			return;
 		}
 
-		// utilisez le nom de fichier original ici mais
-		// vous devriez « l'assainir » pour au moins éviter
-		// quelconques problèmes de sécurité
+		$filename = $this->file->getClientOriginalName();
+ 
+		// A ce stade $extension vaudra ".gif"
+		 
+		$extension = strrchr($filename,'.');
+		
+		global $kernel;
+	
+		/* Test connexion */
+		$req = $kernel
+			    ->getContainer()
+				->get('request');		
+		try {		
+		    $login = $kernel
+			    ->getContainer()
+				->get('ml.session')
+				->sessionExist($req);
+		}
+		catch (\Exception $e) {
+		    return $kernel
+			    ->getContainer()
+				->redirect($kernel
+			    ->getContainer()->generateUrl('ml_user_add'));		    
+		}
+		
+		if ($login == NULL) {
+			return $kernel
+			    ->getContainer()
+				->redirect($kernel
+			    ->getContainer()->generateUrl('ml_user_add'));
+		}
+		
+		$em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+		
+		$req_max_id = $em->createQuery(
+			'SELECT MAX(s.id) AS max_id
+			FROM MlServiceBundle:Sale s');
+
+		$max_id = $req_max_id->getResult();
+		
+		$fichier_final = ((int)$max_id[0]['max_id'] + 1) . $extension;
 
 		// la méthode « move » prend comme arguments le répertoire cible et
 		// le nom de fichier cible où le fichier doit être déplacé
-		$this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
+		$this->file->move($this->getUploadRootDir(), $fichier_final);
 
 		// définit la propriété « path » comme étant le nom de fichier où vous
 		// avez stocké le fichier
-		$this->path = $this->file->getClientOriginalName();
+		$this->path = $fichier_final;
 
 		// « nettoie » la propriété « file » comme vous n'en aurez plus besoin
 		$this->file = null;

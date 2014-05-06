@@ -44,6 +44,11 @@ class ServiceController extends Controller {
 				->findOneByLogin($login);
 				
 		$services = NULL;
+	    $price = NULL;
+		$creator_login = NULL;
+		$sale = NULL;
+		$carpooling = NULL;
+		$couchsurfing = NULL;
 
 		if ($req->getMethod() == 'POST') {
 			$carpooling = false;
@@ -54,7 +59,7 @@ class ServiceController extends Controller {
 			$creator_login = $req->request->get('creator');
 			$creator = NULL;
 			
-			if ($creator_login != NULL) {
+			if ($creator_login != NULL && $creator_login != "no_login") {
 				$creator = $this->getDoctrine()
 							   ->getManager()
 							   ->getRepository('MlUserBundle:User')
@@ -575,12 +580,19 @@ class ServiceController extends Controller {
 				->getManager()
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
-
-	
-		$em=$this->getDoctrine()->getManager();
-		$service=$em->getRepository('MlServiceBundle:Carpooling')->findById('3');
 		
-		$em->remove($service[0]);
+		if ($user == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+		
+		$carpooling_id = $req->request->get("carpooling_id");
+	
+		$em = $this->getDoctrine()->getManager();
+		
+		$carpooling = $em->getRepository('MlServiceBundle:Carpooling')
+			->findOneById($carpooling_id);
+		
+		$em->remove($carpooling);
 		$em->flush();
 
 		//$this->get('session')->getFlashBag->add('supprimer','Votre service a été supprimé');
@@ -717,12 +729,19 @@ class ServiceController extends Controller {
 				->getManager()
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
-
-	
-		$em=$this->getDoctrine()->getManager();
-		$service=$em->getRepository('MlServiceBundle:CouchSurfing')->findById('3');
 		
-		$em->remove($service[0]);
+		if ($user == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
+
+		$couchsurfing_id = $req->request->get("couchsurfing_id");
+	
+		$em = $this->getDoctrine()->getManager();
+		
+		$couchsurfing = $em->getRepository('MlServiceBundle:Couchsurfing')
+			->findOneById($couchsurfing_id);
+		
+		$em->remove($couchsurfing);
 		$em->flush();
 
 		//$this->get('session')->getFlashBag->add('supprimer','Votre service a été supprimé');
@@ -829,7 +848,7 @@ class ServiceController extends Controller {
 			$saleUser = new SaleUser;
 			
 			$saleUser->setApplicant($user);
-			$saleUser->setCouchsurfing($data_sale);
+			$saleUser->setSale($data_sale);
 			
 			$em->persist($saleUser);
 			$em->flush();
@@ -858,11 +877,18 @@ class ServiceController extends Controller {
 				->getRepository('MlUserBundle:User')
 				->findOneByLogin($login);
 
-	
-		$em=$this->getDoctrine()->getManager();
-		$service=$em->getRepository('MlServiceBundle:Sale')->findById('3');
+		if ($user == NULL) {
+			return $this->redirect($this->generateUrl('ml_user_add'));
+		}
 		
-		$em->remove($service[0]);
+		$sale_id = $req->request->get("sale_id");
+	
+		$em = $this->getDoctrine()->getManager();
+		
+		$sale = $em->getRepository('MlServiceBundle:Sale')
+			->findOneById($sale_id);
+		
+		$em->remove($sale);
 		$em->flush();
 
 		//$this->get('session')->getFlashBag->add('supprimer','Votre service a été supprimé');

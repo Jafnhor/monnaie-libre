@@ -6,14 +6,14 @@
 	
 {% block transaction_body %}
 	<div class="well">
-	    <h2>Evaluation du service {{evaluation.service.title}}</h2>
+	    <h2>Evaluation du service {{evaluation.service.title}}</h2><br>
 	    <form method="post" action="{{path('ml_transaction_evaluation',{'serviceType':serviceType,'id':evaluation.id})}}">
 	        <h3>Pour rappel : </h3>
 	        Prestataire du service : {{evaluation.owner.login}}<br />
-	        Prix du service : {{evaluation.service.price}}<br />
+	        Prix du service : {{evaluation.service.price}} ₱<br /><br>
 	        <h3>Noter : </h3>
-	        Notez ce service : 0<input type="range" name="note" value="5" step="1" min="0" max="10" />10 <br />
-	        <input type="submit" value="Payer et noter" />
+	        Notez ce service :<br><br> 0 <div id = "cursor">10</div><input type="range" name="note" value="5" step="1" min="0" max="10" /> <br />
+	        <center><button class="btn btn-primary btn-xs" type="submit">Payer et noter <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button></center>
 	    </form>
 	</div>
 

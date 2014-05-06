@@ -20,8 +20,6 @@ class UserType extends AbstractType
 											'label' => 'Last Name'))
             ->add('firstName','text', array(
 											'label' => 'First Name'))
-			->add('birthDate','birthday', array(
-											'label' => 'Birth Date'))
             ->add('login','text', array(
 											'label' => 'Login'))
             ->add('password','password', array(

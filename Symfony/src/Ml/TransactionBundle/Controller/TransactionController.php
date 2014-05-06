@@ -39,6 +39,14 @@ class TransactionController extends Controller
 							->getRepository('MlTransactionBundle:Transaction')
 							->findBy(array("creditedAccount" => $user->getAccount()),array('date' => 'DESC'));
 		
+		if ($outTransactions == NULL) {
+			$outTransactions = NULL;
+		}
+		
+		if ($inTransactions == NULL) {
+			$inTransactions = NULL;
+		}
+		
 		return $this->render('MlTransactionBundle:Transaction:index.html.twig', array(
 		  'outTransactions' => $outTransactions,
 		  'inTransactions' => $inTransactions,

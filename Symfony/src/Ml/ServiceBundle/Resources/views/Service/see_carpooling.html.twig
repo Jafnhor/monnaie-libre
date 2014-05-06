@@ -96,9 +96,16 @@
 				<tr>
 					<td colspan = "4">
 						<div class = "well">
-							<form action="" method="post">
-								<input type="submit" class="btn btn-primary" id="form_reservation" value = "Reserve" />
-							</form>
+							{% if user is not sameas(carpool.user) %}
+								<form action="" method="post">
+									<button id="form_reservation" class="btn btn-primary btn-xs" type="submit">Réserver <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+								</form>
+							{% else %}
+								<form action="{{ path('ml_service_delete_carpooling') }}" method="post">
+									<input type = "hidden" name = "carpooling_id" value = {{ carpool.id }} />
+									<button id="form_reservation" class="btn btn-danger btn-xs" type="submit">Supprimer <i class="icon-white glyphicon glyphicon-remove-sign"></i> </button>
+								</form>
+							{% endif %}
 						</div>
 					</td>
 				</tr>

@@ -1,8 +1,61 @@
-{% extends "MlHomeBundle::layout.html.twig" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-{% block title %}
- {{ parent() }} - Home
-{% endblock %}
+    <title>Poavre</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	
-{% block home_body %}
-{% endblock %}
+    <link href="{{ asset('css/carousel.css') }}" rel="stylesheet">
+  </head>
+  <body bgcolor = "#777">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Poavre</h1>
+              <p>Rien à voir avec ce que mettez sur votre steak, Poavre est le 1er site français 
+			  basé sur le système d'échange local (SEL) où l'échange se fait grâce à une monnaie libre</p>
+              <p><a class="btn btn-lg btn-primary" href="http://fr.wikipedia.org/wiki/Système_d'échange_local" target="blank" role="button">En savoir plus sur le SEL</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Une monnaie libre? Qu'est-ce que c'est?</h1>
+              <p>Une alternative au systeme financier actuel basé sur l'échange, la création et le partage</p>
+              <p><a class="btn btn-lg btn-primary" href="http://fr.ekopedia.org/Monnaie_libre" target="blank" role="button">En savoir plus</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Pourquoi dois-je m'inscrire?</h1>
+              <p>Parce que c'est bon pour moi et pour les autres poavriens</p>
+              <p><a class="btn btn-lg btn-primary" href="{{ path('ml_user_add') }}" role="button">Inscription</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/docs.min.js') }}"></script>
+  </body>
+</html>

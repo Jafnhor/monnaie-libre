@@ -142,7 +142,7 @@ class GroupController extends Controller {
 							$em->flush();
 						}
 
-					return $this->redirect($this->generateUrl('ml_home_homepage'));
+					return $this->redirect($this->generateUrl('ml_group_display_group', array('group_id' => $group->getId())));
 				}
 			}
 			// No users in database
@@ -172,7 +172,7 @@ class GroupController extends Controller {
 					$em->persist($group);
 					$em->flush();
 
-					return $this->redirect($this->generateUrl('ml_home_homepage'));
+					return $this->redirect($this->generateUrl('ml_group_display_group', array('group_id' => $group->getId())));
 
 				}
 			}	
