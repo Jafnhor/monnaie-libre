@@ -8,55 +8,79 @@
 	<div class="well">
 	    <h2>Your account</h2>
 	    Balance : {{user.account.amount}} ₱<br />
-	    Authorized Overdraft : {{user.account.authorizedOverdraft}} <br />
+	    Authorized Overdraft : {{user.account.authorizedOverdraft}} ₱ <br /><br>
 	    <a href="{{path('ml_transaction_payment')}}">New payment</a>
 	</div>
 	
 	<div class="well">
 	    <h2>Debits</h2>
-	    <table style="text-align: center;">
+	    <table align = "center" class = "table">
 	        <tr>
-	            <th>Date</th>
-	            <th>Amount</th>
-	            <th>Recipient</th>
-	            <th>Label</th>
+	            <td align = "center"><b>Date</th>
+	            <td align = "center"><b>Amount</th>
+	            <td align = "center"><b>Recipient</th>
+	            <td align = "center"><b>Label</th>
 	        </tr>
 	        {% if outTransactions is defined%}
 	            {% if outTransactions is not null%}
 	                {% for transaction in outTransactions%}
 	                <tr>
-	                    <td>{{transaction.date|date("d/m/y")}}</td>
-	                    <td style="color:red;">-{{transaction.amount}}</td>
-	                    <td>{{transaction.creditedAccount.owner.login}}</td>
-	                    <td>{{transaction.flag}}</td>
+	                    <td align = "center">{{transaction.date|date("d/m/y")}}</td>
+	                    <td align = "center" style="color:red;">-{{transaction.amount}}</td>
+	                    <td align = "center">{{transaction.creditedAccount.owner.login}}</td>
+	                    <td align = "center">{{transaction.flag}}</td>
 	                 </tr>
 	                {% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan = "4">
+							Aucun débit
+						</td>
+					</tr>
 	            {% endif %}
+			{% else %}
+				<tr>
+					<td align = "center" colspan = "4">
+						Aucun débit
+					</td>
+				</tr>
 	        {% endif %}
 	    </table>
 	</div>
-	
+	<br><br>
 	<div class="well">
 	    <h2>Credits</h2>
-	    <table style="text-align: center;">
+	    <table align = "center" class = "table">
 	        <tr>
-	            <th>Date</th>
-	            <th>Amount</th>
-	            <th>Sender</th>
-	            <th>Label</th>
+	            <td align = "center"><b>Date</b></td>
+	            <td align = "center"><b>Amount</b></td>
+	            <td align = "center"><b>Sender</b></td>
+	            <td align = "center"><b>Label</b></td>
 	        </tr>
 	        {% if inTransactions is defined%}
 	            {% if inTransactions is not null%}
 	                {% for transaction in inTransactions%}
 	                <tr>
-	                    <td>{{transaction.date|date("d/m/y")}}</td>
-	                    <td style="color:green;">{{transaction.amount}}</td>
-	                    <td>{{transaction.debitedAccount.owner.login}}</td>
-	                    <td>{{transaction.flag}}</td>
+	                    <td align = "center">{{transaction.date|date("d/m/y")}}</td>
+	                    <td align = "center" style="color:green;">{{transaction.amount}}</td>
+	                    <td align = "center">{{transaction.debitedAccount.owner.login}}</td>
+	                    <td align = "center">{{transaction.flag}}</td>
 	                </tr>
 	                {% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan = "4">
+							Aucun crédit
+						</td>
+					</tr>
 	            {% endif %}
-	        {% endif %}
+	        {% else %}
+				<tr>
+					<td align = "center" colspan = "4">
+						Aucun crédit
+					</td>
+				</tr>
+			{% endif %}
 	    </table>
 	</div>
 

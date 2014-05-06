@@ -15,7 +15,7 @@
 						<h4><b>Choisissez votre service</b></h4><br>
 						<form action="{{ path('ml_service_homepage') }}" method="post">
 							Type
-							<select style = "height:65px; margin-left:40px;" multiple name="type[]">
+							<select style = "height:56px; margin-left:40px;" multiple name="type[]">
 								{% if basic is sameas(true) %}
 									<option value = "basic" selected>Basique</option>
 								{% else %}
@@ -39,6 +39,11 @@
 							</select><br><br><br>
 							Créateur
 							<select style = "margin-left:15px;" name="creator">
+								{% if creator_login is sameas("no_login") %}
+									<option value = "no_login" selected>Pas de tri</option>
+								{% else %}
+									<option value = "no_login">Pas de tri</option>
+								{% endif %}
 								{% for user in users %}
 									{% if creator_login is sameas(user.login) %}
 										<option value = "{{ user.login }}" selected>{{ user.login }}</option>
@@ -65,7 +70,7 @@
 									<option value = "desc">Décroissant</option>
 								{% endif %}
 							</select><br><br>
-							<button class="btn btn-primary btn-mini" type="submit">Confirmer <i class="icon-white icon-ok-sign"></i> </button>
+							<button class="btn btn-primary btn-xs" type="submit">Confirmer <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 						</form>
 					</center>
 				</div>
@@ -76,7 +81,7 @@
 				<div class="well">
 					{% if servicess is defined %}
 						{% if servicess is not null %}
-							<table align="center">
+							<table align="center" class = "table">
 								<tr>
 									<td>
 										<center><b>Titre</b></center>

@@ -13,8 +13,40 @@
 					<div class="well">
 						<form method="post" class="CouchSurfing" {{ form_enctype(form) }}>
 							<h3 id = "title_form"><b>Create a CouchSurfing service</b></h3>
-							{{ form_widget(form) }}
-							<input type="submit" class="btn btn-primary" id="form_validatation" value = "Create" />
+							{{ form_label(form.title) }}
+							{{ form_errors(form.title) }}
+							{{ form_widget(form.title) }}<br><br>
+							{{ form_label(form.comment) }}
+							{{ form_errors(form.comment) }}
+							{{ form_widget(form.comment) }}<br><br>
+							{{ form_label(form.price) }}
+							{{ form_errors(form.price) }}
+							{{ form_widget(form.price) }}<br><br>
+							{{ form_label(form.location) }}
+							{{ form_errors(form.location) }}
+							{{ form_widget(form.location) }}<br><br>
+							{{ form_label(form.dateStart) }}
+							{{ form_errors(form.dateStart) }}
+							{{ form_widget(form.dateStart) }}<br>
+							{{ form_label(form.dateEnd) }}
+							{{ form_errors(form.dateEnd) }}
+							{{ form_widget(form.dateEnd) }}<br>
+							{{ form_label(form.hourStart) }}
+							{{ form_errors(form.hourStart) }}
+							{{ form_widget(form.hourStart) }}<br>
+							{{ form_label(form.hourEnd) }}
+							{{ form_errors(form.hourEnd) }}
+							{{ form_widget(form.hourEnd) }}<br>
+							{{ form_label(form.limitGuest) }}
+							{{ form_errors(form.limitGuest) }}
+							{{ form_widget(form.limitGuest) }}<br><br>
+							{{ form_label(form.limitNumberOfGuest) }}
+							{{ form_errors(form.limitNumberOfGuest) }}
+							{{ form_widget(form.limitNumberOfGuest) }}<br><br>
+							{{ form_label(form.associatedGroup) }}
+							{{ form_errors(form.associatedGroup) }}
+							{{ form_widget(form.associatedGroup) }}<br><br>
+							<button id="form_validatation" class="btn btn-primary btn-xs" type="submit">Créer <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 						</form>
 					</div>
 				</td>

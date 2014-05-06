@@ -35,7 +35,7 @@
 						<div class = "well">
 							<h4 class = "service">Picture :</h4>
 							{% if sale.path is not null %}
-								<h4 class = "service"><img src = "./../../../../uploads/documents/{{ sale.path }}" width = "300px" heigth = "300px" alt "No picture" />
+								<h4 class = "service"><img class = "sale" src = "./../../../../uploads/documents/{{ sale.path }}" alt "No picture" />
 							{% else %}
 								<h4 class = "service">No picture
 							{% endif %}
@@ -45,9 +45,16 @@
 				<tr>
 					<td colspan = "4">
 						<div class = "well">
-							<form action="" method="post">
-								<input type="submit" class="btn btn-primary" id="form_reservation" value = "Reserve" />
-							</form>
+							{% if user is not sameas(sale.user) %}
+								<form action="" method="post">
+									<button id="form_reservation" class="btn btn-primary btn-xs" type="submit">Réserver <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+								</form>
+							{% else %}
+								<form action="{{ path('ml_service_delete_sale') }}" method="post">
+									<input type = "hidden" name = "sale_id" value = {{ sale.id }} />
+									<button id="form_reservation" class="btn btn-danger btn-xs" type="submit">Supprimer <i class="icon-white glyphicon glyphicon-remove-sign"></i> </button>
+								</form>
+							{% endif %}
 						</div>
 					</td>
 				</tr>

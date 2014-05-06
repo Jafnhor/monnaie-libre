@@ -12,10 +12,52 @@
 	{% endif %}
 	    <form method="post" class="payment">
 		    <h3 id = "titre_formulaire">New payment</h3>
-		    <label>Recipient: <input type="text" name="recipient" required="required" /></label>
-		    <label>Amount: <input type="number" name="amount" required="required" /></label>
-		    <label>Flag: <input type="text" name="flag" /></label>
-		    <input type="submit" class="btn btn-primary" id="form_validatation" />
+			<table align = "center">
+				<tr>
+					<td>
+						Recipient
+					</td>
+					<td>
+						&nbsp;&nbsp;<input type="text" name="recipient" required="required" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Amount
+					</td>
+					<td>
+						&nbsp;&nbsp;<input type="number" name="amount" required="required" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Flag
+					</td>
+					<td>
+						&nbsp;&nbsp;<input type="text" name="flag" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td align = "center" colspan = "2">
+						 <button id="form_validatation" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+					</td>
+				</tr>
+			</table>
 	    </form>
     </div>
 

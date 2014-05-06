@@ -5,40 +5,42 @@
 {% endblock %}
 
 {% block body %}
-	<div class = "well">
-		<div align="center">
-			<img src="{{ asset('img/WebSocial.png') }}" alt="Web Social Pour Monnaie Libre"/>
-		</div>
-		<div align="center">
-			<form action="{{ path('ml_user_connexion') }}" method="post">
-				Login <input style="margin-right: 10px" class="input-mini" type="text" id="login" name="login" />
-				Password <input style="margin-right: 10px" class="input-mini" type="password" id="mot_de_passe" name="mot_de_passe" style = "margin-right: 10px;" />
-				<button class="btn btn-primary btn-mini" type="submit">Sign in <i class="icon-white icon-ok-sign"></i> </button>
-			</form>
-		</div>
-	</div>
+<div class = "well">
+	<h1 align="center"><b>Poavre</b></h1>
+</div>
 
 <hr>
 
-	{% if erreur is defined %}
-		<h5 style="color:red">{{ erreur }}</h5>
-	{% endif %}
+{% if error is defined %}
+<h5 style="color:red">{{ error }}</h5>
+{% endif %}
 
-	{% if form is defined %}
-		<table class="table">
-			<tr>
-				<td>
-					<div class="well">
-						<form method="post" class="User" {{ form_enctype(form) }}>
-							<h3 id = "titre_formulaire"><b>Sign up form</b></h3>
-							{{ form_widget(form) }}
-							<input type="submit" class="btn btn-primary" id="form_validatation" />
-						</form>
-					</div>
-				</td>
-				
-			</tr>
-		</table>
-	{% endif %}
+<table class="table">
+	<tr>
+		<td>
+			<div class="well" align="center">
+				<form class="form-signin" role="form" action="{{ path('ml_user_connexion') }}" method="post">
+					<h2 class="form-signin-heading">Connexion</h2>
+					<input type="text" class="form-control" placeholder="Pseudo" id="login" name="login" required autofocus>
+					<input type="password" class="form-control" placeholder="Mot de passe" id="mot_de_passe" name="mot_de_passe" required>
+					<br><br>
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+				</form>
+			</div>
+		</td>
+		<td>
+			<div class="well">
+				<form method="post" class="form-signin" role="form">
+					<center><h2 id = "titre_formulaire">Inscription</h2></center>
+					<input type="text" class="form-control" placeholder="Nom" id="lastName" name="lastName" required>
+					<input type="text" class="form-control" placeholder="Prénom" id="firstName" name="firstName" required>
+					<input type="text" class="form-control" placeholder="Pseudo" id="login" name="login" required>
+					<input type="password" class="form-control" placeholder="Mot de passe" id="password" name="password" required><br>
+					<input type="submit" class="btn btn-lg btn-primary btn-block" id="form_validatation" />
+				</form>
+			</div>
+		</td>
+	</tr>
+</table>
 
 {% endblock %}

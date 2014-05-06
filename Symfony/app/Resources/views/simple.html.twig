@@ -11,10 +11,20 @@
 		
 		<footer class = "row">
 			<div align = "center" class = "well">
-				<p><button style="margin-right: 5px" class="btn btn-small"><a href="{{ path('ml_user_homepage') }}">A propos</a></button>
-				<button style="margin-right: 5px" class="btn btn-small"><a href="{{ path('ml_user_homepage') }}">Développeurs</a></button>
-				<button class="btn btn-small"><a href="{{ path('ml_user_homepage') }}">Aide</a></button></p>
-				<p><h5><i style="margin-right: 5px" class="icon-hand-right"></i>Web Social Pour Monnaie Libre<i style="margin-left: 5px" class="icon-hand-left"></i></h5></p>
+				<ul class="nav nav-pills nav-stacked">
+					<li>
+						<form action="{{ path('ml_home_homepage') }}" method="post">
+							<input type = "submit" value = "A propos" style = "margin-right: 20px" class="btn btn-sm" />
+						</form>
+						<form action="{{ path('ml_home_homepage') }}" method="post">
+							<input type = "submit" value = "Développeurs" style = "margin-right: 20px" class="btn btn-sm" />
+						</form>
+						<form action="{{ path('ml_home_homepage') }}" method="post">
+							<input type = "submit" value = "Aide" style = "margin-right: 20px" class="btn btn-sm" />
+						</form>
+					</li>
+				</ul>
+				<p><h5><i style="margin-right: 5px" class="glyphicon glyphicon-hand-right"></i>Poavre<i style="margin-left: 5px" class="glyphicon glyphicon-hand-left"></i></h5></p>
 			</div>
 		</footer>
 	</div>

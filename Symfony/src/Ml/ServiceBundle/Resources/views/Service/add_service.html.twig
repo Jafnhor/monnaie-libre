@@ -7,20 +7,20 @@
 {% block service_body %}
 
 	<table class="table">
-		<legend><b>Kind of service to create</b></legend>
+		<legend><b>Type de service à créer</b></legend>
 		<tr>
 			<td>
 				<div class="well">
 					<center>
-						<h4><b>Choose your kind of service</b></h4><br>
+						<h4><b>Choisissez votre type de service</b></h4><br>
 						<form action="{{ path('ml_service_add') }}" method="post">
 							<select name="type">
 								<option value = "basic">Basique</option>
-								<option value = "sale">Sale</option>
-								<option value = "carpooling">Carpooling</option>
+								<option value = "sale">Vente</option>
+								<option value = "carpooling">Covoiturage</option>
 								<option value = "couchsurfing">Couchsurfing</option>
 							</select><br><br>
-							<button class="btn btn-primary btn-mini" type="submit">Confirm <i class="icon-white icon-ok-sign"></i> </button>
+							<button class="btn btn-primary btn-xs" type="submit">Confirmer <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 						</form>
 					</center>
 				</div>

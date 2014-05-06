@@ -12,13 +12,13 @@
 				<b>
 					{% if topic.author is not sameas(user) %}
 						<form method = "POST" action = "{{ path('ml_forum_disliker_topic', { 'topic': topic.id }) }}">
-							<button type = "submit" value = "disliker" class = "btn  btn-link" name = "disliker"><i style = 'margin-bottom: 10px' class='icon-thumbs-down'></i></button>
+							<button type = "submit" value = "disliker" class = "btn  btn-link" name = "disliker"><i style = 'margin-bottom: 10px' class='glyphicon glyphicon-thumbs-down'></i></button>
 						</form>
 					{% endif %}
 					{{ topic.name }}
 					{% if topic.author is not sameas(user) %}
 						<form method = "POST" action = "{{ path('ml_forum_liker_topic', { 'topic': topic.id }) }}">
-							<button type = "submit" value = "liker" class = "btn  btn-link" name = "liker"><i style = 'margin-bottom: 10px' class='icon-thumbs-up'></i></button>
+							<button type = "submit" value = "liker" class = "btn  btn-link" name = "liker"><i style = 'margin-bottom: 10px' class='glyphicon glyphicon-thumbs-up'></i></button>
 						</form>
 					{% endif %}
 				</b>
@@ -64,8 +64,10 @@
 						<tr>
 							<td>
 								<form method="post" class="Comment" {{ form_enctype(form) }}>
-									{{ form_widget(form) }}
-									<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+									{{ form_label(form.message) }}<br>
+									{{ form_errors(form.message) }}
+									{{ form_widget(form.message) }}<br>
+									<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 								</form>
 							</td>
 						</tr>
@@ -75,8 +77,10 @@
 						<tr>
 							<td>
 								<form method="post" class="Comment" {{ form_enctype(form) }}>
-									{{ form_widget(form) }}
-									<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+									{{ form_label(form.message) }}<br>
+									{{ form_errors(form.message) }}
+									{{ form_widget(form.message) }}<br>
+									<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 								</form>
 							</td>
 						</tr>
@@ -87,8 +91,10 @@
 					<tr>
 						<td>
 							<form method="post" class="Comment" {{ form_enctype(form) }}>
-								{{ form_widget(form) }}
-								<input type="submit" class="btn btn-primary" id="form_validatation" value = "Validate" name = "createNewTopic" />
+								{{ form_label(form.message) }}<br>
+								{{ form_errors(form.message) }}
+								{{ form_widget(form.message) }}<br>
+								<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 							</form>
 						</td>
 					</tr>

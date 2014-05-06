@@ -22,6 +22,7 @@ class UserController extends Controller
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 
+
         $user=$this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
@@ -96,9 +97,9 @@ class UserController extends Controller
 		return $this->redirect($this->generateUrl('ml_user_see'));		
 	}
 
-	public function deleteAction(User $user)
+	public function deleteAction($user)
 	{
-		/* Test connexion */
+		/* Test connexion*/
 		$req = $this->get('request');
 		try {		
 		    $login = $this->container->get('ml.session')->sessionExist($req);
@@ -106,7 +107,7 @@ class UserController extends Controller
 		catch (\Exception $e) {
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
-
+ 
         $user=$this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
@@ -143,18 +144,13 @@ class UserController extends Controller
 										'password' => $request->request->get('mot_de_passe')));
 			/* login+password OK -> redirection vers notre page */
 			if ($user != NULL) {
-				if ($user->getVisible() == true) {
-					$session = new Session();
-					$session->start();
+				$session = new Session();
+				$session->start();
+			
+				$session->set('login', $request->request->get('login')); 
 				
-					$session->set('login', $request->request->get('login')); 
-					
-					return $this->render('MlUserBundle:User:see.html.twig', array(
-						'user' => $user));
-				}
-				else { /* user ban */
-					return $this->redirect($this->generateUrl('ml_user_add'));
-				}
+				return $this->render('MlUserBundle:User:see.html.twig', array(
+					'user' => $user));
 			}
 			else { /* login+password FAIL -> redirection inscription */
 				return $this->redirect($this->generateUrl('ml_user_add'));
@@ -174,5 +170,48 @@ class UserController extends Controller
 		$session->invalidate();
 		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
+	
+    public function editAction($id){
+	    // On crée un objet user
+	    $user = $this->getDoctrine()
+						->getRepository('MlUserBundle:User')
+						->findOneById($id);
 
+		// On crée le FormBuilder grâce à la méthode du contrôleur
+		$formBuilder = $this->createFormBuilder($user);
+
+		// On ajoute les champs de l'entité que l'on veut à notre formulaire
+		$formBuilder
+			->add('lastName', 'text')
+			->add('firstName', 'text');
+
+	    // À partir du formBuilder, on génère le formulaire
+	    $form = $formBuilder->getForm();
+		$request = $this->getRequest();
+
+		if ($request->getMethod() == 'POST') {
+			$form->bind($request);
+
+			if ($form->isValid()) {
+				// On enregistre l'article
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($article);
+				$em->flush();
+
+				// On définit un message flash
+				$this->get('session')->getFlashBag()->add('info', 'Article bien modifié');
+
+				return $this->redirect($this->generateUrl('ml_user_add', array('id' => $id)));
+
+			}
+		}
+		else {
+			return $this->render('MlUserBundle:User:edit.html.twig', array(
+				'form' => $form->createView(), 
+				'id' => $id,
+				'user' => $user));
+
+			// On passe la méthode createView() du formulaire à la vue afin qu'elle puisse afficher le formulaire toute seule
+		}
+	}
 }

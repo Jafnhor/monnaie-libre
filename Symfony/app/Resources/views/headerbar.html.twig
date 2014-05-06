@@ -9,22 +9,25 @@
 			</div>
 			<div id='prestations' class='pack-start'>
 				<a href="{{ path('ml_service_homepage') }}" title="Les prestations disponibles">Prestations</a>
-				<a href="{{ path('ml_service_add') }}" title="Proposer une prestation !"><i class="icon-plus-sign"></i></a>
+				<a href="{{ path('ml_service_add') }}" title="Proposer une prestation !"><i class="glyphicon glyphicon-plus-sign"></i></a>
 			</div>
-			<div id='groups' class='pack-start' title="Discutez autour de prestations"><a href="{{ path('ml_group_homepage') }}">Groups</a></div>
+			<div id='groups' class='pack-start' title="Regroupez-vous et proposez vos prestations !">
+				<a href="{{ path('ml_group_homepage') }}">Groups</a>
+				<a href="{{ path('ml_group_creation_group') }}" title="Créez votre propre groupe !"><i class="glyphicon glyphicon-plus-sign"></i></a>
+			</div>
 			<div id='forum' class='pack-start' title="Discutez de tout et n'importe quoi !"><a href="{{ path('ml_forum_homepage') }}">Forum</a></div>
 			
 			<div id='logout' class='pack-end'>
 				<form action="{{ path('ml_user_deconnexion') }}" method="post">
-					<button class="btn btn-primary btn-mini" type="submit">Déconnexion <i class="icon-white icon-ok-sign"></i> </button>
+					<button class="btn btn-primary btn-xs" type="submit">Déconnexion <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 				</form>
 			</div>
-			{% if user.master %}
-			<div id='admin' class='pack-end'>
-				<form action="{{ path('ml_administration_homepage') }}" method="post">
-					<button class="btn btn-primary btn-mini" type="submit">Administration</button>
-				</form>
-			</div></div>
+			{% if user.master or user.moderator %}
+				<div id='admin' class='pack-end'>
+					<form action="{{ path('ml_administration_homepage') }}" method="post">
+						<button class="btn btn-primary btn-xs" type="submit">Administration <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+					</form>
+				</div>
 			{% endif %}
 			<div class='pack-end'><img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}</div>
 			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> {{user.account.amount}} ₱</div>

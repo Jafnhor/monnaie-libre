@@ -76,14 +76,6 @@ class User
     private $password;
 
     /**
-     * @var date
-     *
-	 * @Assert\Date
-     * @ORM\Column(name="birthDate", type="date")
-     */
-    private $birthDate;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="karma", type="integer")
@@ -113,7 +105,6 @@ class User
 	
 	public function __construct() {
 		$this->karma = 0;
-		$this->birthDate = date_create(date('Y-m-d'));
 		$this->account = new Account(100.0);
 		$this->premium = false;
 		$this->moderator = false;
@@ -255,29 +246,6 @@ class User
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Set birthDate
-     *
-     * @param integer $birthDate
-     * @return User
-     */
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthDate
-     *
-     * @return integer 
-     */
-    public function getBirthDate()
-    {
-        return $this->birthDate;
     }
 
     /**

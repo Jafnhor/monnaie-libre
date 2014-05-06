@@ -7,17 +7,23 @@
 	
 {% block service_body %}
     <div class="well">
-        <h3>Les services que vous proposez</h3>
-        <table>
+        <h3>Les services que vous proposez</h3><br>
+        <table align = "center" class = "table">
             <tr>
-                <th>Titre</th>
-                <th>Commentaire</th>
-                <th>Prix</th>
+                <td align = "center"><b>Titre</b></td>
+                <td align = "center"><b>Commentaire</b></td>
+                <td align = "center"><b>Prix</b></td>
             </tr>
             {% for service in services %}
-                    <td>{{service.title}}</td>
-                    <td>{{service.comment}}</td>
-                    <td>{{service.price}}</td></a>
+			<tr>
+				<td align = "center">{{service.title}}</td>
+				{% if service.comment is not null %}
+					<td align = "center">{{service.comment}}</td>
+				{% else %}
+					<td align = "center">Aucun commentaire</td>
+				{% endif %}
+				<td align = "center">{{service.price}} ₱</td>
+			</tr>
             {% endfor %}
         </table>
     </div>
@@ -59,75 +65,75 @@
             </tr>
             {% for reservation in salesReserved %}
                 <tr>
-                    <td>{{reservation.sale.title}}</td>
-                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
-                    <td>{{reservation.applicant.login}}</td>
-                    <td>
+                    <td align = "center">{{reservation.sale.title}}</td>
+                    <td align = "center">{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td align = "center">{{reservation.applicant.login}}</td>
+                    <td align = "center">
                         <form action="{{path('ml_service_done')}}" method="post">
                             <input type="hidden" name="id" value="{{reservation.sale.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="sale" />
-                            <input type="submit" value="Service effectué" />
+                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">Vous n'avez aucune vente en attente</td>
+                    <td align = "center" colspan="4">Vous n'avez aucune vente en attente</td>
                 </tr>
             {% endfor %}
-        </table>
-        <table>
+        </table><br><br>
+        <table align = "center" class = "table">
             <tr>
-                <th>Offre d'hébergement</th>
-                <th>Date</th>
-                <th>Utilisateur</th>
-                <th>Valider</th>
+                <td align = "center"><b>Offre d'hébergement</b></td>
+                <td align = "center"><b>Date</b></td>
+                <td align = "center"><b>Utilisateur</b></td>
+                <td align = "center"><b>Valider</b></td>
             </tr>
             {% for reservation in couchsurfingsReserved %}
                 <tr>
-                    <td>{{reservation.couchsurfing.title}}</td>
-                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
-                    <td>{{reservation.applicant.login}}</td>
-                    <td>
+                    <td align = "center">{{reservation.couchsurfing.title}}</td>
+                    <td align = "center">{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td align = "center">{{reservation.applicant.login}}</td>
+                    <td align = "center">
                         <form action="{{path('ml_service_done')}}" method="post">
                             <input type="hidden" name="id" value="{{reservation.couchsurfing.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="couchsurfing" />
-                            <input type="submit" value="Service effectué" />
+                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">Vous n'avez aucune offre en attente</td>
+                    <td align = "center" colspan="4">Vous n'avez aucune offre d'hébergement en attente</td>
                 </tr>
             {% endfor %}
-        </table>
-        <table>
+        </table><br><br>
+        <table align = "center" class = "table">
             <tr>
-                <th>Covoiturage</th>
-                <th>Date</th>
-                <th>Utilisateur</th>
-                <th>Valider</th>
+                <td align = "center"><b>Covoiturage</b></td>
+                <td align = "center"><b>Date</b></td>
+                <td align = "center"><b>Utilisateur</b></td>
+                <td align = "center"><b>Valider</b></td>
             </tr>
             {% for reservation in carpoolingsReserved %}
                 <tr>
-                    <td>{{reservation.carpooling.title}}</td>
-                    <td>{{reservation.dateReservation|date('d/m/Y')}}</td>
-                    <td>{{reservation.applicant.login}}</td>
-                    <td>
+                    <td align = "center">{{reservation.carpooling.title}}</td>
+                    <td align = "center">{{reservation.dateReservation|date('d/m/Y')}}</td>
+                    <td align = "center">{{reservation.applicant.login}}</td>
+                    <td align = "center">
                         <form action="{{path('ml_service_done')}}" method="post">
                             <input type="hidden" name="id" value="{{reservation.carpooling.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="carpooling" />
-                            <input type="submit" value="Service effectué" />
+                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">Vous n'avez aucun service en attente</td>
+                    <td align = "center" colspan="4">Vous n'avez aucun service de covoiturage en attente</td>
                 </tr>
             {% endfor %}
         </table>
