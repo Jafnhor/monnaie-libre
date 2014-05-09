@@ -113,7 +113,9 @@ class AdministrationController extends Controller {
 							AND tu.topic = :value")
 						  ->setParameter('value', $value);
 												
-				$count_likes = (int)$likes->getResult()[0]['nb_likes'];
+				$count_likes_initial = $likes->getResult();
+			
+				$count_likes = (int)$count_likes_initial[0]['nb_likes'];
 				
 				$dislikes = $em->createQuery(
 							"SELECT COUNT(tu.avis) as nb_dislikes
@@ -123,7 +125,9 @@ class AdministrationController extends Controller {
 						    ->setParameter('value', $value);
 							
 												
-				$count_dislikes = (int)$dislikes->getResult()[0]['nb_dislikes'];
+				$count_dislikes_initial = $dislikes->getResult();
+				
+				$count_dislikes = (int)$count_dislikes_initial[0]['nb_dislikes'];
 				
 				$l_d = $count_likes - $count_dislikes;
 					
@@ -140,7 +144,8 @@ class AdministrationController extends Controller {
 						    ->setParameter('value', ($key));
 				
 				if (is_array($ratio_topic->getResult())) {
-					$topic = $ratio_topic->getResult()[0];
+					$topic_initial = $ratio_topic->getResult();
+					$topic = $topic_initial[0];
 				}
 				else {
 					$topic = $ratio_topic->getResult();

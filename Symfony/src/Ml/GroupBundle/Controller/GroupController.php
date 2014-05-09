@@ -93,9 +93,12 @@ class GroupController extends Controller {
 														'mapped' => false))
 							 ->getForm();
 							 
+				$name_initial = $req->request->get("form");
+				$name = $name_initial['name'];
+							 
 				$group_already_exist = $this->getDoctrine()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("form")['name']);
+					->findOneByName($name);
 				
 				if($group_already_exist != NULL) {
 						return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(
@@ -116,18 +119,21 @@ class GroupController extends Controller {
 					$em->flush();
 					
 					// If creator add members
-					if(isset($req->request->get("form")['users'])) {		
+					$users_initial = $req->request->get("form");
+					$users = $users_initial['users'];
+					
+					if($users != NULL) {		
 						$group_id = $this->getDoctrine()
 							->getRepository('MlGroupBundle:Groupp')
-							->findOneByName($req->request->get("form")['name']);
+							->findOneByName($name);
 							
 						// Add members to the group
-						for($i = 0; $i < sizeof($req->request->get("form")['users']); $i++) {
+						for($i = 0; $i < sizeof($users); $i++) {
 							  $groupUser[$i] = new GroupUser;
 							  
 							  $user_id = $this->getDoctrine()
 								->getRepository('MlUserBundle:User')
-								->findOneByLogin($req->request->get("form")['users'][$i]);
+								->findOneByLogin($users[$i]);
 
 							  // Link to the group which is here always the same
 							  $groupUser[$i]->setGroupp($group_id);
@@ -155,9 +161,12 @@ class GroupController extends Controller {
 				if ($req->getMethod() == 'POST') {	
 					$form->bind($req);
 					
+					$name_initial = $req->request->get("form");
+					$name = $name_initial['name'];
+					
 					$group_already_exist = $this->getDoctrine()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("form")['name']);
+					->findOneByName($name);
 					
 					if($group_already_exist != NULL) {
 							return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(
@@ -186,9 +195,12 @@ class GroupController extends Controller {
 			if ($req->getMethod() == 'POST') {
 				$form->bind($req);
 				
+				$name_initial = $req->request->get("form");
+				$name = $name_initial['name'];
+				
 				$group_already_exist = $this->getDoctrine()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("form")['name']);
+					->findOneByName($name);
 				
 				if($group_already_exist != NULL) {
 						return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(

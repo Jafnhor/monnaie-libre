@@ -61,35 +61,43 @@ class UserController extends Controller
 		catch (\Exception $e) {
 		    /* Création d'un nouvel utilisateur */	
 		    $user = new User;
-		
+
 		    $form = $this->createForm(new UserType(),$user);
 
 		    /* Vérification de non doublon du login */
 		    if($req->getMethod() == 'POST'){
 			    $form->bind($req);
+				
 			    $userExisteDeja = $this->getDoctrine()
 			    ->getRepository('MlUserBundle:User')
-			    ->findOneByLogin($form->getData()->getLogin());
-			
+			    ->findOneByLogin($this->getRequest()->request->get('login'));
+
 			    /* Doublon -> inscription impossible */
 			    if($userExisteDeja != NULL) {
 				    return $this->render('MlUserBundle:User:add.html.twig', array(
 					      'form' => $form->createView(),
 					      'erreur' => "Le login saisi est déjà pris, veuillez en choisir un autre"));
 			    }
-		
+				
+				$user->setLastName($this->getRequest()->request->get('lastName'));
+				$user->setFirstName($this->getRequest()->request->get('firstName'));
+				$user->setLogin($this->getRequest()->request->get('login'));
+				
+				$pass = $this->getRequest()->request->get('password');
+				$crypted_pass = md5($pass);
+				
+				$user->setPassword($crypted_pass);
+
 			    /* Aucun doublon -> inscription possible. Génération du formulaire d'inscription */
 
-			    if($form->isValid()){
-				    $em=$this->getDoctrine()->getManager();
-				    $em->persist($user);
-				    $em->flush();
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($user);
+				$em->flush();
 
-				    $this->get('session')->getFlashBag()->add('inscription','Bienvenue dans notre communauté');
-				    $this->get('session')->set('login', $form->getData()->getLogin()); 
+				$this->get('session')->getFlashBag()->add('inscription','Bienvenue dans notre communauté');
+				$this->get('session')->set('login', $form->getData()->getLogin()); 
 
-				    return $this->redirect($this->generateUrl('ml_user_see'));
-			    }
+				return $this->redirect($this->generateUrl('ml_user_see'));
 		    }
 		    /* Formulaire non valide -> rechargement de la page */
 		    return $this->render('MlUserBundle:User:add.html.twig', array('form' => $form->createView()));
@@ -141,7 +149,7 @@ class UserController extends Controller
 			$user = $this->getDoctrine()
 						->getRepository('MlUserBundle:User')
 						->findOneBy(array('login' => $request->request->get('login'),
-										'password' => $request->request->get('mot_de_passe')));
+										'password' => md5($request->request->get('mot_de_passe'))));
 			/* login+password OK -> redirection vers notre page */
 			if ($user != NULL) {
 				$session = new Session();

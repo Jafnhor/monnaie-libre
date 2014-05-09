@@ -633,11 +633,14 @@ class ServiceController extends Controller {
 			
 			//var_dump($req->request->get("ml_servicebundle_basic")["associatedGroup"]);die;
 			
-			if (($req->request->get("ml_servicebundle_basic")["associatedGroup"]) != NULL) {
+			$assoc_initial = $req->request->get("ml_servicebundle_basic");
+			$assoc = $assoc_initial["associatedGroup"];
+			
+			if ($assoc != NULL) {
 				$group = $this->getDoctrine()
 					->getManager()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("ml_servicebundle_basic")["associatedGroup"]);
+					->findOneByName($assoc);
 				
 				$basic->setAssociatedGroup($group);
 			}
@@ -773,11 +776,14 @@ class ServiceController extends Controller {
 			
 			//var_dump($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]);die;
 			
-			if (($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]) != NULL) {
+			$assoc_initial = $req->request->get("ml_servicebundle_carpooling");
+			$assoc = $assoc_initial["associatedGroup"];
+			
+			if ($assoc != NULL) {
 				$group = $this->getDoctrine()
 					->getManager()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("ml_servicebundle_carpooling")["associatedGroup"]);
+					->findOneByName($assoc);
 				
 				$carpooling->setAssociatedGroup($group);
 			}
@@ -858,11 +864,14 @@ class ServiceController extends Controller {
 
 			$couchSurfing->setUser($user);
 			
-			if (($req->request->get("ml_servicebundle_couchsurfing")["associatedGroup"]) != NULL) {
+			$assoc_initial = $req->request->get("ml_servicebundle_couchsurfing");
+			$assoc = $assoc_initial["associatedGroup"];
+			
+			if ($assoc != NULL) {
 				$group = $this->getDoctrine()
 					->getManager()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("ml_servicebundle_couchsurfing")["associatedGroup"]);
+					->findOneByName($assoc);
 				
 				$couchSurfing->setAssociatedGroup($group);
 			}
@@ -997,11 +1006,14 @@ class ServiceController extends Controller {
 			
 			$sale->upload();
 			
-			if (($req->request->get("ml_servicebundle_sale")["associatedGroup"]) != NULL) {
+			$assoc_initial = $req->request->get("ml_servicebundle_sale");
+			$assoc = $assoc_initial["associatedGroup"];
+			
+			if ($assoc != NULL) {
 				$group = $this->getDoctrine()
 					->getManager()
 					->getRepository('MlGroupBundle:Groupp')
-					->findOneByName($req->request->get("ml_servicebundle_sale")["associatedGroup"]);
+					->findOneByName($assoc);
 				
 				$sale->setAssociatedGroup($group);
 			}
