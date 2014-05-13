@@ -64,6 +64,19 @@ class TransactionController extends Controller
 		    return $this->redirect($this->generateUrl('ml_user_add'));		    
 		}
 		
+		$all_users = $this->getDoctrine()
+			->getRepository('MlUserBundle:User')
+			->findAll();
+			
+		if ($all_users != NULL) {
+			for ($i = 0; $i<sizeof($all_users); $i++) {
+				// Add all users except current user
+				if ($all_users[$i]->getLogin() != $login) {
+					$users[$all_users[$i]->getLogin()] = $all_users[$i]->getLogin();
+				}
+			}
+		}
+			
         $user = $this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
@@ -88,16 +101,16 @@ class TransactionController extends Controller
 		   				return $this->redirect($this->generateUrl('ml_transaction_homepage'));		
 					}
 					catch(\Exception $e) {
-						return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>$e->getMessage()));
+						return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>$e->getMessage()));
 					}
 				}
 				else {	
-				    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'error'=>
+				    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>
 				    																	'User '.$req->request->get('recipient').'does not exist.'));
 				}
 			    
 			}
 		
-		return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user));
+		return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users));
     }
 }
