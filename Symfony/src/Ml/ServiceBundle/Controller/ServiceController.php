@@ -586,20 +586,25 @@ class ServiceController extends Controller {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
 			
-			$basicUser = new BasicUser;
+			if($this->container->get('ml.reservation')->canReserve($user,$data_basic,$em)) {
+			    $basicUser = new BasicUser;
 			
-			$basicUser->setApplicant($user);
-			$basicUser->setBasic($data_basic);
+			    $basicUser->setApplicant($user);
+			    $basicUser->setBasic($data_basic);
 			
-			$em->persist($basicUser);
-			$em->flush();
+			    $em->persist($basicUser);
+			    $em->flush();
 			
-			$data_basic->setVisibility(false);
+			    $data_basic->setVisibility(false);
 			
-			$em->persist($data_basic);
-			$em->flush();
-
-			return $this->redirect($this->generateUrl('ml_service_homepage'));
+			    $em->persist($data_basic);
+			    $em->flush();
+            
+			    return $this->redirect($this->generateUrl('ml_service_homepage'));
+			}
+			else {
+			    return $this->render('MlServiceBundle:Service:see_basic.html.twig', array('user' => $user,'basic' => $data_basic,'error' => 'Désolé, vous n\'avez pas les moyens de réserver ce service.'));		
+			}
 		}
 	}
 	
@@ -729,20 +734,25 @@ class ServiceController extends Controller {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
 			
-			$carpoolingUser = new CarpoolingUser;
+			if($this->container->get('ml.reservation')->canReserve($user,$data_carpooling,$em)) {
+			    $carpoolingUser = new CarpoolingUser;
 			
-			$carpoolingUser->setApplicant($user);
-			$carpoolingUser->setCarpooling($data_carpooling);
+			    $carpoolingUser->setApplicant($user);
+			    $carpoolingUser->setCarpooling($data_carpooling);
 			
-			$em->persist($carpoolingUser);
-			$em->flush();
+			    $em->persist($carpoolingUser);
+			    $em->flush();
 			
-			$data_carpooling->setVisibility(false);
+			    $data_carpooling->setVisibility(false);
 			
-			$em->persist($data_carpooling);
-			$em->flush();
-
-			return $this->redirect($this->generateUrl('ml_service_homepage'));
+			    $em->persist($data_carpooling);
+			    $em->flush();
+            
+			    return $this->redirect($this->generateUrl('ml_service_homepage'));
+			}
+			else {
+			    return $this->render('MlServiceBundle:Service:see_carpooling.html.twig', array('user' => $user,'carpool' => $data_carpooling,'error' => 'Désolé, vous n\'avez pas les moyens de réserver ce service.'));			
+			}
 		}
 	}
 	
@@ -925,21 +935,25 @@ class ServiceController extends Controller {
 			if ($user == $data_couchsurfing->getUser()) {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
+			if($this->container->get('ml.reservation')->canReserve($user,$data_couchsurfing,$em)) {
+			    $couchSurfingUser = new CouchSurfingUser;
 			
-			$couchSurfingUser = new CouchSurfingUser;
+			    $couchSurfingUser->setApplicant($user);
+			    $couchSurfingUser->setCouchsurfing($data_couchsurfing);
 			
-			$couchSurfingUser->setApplicant($user);
-			$couchSurfingUser->setCouchsurfing($data_couchsurfing);
+			    $em->persist($couchSurfingUser);
+			    $em->flush();
 			
-			$em->persist($couchSurfingUser);
-			$em->flush();
+			    $data_couchsurfing->setVisibility(false);
 			
-			$data_couchsurfing->setVisibility(false);
-			
-			$em->persist($data_couchsurfing);
-			$em->flush();
-
-			return $this->redirect($this->generateUrl('ml_service_homepage'));
+			    $em->persist($data_couchsurfing);
+			    $em->flush();
+            
+			    return $this->redirect($this->generateUrl('ml_service_homepage'));
+			}
+			else {
+			    return $this->render('MlServiceBundle:Service:see_couchsurfing.html.twig', array('user' => $user,'couchsurfing' => $data_couchsurfing,'error' => 'Désolé, vous n\'avez pas les moyens de réserver ce service.'));			
+			}
 		}
 	}
 	
@@ -1068,20 +1082,25 @@ class ServiceController extends Controller {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
 			
-			$saleUser = new SaleUser;
+			if($this->container->get('ml.reservation')->canReserve($user,$data_sale,$em)) {
+			    $saleUser = new SaleUser;
 			
-			$saleUser->setApplicant($user);
-			$saleUser->setSale($data_sale);
+			    $saleUser->setApplicant($user);
+			    $saleUser->setSale($data_sale);
 			
-			$em->persist($saleUser);
-			$em->flush();
+			    $em->persist($saleUser);
+			    $em->flush();
 			
-			$data_sale->setVisibility(false);
+			    $data_sale->setVisibility(false);
 			
-			$em->persist($data_sale);
-			$em->flush();
-
-			return $this->redirect($this->generateUrl('ml_service_homepage'));
+			    $em->persist($data_sale);
+			    $em->flush();
+            
+			    return $this->redirect($this->generateUrl('ml_service_homepage'));
+			}
+			else {
+			    return $this->render('MlServiceBundle:Service:see_sale.html.twig', array('user' => $user,'sale' => $data_sale,'error' => 'Désolé, vous n\'avez pas les moyens de réserver ce service.'));			
+			}
 		}
 	}
 	

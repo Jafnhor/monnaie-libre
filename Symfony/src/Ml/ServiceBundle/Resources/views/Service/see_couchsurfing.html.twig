@@ -7,6 +7,9 @@
 {% block service_body %}
 
 	{% if couchsurfing is not null %}
+	    {% if error is defined %}
+	    <div class="well">{{error}}</div>
+	    {% endif %}
 		<div class="well">
 			<h3 id = "title_reservation"><b>{{ couchsurfing.title }}</b></h3>
 			<table class="table">
