@@ -18,7 +18,13 @@
 						Recipient
 					</td>
 					<td>
-						&nbsp;&nbsp;<input type="text" name="recipient" required="required" />
+						&nbsp;&nbsp;<select name="recipient" required="required">
+							{% for one_user in users %}
+		    				   <option value="{{one_user}}">{{one_user}}</option>
+		    				{% else %}
+		    					Aucun utilisateur dans la base de données, désolé.
+		    				{% endfor %}
+        				</select>
 					</td>
 				</tr>
 				<tr>
