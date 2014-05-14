@@ -1,23 +1,23 @@
 {% extends "MlGroupBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Group - {{ group_id }}
+ {{ parent() }} - Groupe - {{ group_id }}
 {% endblock %}
 
 {% block group_body %}
 	<table class="table">
 		{% if group is defined %}
-			<legend><b>Group {{ group_id }} : {{ group.name }}</b></legend>
+			<legend><b>Groupe {{ group_id }} : {{ group.name }}</b></legend>
 		{% endif %}
 		{% if group is not defined %}
-			<legend><b>Group {{ message }} does not exist</b></legend>
+			<legend><b>Group {{ message }} n'existe pas</b></legend>
 		{% endif %}
 		<tr>
 			{% if message is defined %}
 				<div class = "well">
 					<center>
-						There is no group {{ message }}<br><br>
-						<a href='../groups'>Return to Groups' list</a>
+						Il n'y a pas de groupes {{ message }}<br><br>
+						<a href='../groups'>Revenir à la liste des groupes</a>
 					</center>
 				</div>
 			{% endif %}
@@ -26,7 +26,7 @@
 					<td rowspan = "2">
 						<div class="well">
 							<div id="accordion">
-								<h3>Group's members list</h3>
+								<h3>Membre du groupe</h3>
 								<div>
 									<table align = "center" class = "table">
 										<tr>
@@ -39,20 +39,20 @@
 												<center><b>Karma</b></center>
 											</td>
 											<td>
-												<center><b>Last name</b></center>
+												<center><b>Nom</b></center>
 											</td>
 											<td>
-												<center><b>First name</b></center>
+												<center><b>Prénom</b></center>
 											</td>
 											<td>
 												<center><b>Login</b></center>
 											</td>
 											<td>
-												<center><b>Status</b></center>
+												<center><b>Statut</b></center>
 											</td>
 											<td>
 												{% if is_administrator is sameas(true) %}
-													<center><b>Delete</b></center>
+													<center><b>Supprimer</b></center>
 												{% endif %}
 											</td>
 										</tr>
@@ -80,7 +80,7 @@
 												<center>{{ administrator_group_data.login }}</center>
 											</td>
 											<td>
-												<center>Administrator</center>
+												<center>Administrateur</center>
 											</td>
 											<td>
 											</td>
@@ -111,7 +111,7 @@
 												</td>
 												<td>
 													<center>
-														Member
+														Membre
 													</center>
 												</td>
 												{% if is_administrator is sameas(true) %}
@@ -129,7 +129,7 @@
 										{% endfor %}
 									</table>
 								</div>
-								<h3>Associated services</h3>
+								<h3>Services associés</h3>
 								<div>
 									{% if associated_services is defined %}
 										{% if associated_services is not null %}
@@ -137,24 +137,24 @@
 												<table align = "center" class = "table">
 													<tr>
 														<td>
-															<center><b>Title</b></center>
+															<center><b>Titre</b></center>
 														</td>
 														<td>
-															<center><b>Comment</b></center>
+															<center><b>Commentaire</b></center>
 														</td>
 														<td>
-															<center><b>Creation date</b></center>
+															<center><b>Date de création</b></center>
 														</td>
 														<td>
-															<center><b>Price</b></center>
+															<center><b>Prix</b></center>
 														</td>
 														<td>
-															<center><b>Creator</b></center>
+															<center><b>Createur</b></center>
 														</td>
 														{% if is_administrator is defined %}
 															{% if is_administrator is sameas(true) %}
 																<td>
-																	<center><b>Delete</b></center>
+																	<center><b>Supprimer</b></center>
 																</td>
 															{% endif %}
 														{% endif %}
@@ -184,7 +184,7 @@
 																{% if service.comment is not null %}
 																	<center>{{ service.comment }}</center>
 																{% else %}
-																	<center>No comment</center>
+																	<center>Pas de commentaire</center>
 																{% endif %}
 															</td>
 															<td>
@@ -226,25 +226,25 @@
 											</center>
 										{% endif %}
 										{% if associated_services is null %}
-											No service associated to this group
+											Pas de services associés à ce groupe
 										{% endif %}
 									{% endif %}   
 									{% if associated_services is not defined %}
-										No service associated to this group
+										Pas de services associés à ce groupe
 									{% endif %}
 								</div>
 								{% if is_administrator is defined %}
 									{% if is_administrator is sameas(true) %}
-										<h3>Requests to join the group</h3>
+										<h3>Demande d'adhésion au groupe</h3>
 										{% if requests is not null %}
 											<div>
 												<table align = "center" class = "table">
 													<tr>
 														<td>
-															<center><b>Last name</b></center>
+															<center><b>Nom/b></center>
 														</td>
 														<td>
-															<center><b>First name</b></center>
+															<center><b>Prénom</b></center>
 														</td>
 														<td>
 															<center><b>Login</b></center>
@@ -253,10 +253,10 @@
 															<center><b>Message</b></center>
 														</td>
 														<td>
-															<center><b>Accept</b></center>
+															<center><b>Accepter</b></center>
 														</td>
 														<td>
-															<center><b>Refuse</b></center>
+															<center><b>Refuser</b></center>
 														</td>
 													</tr>
 													{% for request in requests %}
@@ -275,7 +275,7 @@
 																	{% if request.message is sameas(true) %}
 																		{{ request.message }}
 																	{% else %}
-																		No message
+																		Pas de messages
 																	{% endif %}
 																</center>
 															</td>
@@ -304,25 +304,25 @@
 										{% endif %}
 										{% if requests is null %}
 											<div>
-												No request to join group {{ group.name }}
+												Pas de demande d'adhésion {{ group.name }}
 											</div>
 										{% endif %}
 										{% if users is not null %}
-											<h3>Add users to the group</h3>
+											<h3>Ajouter des membres</h3>
 											<div>
 												<table align = "center" class = "table">
 													<tr>
 														<td>
-															<center><b>Last name</b></center>
+															<center><b>Nom</b></center>
 														</td>
 														<td>
-															<center><b>First name</b></center>
+															<center><b>Prénom</b></center>
 														</td>
 														<td>
 															<center><b>Login</b></center>
 														</td>
 														<td>
-															<center><b>Add</b></center>
+															<center><b>Ajouter</b></center>
 														</td>
 													</tr>
 													{% for user in users %}
@@ -362,25 +362,25 @@
 	<center>
 		{% if is_member is sameas(false) and is_administrator is sameas(false) and is_waiting is sameas(false) %}
 			<form action="{{ path('ml_group_join_group', { 'group_id': group_id }) }}" method="post">
-				Justify your request : <br>
+				Justifiez votre requête : <br>
 				<textarea name = "message_join_group" rows="3" cols="20">
 				</textarea><br><br>
-				<button class="btn btn-primary btn-xs" type="submit">Send request to join {{ group.name }} <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Envoyer demande d'adhésion {{ group.name }} <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_member is sameas(true) %}
 			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-xs" type="submit">Leave group <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Quitter le groupe <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_administrator is sameas(true) %}
 			<form action="{{ path('ml_group_delete_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-xs" type="submit">Delete group <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Supprimer le groupe <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_waiting is sameas(true) %}
 			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-xs" type="submit">Cancel the request <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Rejeter la demande <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 	</center>

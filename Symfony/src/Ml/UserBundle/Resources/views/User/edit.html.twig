@@ -1,7 +1,7 @@
 {% extends "MlUserBundle::layout.html.twig" %}
 
 {% block title %}
-	{{ parent() }} - Edit user account
+	{{ parent() }} - Editer compte membre
 {% endblock %}
 	
 {% block user_body %}
@@ -12,7 +12,7 @@
 		<form action="{{ path('ml_user_edit', {'id': user.id}) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
 			<button type="submit" class="btn btn-success"> Valider </button>
-			<button type="reset"class="btn btn-danger">Reset </button>
+			<button type="reset"class="btn btn-danger">Remise a zéro </button>
 		</form>
 	</div>
 {% endblock %}

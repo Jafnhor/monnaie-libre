@@ -1,7 +1,7 @@
 {% extends "MlTransactionBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Transaction - List
+ {{ parent() }} - Transaction - Liste
 {% endblock %}
 	
 {% block transaction_body %}
@@ -11,11 +11,11 @@
 		<h5 style="color:red">{{ error }}</h5>
 	{% endif %}
 	    <form method="post" class="payment">
-		    <h3 id = "titre_formulaire">New payment</h3>
+		    <h3 id = "titre_formulaire">Nouveau paiment</h3>
 			<table align = "center">
 				<tr>
 					<td>
-						Recipient
+						Receveur
 					</td>
 					<td>
 						&nbsp;&nbsp;<select name="recipient" required="required">
@@ -34,7 +34,7 @@
 				</tr>
 				<tr>
 					<td>
-						Amount
+						Montant
 					</td>
 					<td>
 						&nbsp;&nbsp;<input type="number" name="amount" required="required" />
@@ -47,7 +47,7 @@
 				</tr>
 				<tr>
 					<td>
-						Flag
+						Libellé
 					</td>
 					<td>
 						&nbsp;&nbsp;<input type="text" name="flag" />

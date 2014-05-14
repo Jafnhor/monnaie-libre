@@ -89,12 +89,17 @@ class SaleType extends AbstractType
 		}
 		
         $builder
-            ->add('title')
-            ->add('comment')
-            ->add('price')
+            ->add('title', ' ', array(
+										'label' => "Titre"))
+            ->add('comment', ' ', array(
+										'label' => "Commentaire"))
+            ->add('price', ' ', array(
+										'label' => "Prix"))
 			->add('file', 'file', array(
-													'required' => false))
+										'label' => "Fichier"
+										'required' => false))
 			->add('associatedGroup', 'choice', array( 
+													'label' => "Groupe associé",
 													'choices' => $groups_name,
 													'required' => false,
 													'mapped' => false))

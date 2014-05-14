@@ -1,7 +1,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - See - Carpooling
+ {{ parent() }} - Service - Vue - Covoiturage
 {% endblock %}
 	
 {% block service_body %}
@@ -16,19 +16,19 @@
 				<tr>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Creator :</h4> {{ carpool.user.login }}
-							<h4 class = "service">Creation Date :</h4> {{ carpool.creationDate|date("d/m/Y") }}
-							<h4 class = "service">Comment :</h4> 
+							<h4 class = "service">Createur :</h4> {{ carpool.user.login }}
+							<h4 class = "service">Date de création :</h4> {{ carpool.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Commentaire :</h4> 
 							{% if carpool.comment is null %} 
-								No comment 
+								Pas de commentaires
 							{% endif %} 
 							{% if carpool.comment is not null %} 
 								{{ carpool.comment }}
 							{% endif %}
-							<h4 class = "service">Price :</h4> {{ carpool.price }} ₱
-							<h4 class = "service">Associated Group :</h4> 
+							<h4 class = "service">Prix :</h4> {{ carpool.price }} ₱
+							<h4 class = "service">Groupes associés :</h4> 
 							{% if carpool.associatedGroup is null %} 
-								No associated group 
+								Pas de groupes associé 
 							{% else %} 
 								{{ carpool.associatedGroup.name }}
 							{% endif %} 
@@ -36,62 +36,62 @@
 					</td>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Departure :</h4> {{ carpool.departure }} 
-							<h4 class = "service">Meeting Point :</h4> {{ carpool.meetingPoint }}
-							<h4 class = "service">Arrival :</h4> {{ carpool.arrival }} 
-							<h4 class = "service">Arrival Point :</h4> {{ carpool.arrivalPoint }} 
-							<h4 class = "service">Bends :</h4> 
+							<h4 class = "service">Depart :</h4> {{ carpool.departure }} 
+							<h4 class = "service">Lieu de rendez-vous :</h4> {{ carpool.meetingPoint }}
+							<h4 class = "service">Arrivée :</h4> {{ carpool.arrival }} 
+							<h4 class = "service">Lieu de dépose :</h4> {{ carpool.arrivalPoint }} 
+							<h4 class = "service">Détours :</h4> 
 							{% if carpool.bends is not null %} 
 								{{ carpool.bends }} 
 							{% else %}
-								No bends
+								Pas de détours
 							{% endif %}
 						</div>
 					</td>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Departure Date :</h4> {{ carpool.departureDate|date("d/m/Y") }} 
-							<h4 class = "service">Estimated Duration :</h4> {{ carpool.estimatedDuration|date("H:i") }} 
-							<h4 class = "service">Estimated Distance (km) :</h4> {{ carpool.estimatedDistance }} 
-							<h4 class = "service">Package Transport :</h4> 
+							<h4 class = "service">Date de départ :</h4> {{ carpool.departureDate|date("d/m/Y") }} 
+							<h4 class = "service">Durée estimée :</h4> {{ carpool.estimatedDuration|date("H:i") }} 
+							<h4 class = "service">Distance estimée (km) :</h4> {{ carpool.estimatedDistance }} 
+							<h4 class = "service">Transport de colis :</h4> 
 							{% if carpool.packageTransport is not null %} 
 								{{ carpool.packageTransport }} 
 							{% else %}
-								No package transport
+								Pas de transport de colis
 							{% endif %}
 							{% if carpool.packageTransport is not null %} 
-								<h4 class = "service">Package Size (kg) :</h4> 
+								<h4 class = "service">Taille bagages (kg) :</h4> 
 								{% if carpool.packageSize is not null %} 
 									{{ carpool.packageSize }} 
 								{% else %}
-									No package transport
+									Pas de bagages
 								{% endif %}
 							{% endif %}
-							<h4 class = "service">Car :</h4> {{ carpool.car }} 
+							<h4 class = "service">Voiture :</h4> {{ carpool.car }} 
 						</div>
 					</td>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Smoker :</h4> 
+							<h4 class = "service">Fumer :</h4> 
 							{% if carpool.smoker == true %} 
-								Yes
+								Oui
 							{% endif %}
 							{% if carpool.smoker == false %} 
-								No
+								Non
 							{% endif %}
 							<h4 class = "service">Pets :</h4> 
 							{% if carpool.pets == true %} 
-								Yes
+								Oui
 							{% endif %}
 							{% if carpool.pets == false %} 
-								No
+								Non
 							{% endif %}
 							<h4 class = "service">Music :</h4> 
 							{% if carpool.music == true %}
-								Yes
+								Oui
 							{% endif %}
 							{% if carpool.music == false %}
-								No
+								Non
 							{% endif %}
 						</div>
 					</td>

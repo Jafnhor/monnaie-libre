@@ -1,7 +1,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - Add - Sale
+ {{ parent() }} - Service - Ajouter - Vente
 {% endblock %}
 	
 {% block service_body %}
@@ -12,7 +12,7 @@
 				<td>
 					<div class="well">
 						<form method="post" class="Sale" {{ form_enctype(form) }}>
-							<h3 id = "title_form"><b>Sale your stuff</b></h3>
+							<h3 id = "title_form"><b>Vendez vos affaires</b></h3>
 							{{ form_label(form.title) }}
 							{{ form_errors(form.title) }}
 							{{ form_widget(form.title) }}<br><br>

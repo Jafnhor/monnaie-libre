@@ -90,30 +90,45 @@ class CarpoolingType extends AbstractType
 		}
 	
         $builder
-            ->add('title')
-            ->add('comment')
-            ->add('price')
-            ->add('departure')
-            ->add('arrival')
-            ->add('meetingPoint')
-            ->add('arrivalPoint')
-            ->add('bends')
-            ->add('departureDate', 'date')
-            ->add('estimatedDuration', 'time')
+            ->add('title', ' ', array(
+										'label' => "Titre"))
+            ->add('comment', ' ', array(
+										'label' => "Commentaire"))
+            ->add('price', ' ', array(
+										'label' => "Prix"))
+            ->add('departure', ' ', array(
+											'label' => "Départ de"))
+            ->add('arrival', ' ', array(
+										'label' => "Arrivée "))
+            ->add('meetingPoint', ' ', array(
+												'label' => "Lieu de rendez-vous"))
+            ->add('arrivalPoint', ' ', array(
+												'label' => "Lieu de dépose"))
+            ->add('bends', ' ', array(
+										'label' => "Détours"))
+            ->add('departureDate', 'date', array(
+													'label' => "Date de départ"))
+            ->add('estimatedDuration', 'time', array(
+														'label' => "Durée estimée"))
             ->add('estimatedDistance', 'integer', array(
-														'label' => "Estimated distance (km)"))
-            ->add('packageTransport')
+														'label' => "Distance estimée (km)"))
+            ->add('packageTransport', ' ', array(
+													'label' => "Transport de colis"))
             ->add('packageSize', 'integer', array(
-													'label' => "Package size (kg)",
+													'label' => "Taille des bagages",
 													'required' => false))
             ->add('car')
-            ->add('smoker', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
+            ->add('smoker', 'choice', array(
+										'label' => "Fumeur",
+										'choices' => array(true => "Oui", false => "Oui")))
             ->add('pets', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
+										'label' => "Animaux",
+										'choices' => array(true => "Oui", false => "Non")))
             ->add('music', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
+										'label' => "Musique",
+										'choices' => array(true => "Oui", false => "Non")))
 			->add('associatedGroup', 'choice', array( 
+													'label' => "Groupe associé",
 													'choices' => $groups_name,
 													'required' => false,
 													'mapped' => false))

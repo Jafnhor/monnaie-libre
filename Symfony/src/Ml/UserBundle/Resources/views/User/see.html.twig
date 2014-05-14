@@ -3,31 +3,31 @@
 {% if user.getId() is defined %}
 
 	{% block title %}
-	 {{ parent() }} - Profile of {{ user.login }}
+	 {{ parent() }} - Profil de {{ user.login }}
 	{% endblock %}
 		
 	{% block user_body %}
 		
 		<div class="btn-group pull-right">
-			<button class="btn btn-info"><div><a href="{{ url('ml_user_edit',{'id': user.getId()}) }}">Edit your account</a></div></button>
-			<button class="btn btn-warning"><div><a href="{{ url('ml_user_delete',{'id': user.getId()}) }}">Delete your account</a></div></button>
+			<button class="btn btn-info"><div><a href="{{ url('ml_user_edit',{'id': user.getId()}) }}">Editer votre compte/a></div></button>
+			<button class="btn btn-warning"><div><a href="{{ url('ml_user_delete',{'id': user.getId()}) }}">Supprimer votre compte</a></div></button>
 		</div>
 
 		<div class="well">
 			<div>
 				<div class="jumbotron">
-					<h3 style="text-align:left">My profile</h3>
+					<h3 style="text-align:left">Mon profil</h3>
 				</div>
 				<p>Avatar: -</p>
 				<p>Email: -</p>
-				<p>First Name: {{ user.firstName }}</p>
-				<p>Last Name: {{ user.lastName }}</p>
+				<p>Prénom: {{ user.firstName }}</p>
+				<p>Nom: {{ user.lastName }}</p>
 				{# 
-					<p>Premium: {% if user.premium == true %} Yes {% endif %}
-				    {% if user.premium == false %} No {% endif %}</p>
+					<p>Premium: {% if user.premium == true %} Oui {% endif %}
+				    {% if user.premium == false %} Non {% endif %}</p>
 				#}
 				<p>Karma: {{ user.karma }}</p>
-				<p>On your account : {{user.account.amount}} ₱</p>
+				<p>Sur votre compte vous disposez de : {{user.account.amount}} ₱</p>
 			</div>
 		</div>
 

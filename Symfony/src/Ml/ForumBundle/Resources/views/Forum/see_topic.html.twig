@@ -1,7 +1,7 @@
 {% extends "MlForumBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Forum - Topic - {{ topic.id }}
+ {{ parent() }} - Forum - Sujet - {{ topic.id }}
 {% endblock %}
 	
 {% block forum_body %}
@@ -26,7 +26,7 @@
 			<table class="table">
 				<tr>
 					<td>
-						<h4>Created by {{ topic.author.login }} <div id = "date_location"> {{ topic.creationDate|date("Y/m/d H:i") }} </div></h4>
+						<h4>Crée par {{ topic.author.login }} <div id = "date_location"> {{ topic.creationDate|date("Y/m/d H:i") }} </div></h4>
 					</td>
 				</tr>
 			</table>

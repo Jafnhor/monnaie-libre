@@ -1,25 +1,25 @@
 {% extends "MlTransactionBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Transaction - List
+ {{ parent() }} - Service - Liste
 {% endblock %}
 	
 {% block transaction_body %}
 	<div class="well">
-	    <h2>Your account</h2>
-	    Balance : {{user.account.amount}} ₱<br />
-	    Authorized Overdraft : {{user.account.authorizedOverdraft}} ₱ <br /><br>
+	    <h2>Votre compte</h2>
+	    Montant : {{user.account.amount}} ₱<br />
+	    Découvert autorisé : {{user.account.authorizedOverdraft}} ₱ <br /><br>
 	    <a href="{{path('ml_transaction_payment')}}">New payment</a>
 	</div>
 	
 	<div class="well">
-	    <h2>Debits</h2>
+	    <h2>Débits</h2>
 	    <table align = "center" class = "table">
 	        <tr>
 	            <td align = "center"><b>Date</th>
-	            <td align = "center"><b>Amount</th>
-	            <td align = "center"><b>Recipient</th>
-	            <td align = "center"><b>Label</th>
+	            <td align = "center"><b>Montant</th>
+	            <td align = "center"><b>Créditeur</th>
+	            <td align = "center"><b>Libellé</th>
 	        </tr>
 	        {% if outTransactions is defined%}
 	            {% if outTransactions is not null%}
@@ -49,13 +49,13 @@
 	</div>
 	<br><br>
 	<div class="well">
-	    <h2>Credits</h2>
+	    <h2>Crédits</h2>
 	    <table align = "center" class = "table">
 	        <tr>
 	            <td align = "center"><b>Date</b></td>
-	            <td align = "center"><b>Amount</b></td>
-	            <td align = "center"><b>Sender</b></td>
-	            <td align = "center"><b>Label</b></td>
+	            <td align = "center"><b>Montant</b></td>
+	            <td align = "center"><b>Débiteur</b></td>
+	            <td align = "center"><b>Libellé</b></td>
 	        </tr>
 	        {% if inTransactions is defined%}
 	            {% if inTransactions is not null%}

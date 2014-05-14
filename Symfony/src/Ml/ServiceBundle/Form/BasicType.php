@@ -89,10 +89,14 @@ class BasicType extends AbstractType
 		}
 		
         $builder
-            ->add('title')
-            ->add('comment')
-            ->add('price')
+            ->add('title', ' ', array(
+										'label' => 'Titre'))
+            ->add('comment', ' ', array(
+										'label' => 'Commentaire')))
+            ->add('price', ' ', array(
+										'label' => 'Prix')))
 			->add('associatedGroup', 'choice', array( 
+													'label' => 'Groupe associé',
 													'choices' => $groups_name,
 													'required' => false,
 													'mapped' => false))

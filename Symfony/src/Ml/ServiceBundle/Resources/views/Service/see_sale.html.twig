@@ -1,7 +1,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - See - Sale
+ {{ parent() }} - Service - Vue - Vente
 {% endblock %}
 	
 {% block service_body %}
@@ -16,19 +16,19 @@
 				<tr>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Creator :</h4> {{ sale.user.login }}
-							<h4 class = "service">Creation Date :</h4> {{ sale.creationDate|date("d/m/Y") }}
-							<h4 class = "service">Comment :</h4> 
+							<h4 class = "service">Créateur :</h4> {{ sale.user.login }}
+							<h4 class = "service">Date de création :</h4> {{ sale.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Commentaire :</h4> 
 							{% if sale.comment is null %} 
-								No comment 
+								Pas de commentaires 
 							{% endif %} 
 							{% if sale.comment is not null %} 
 								{{ sale.comment }}
 							{% endif %}
-							<h4 class = "service">Price :</h4> {{ sale.price }} ₱
-							<h4 class = "service">Associated Group :</h4> 
+							<h4 class = "service">Prix :</h4> {{ sale.price }} ₱
+							<h4 class = "service">Groupes associés :</h4> 
 							{% if sale.associatedGroup is null %} 
-								No associated group 
+								Pas de groupes associé
 							{% else %} 
 								{{ sale.associatedGroup.name }}
 							{% endif %} 
@@ -36,11 +36,11 @@
 					</td>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Picture :</h4>
+							<h4 class = "service">Photo:</h4>
 							{% if sale.path is not null %}
 								<h4 class = "service"><img class = "sale" src = "./../../../../uploads/documents/{{ sale.path }}" alt "No picture" />
 							{% else %}
-								<h4 class = "service">No picture
+								<h4 class = "service">Pas de photo
 							{% endif %}
 						</div>
 					</td>

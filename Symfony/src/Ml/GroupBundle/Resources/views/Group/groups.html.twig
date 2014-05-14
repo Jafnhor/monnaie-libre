@@ -1,13 +1,13 @@
 {% extends "MlGroupBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Groups
+ {{ parent() }} - Groupes
 {% endblock %}
 
 {% block group_body %}
 
 	<table class="table">
-		<legend><b>Groups</b></legend>
+		<legend><b>Groupes</b></legend>
 		{% if message is not null %}
 			<br><br><center>{{ message }}</center>
 		{% endif %}
@@ -20,13 +20,13 @@
 								<table align = "center" class = "table">
 									<tr>
 										<td>
-											<center><b>Name</b></center>
+											<center><b>Nom</b></center>
 										</td>
 										<td>
 											<center><b>Description</b></center>
 										</td>
 										<td>
-											<center><b>Administrator</b></center>
+											<center><b>Administrateur</b></center>
 										</td>
 									</tr>
 									{% for group in groups %}

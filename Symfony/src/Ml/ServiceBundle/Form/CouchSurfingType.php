@@ -89,19 +89,30 @@ class CouchSurfingType extends AbstractType
 		}
 	
         $builder
-            ->add('title')
-            ->add('comment')
-			->add('price')
-            ->add('location')
-            ->add('dateStart')
-            ->add('dateEnd')
-            ->add('hourStart')
-            ->add('hourEnd')
+            ->add('title', ' ', array(
+										'label' => "Titre"))
+            ->add('comment', ' ', array(
+										'label' => "Commentaire"))
+			->add('price', ' ', array(
+										'label' => "Prix"))
+            ->add('location', ' ', array(
+										'label' => "Lieu"))
+            ->add('dateStart', ' ', array(
+										'label' => "Date d'arrivée prévue"))
+            ->add('dateEnd', ' ', array(
+										'label' => "Date de départ prévue"))
+            ->add('hourStart', ' ', array(
+										'label' => "Heure d'arrivée"))
+            ->add('hourEnd', ' ', array(
+										'label' => "Heure de départ"))
             ->add('limitGuest', 'choice', array( 
-										'choices' => array(true => "Yes", false => "No")))
+										'label' => "Invités ?",
+										'choices' => array(true => "Oui", false => "Non")))
             ->add('limitNumberOfGuest', 'integer', array(
+													'label' => "Nombre d'invités (maximum)",
 													'required' => false))
 			->add('associatedGroup', 'choice', array( 
+													'label' => "Groupes associé",
 													'choices' => $groups_name,
 													'required' => false,
 													'mapped' => false))

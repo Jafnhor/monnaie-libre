@@ -1,7 +1,7 @@
 {% extends "MlServiceBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - See - Basic
+ {{ parent() }} - Service - Vue - Basique
 {% endblock %}
 	
 {% block service_body %}
@@ -16,19 +16,19 @@
 				<tr>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Creator :</h4> {{ basic.user.login }}
-							<h4 class = "service">Creation Date :</h4> {{ basic.creationDate|date("d/m/Y") }}
-							<h4 class = "service">Comment :</h4> 
+							<h4 class = "service">Createur :</h4> {{ basic.user.login }}
+							<h4 class = "service">Date de création :</h4> {{ basic.creationDate|date("d/m/Y") }}
+							<h4 class = "service">Commentaire :</h4> 
 							{% if basic.comment is null %} 
-								No comment 
+								Pas de commentaire
 							{% endif %} 
 							{% if basic.comment is not null %} 
 								{{ basic.comment }}
 							{% endif %}
-							<h4 class = "service">Price :</h4> {{ basic.price }} ₱
-							<h4 class = "service">Associated Group :</h4> 
+							<h4 class = "service">Prix :</h4> {{ basic.price }} ₱
+							<h4 class = "service">Groupe associé :</h4> 
 							{% if basic.associatedGroup is null %} 
-								No associated group 
+								Pas de groupe associé 
 							{% else %} 
 								{{ basic.associatedGroup.name }}
 							{% endif %} 
