@@ -627,7 +627,6 @@ class ServiceController extends Controller {
 		
 		$form = $this->createForm(new BasicType(),$basic);
 
-
 		if($req->getMethod() == 'POST'){
 			//lien requête<->form
 			$form->bind($req);
@@ -1197,6 +1196,26 @@ class ServiceController extends Controller {
 					 ->getRepository('MlServiceBundle:SaleUser')
 				     ->findByOwner($user);
 			
+		if ($services == NULL) {
+			$services = NULL;
+		}
+		
+		if ($salesReserved == NULL) {
+			$salesReserved = NULL;
+		}
+		
+		if ($couchsurfingsReserved == NULL) {
+			$couchsurfingsReserved = NULL;
+		}
+		
+		if ($carpoolingsReserved == NULL) {
+			$carpoolingsReserved = NULL;
+		}
+		
+		if ($basicReserved == NULL) {
+			$basicReserved = NULL;
+		}
+		
 		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'basicReserved' => $basicReserved,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
     }
     
@@ -1257,11 +1276,11 @@ class ServiceController extends Controller {
 		            $reservation = null;
 		            break;
 		    }
-		    		    
+				
 		    if(($eval == null) || ($service == null) || ($reservation == null)) {
 		        return $this->redirect($this->generateUrl('ml_service_see_mine'));
 		    }
-		    
+
 		    $eval->setService($service);
 		    $eval->setPayed(false);
 		    $eval->setSubscriber($reservation->getApplicant());
@@ -1274,7 +1293,6 @@ class ServiceController extends Controller {
 		    $this->getDoctrine()->getManager()->persist($eval);
 		    $this->getDoctrine()->getManager()->persist($service);
 			$this->getDoctrine()->getManager()->flush();
-		    
 		}
 		
         return $this->redirect($this->generateUrl('ml_service_see_mine'));

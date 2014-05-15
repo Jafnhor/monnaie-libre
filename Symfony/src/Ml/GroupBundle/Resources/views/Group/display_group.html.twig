@@ -10,13 +10,13 @@
 			<legend><b>Groupe {{ group_id }} : {{ group.name }}</b></legend>
 		{% endif %}
 		{% if group is not defined %}
-			<legend><b>Group {{ message }} n'existe pas</b></legend>
+			<legend><b>Groupe {{ message }} n'existe pas</b></legend>
 		{% endif %}
 		<tr>
 			{% if message is defined %}
 				<div class = "well">
 					<center>
-						Il n'y a pas de groupes {{ message }}<br><br>
+						Il n'y a pas de groupe {{ message }}<br><br>
 						<a href='../groups'>Revenir à la liste des groupes</a>
 					</center>
 				</div>
@@ -26,7 +26,7 @@
 					<td rowspan = "2">
 						<div class="well">
 							<div id="accordion">
-								<h3>Membre du groupe</h3>
+								<h3>Membres du groupe</h3>
 								<div>
 									<table align = "center" class = "table">
 										<tr>
@@ -226,22 +226,22 @@
 											</center>
 										{% endif %}
 										{% if associated_services is null %}
-											Pas de services associés à ce groupe
+											Pas de service associé à ce groupe
 										{% endif %}
 									{% endif %}   
 									{% if associated_services is not defined %}
-										Pas de services associés à ce groupe
+										Pas de service associé à ce groupe
 									{% endif %}
 								</div>
 								{% if is_administrator is defined %}
 									{% if is_administrator is sameas(true) %}
-										<h3>Demande d'adhésion au groupe</h3>
+										<h3>Demandes d'adhésion au groupe</h3>
 										{% if requests is not null %}
 											<div>
 												<table align = "center" class = "table">
 													<tr>
 														<td>
-															<center><b>Nom/b></center>
+															<center><b>Nom</b></center>
 														</td>
 														<td>
 															<center><b>Prénom</b></center>
@@ -272,10 +272,10 @@
 															</td>
 															<td>
 																<center>
-																	{% if request.message is sameas(true) %}
+																	{% if request.message is not null %}
 																		{{ request.message }}
 																	{% else %}
-																		Pas de messages
+																		Pas de message
 																	{% endif %}
 																</center>
 															</td>
@@ -304,7 +304,7 @@
 										{% endif %}
 										{% if requests is null %}
 											<div>
-												Pas de demande d'adhésion {{ group.name }}
+												Pas de demande d'adhésion au {{ group.name }}
 											</div>
 										{% endif %}
 										{% if users is not null %}
@@ -365,7 +365,7 @@
 				Justifiez votre requête : <br>
 				<textarea name = "message_join_group" rows="3" cols="20">
 				</textarea><br><br>
-				<button class="btn btn-primary btn-xs" type="submit">Envoyer demande d'adhésion {{ group.name }} <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Demander l'adhésion au groupe {{ group.name }} <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 		{% if is_member is sameas(true) %}
@@ -380,7 +380,7 @@
 		{% endif %}
 		{% if is_waiting is sameas(true) %}
 			<form action="{{ path('ml_group_leave_group', { 'group_id': group_id }) }}" method="post">
-				<button class="btn btn-primary btn-xs" type="submit">Rejeter la demande <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+				<button class="btn btn-primary btn-xs" type="submit">Supprimer la demande <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 			</form>
 		{% endif %}
 	</center>

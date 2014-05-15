@@ -9,25 +9,33 @@
 	    <h2>Service(s) à évaluer</h2>
 	    <table align = "center" class = "table">
 	        <tr>
-	            <td align = "center"><b>Service basic</b></td>
+	            <td align = "center"><b>Service basique</b></td>
 	            <td align = "center"><b>Prix</b></td>
 	            <td align = "center"><b>Réalisateur du service</b></td>
 	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
-	        {% for evaluation in basic%}
-                <tr>
-                    <td align = "center">{{evaluation.service.title}}</td>
-                    <td align = "center">{{evaluation.service.price}}</td>
-                    <td align = "center">{{evaluation.service.user.login}}</td>
-                    <td align = "center">
-                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
-                    </td>
-                 </tr>
-	        {% else %}
-	            <tr>
-					<td  align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+			{% if basic is defined %}
+				{% if basic is not null %}
+					{% for evaluation in basic %}
+						<tr>
+							<td align = "center">{{evaluation.service.title}}</td>
+							<td align = "center">{{evaluation.service.price}}</td>
+							<td align = "center">{{evaluation.service.user.login}}</td>
+							<td align = "center">
+								<a href="{{path('ml_transaction_evaluation',{'serviceType':'basic','id':evaluation.id})}}">Évaluer</a>
+							</td>
+						 </tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
+					<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
 				</tr>
-	        {% endfor %}
+			{% endif %}
 	    </table><br><br>
 	    <table align = "center" class = "table">
 	        <tr>
@@ -36,20 +44,28 @@
 	            <td align = "center"><b>Réalisateur du service</b></td>
 	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
-	        {% for evaluation in sale%}
-                <tr>
-                    <td align = "center">{{evaluation.service.title}}</td>
-                    <td align = "center">{{evaluation.service.price}}</td>
-                    <td align = "center">{{evaluation.service.user.login}}</td>
-                    <td align = "center">
-                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
-                    </td>
-                 </tr>
-	        {% else %}
-	            <tr>
-					<td  align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+			{% if sale is defined %}
+				{% if sale is not null %}
+					{% for evaluation in sale %}
+						<tr>
+							<td align = "center">{{evaluation.service.title}}</td>
+							<td align = "center">{{evaluation.service.price}}</td>
+							<td align = "center">{{evaluation.service.user.login}}</td>
+							<td align = "center">
+								<a href="{{path('ml_transaction_evaluation',{'serviceType':'sale','id':evaluation.id})}}">Évaluer</a>
+							</td>
+						 </tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
+					<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
 				</tr>
-	        {% endfor %}
+			{% endif %}
 	    </table><br><br>
 	    <table align = "center" class = "table">
 	        <tr>
@@ -58,20 +74,28 @@
 	            <td align = "center"><b>Réalisateur du service</b></td>
 	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
-	        {% for evaluation in couchsurfing %}
-                <tr>
-                    <td align = "center">{{evaluation.service.title}}</td>
-                    <td align = "center">{{evaluation.service.price}}</td>
-                    <td align = "center">{{evaluation.service.user.login}}</td>
-                    <td align = "center">
-                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'couchsurfing','id':evaluation.id})}}">Évaluer</a>
-                    </td>
-                 </tr>
-	        {% else %}
-	            <tr>
+			{% if couchsurfing is defined %}
+				{% if couchsurfing is not null %}
+					{% for evaluation in couchsurfing %}
+						<tr>
+							<td align = "center">{{evaluation.service.title}}</td>
+							<td align = "center">{{evaluation.service.price}}</td>
+							<td align = "center">{{evaluation.service.user.login}}</td>
+							<td align = "center">
+								<a href="{{path('ml_transaction_evaluation',{'serviceType':'couchsurfing','id':evaluation.id})}}">Évaluer</a>
+							</td>
+						 </tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
 					<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
 				</tr>
-	        {% endfor %}
+			{% endif %}
 	    </table><br><br>
 	    <table align = "center" class = "table">
 	        <tr>
@@ -80,20 +104,29 @@
 	            <td align = "center"><b>Réalisateur du service</b></td>
 	            <td align = "center"><b>Évaluer</b></td>
 	        </tr>
-	        {% for evaluation in carpooling %}
-                <tr>
-                    <td align = "center">{{evaluation.service.title}}</td>
-                    <td align = "center">{{evaluation.service.price}}</td>
-                    <td align = "center">{{evaluation.service.user.login}}</td>
-                    <td align = "center">
-                        <a href="{{path('ml_transaction_evaluation',{'serviceType':'carpooling','id':evaluation.id})}}">Évaluer</a>
-                    </td>
-                 </tr>
-	        {% else %}
-	            <tr>
+			{% if carpooling is defined %}
+				{% if carpooling is not null %}
+					{% for evaluation in carpooling %}
+						<tr>
+							<td align = "center">{{evaluation.service.title}}</td>
+							<td align = "center">{{evaluation.service.price}}</td>
+							<td align = "center">{{evaluation.service.user.login}}</td>
+							<td align = "center">
+								<a href="{{path('ml_transaction_evaluation',{'serviceType':'carpooling','id':evaluation.id})}}">Évaluer</a>
+							</td>
+						 </tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
+					</tr>
+				{% endif %}
+			{% else %}
+				<tr>
 					<td align = "center" colspan="4">Vous n'avez aucun service à évaluer</td>
 				</tr>
-	        {% endfor %}
+			{% endif %}
+			
 	    </table>
 	</div>
 

@@ -1,7 +1,7 @@
 {% extends "MlTransactionBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Service - Liste
+ {{ parent() }} - Transaction - Liste
 {% endblock %}
 	
 {% block transaction_body %}
@@ -9,7 +9,7 @@
 	    <h2>Votre compte</h2>
 	    Montant : {{user.account.amount}} ₱<br />
 	    Découvert autorisé : {{user.account.authorizedOverdraft}} ₱ <br /><br>
-	    <a href="{{path('ml_transaction_payment')}}">New payment</a>
+	    <a href="{{path('ml_transaction_payment')}}">Nouveau paiement</a>
 	</div>
 	
 	<div class="well">

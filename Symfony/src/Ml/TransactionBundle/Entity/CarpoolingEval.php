@@ -32,4 +32,13 @@ class CarpoolingEval extends Evaluation
         return $this;
     }
 
+	/**
+     * Get service
+     *
+     * @return string 
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
 }

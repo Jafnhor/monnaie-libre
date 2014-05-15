@@ -39,7 +39,7 @@ class GroupController extends Controller {
 		}
 		
 		if ($groups == NULL) {
-			$message = "No group in database";
+			$message = "Pas de groupe enregistré à ce jour";
 		}
 		
 		return $this->render('MlGroupBundle:Group:groups.html.twig', array(
@@ -84,13 +84,15 @@ class GroupController extends Controller {
 			// If there are users in database we display them
 			if(isset($users_login)) {
 				$form = $this->createFormBuilder($group)
-							 ->add('name', 'text')
+							 ->add('name', 'text', array(
+														'label' => 'Nom'))
 							 ->add('description', 'text')
 							 ->add('users', 'choice', array(
 														'choices' => $users_login,
 														'multiple' => true,
 														'required' => false,
-														'mapped' => false))
+														'mapped' => false,
+														'label' => 'Utilisateurs'))
 							 ->getForm();
 							 
 				$name_initial = $req->request->get("form");
@@ -104,7 +106,7 @@ class GroupController extends Controller {
 						return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(
 						  'form' => $form->createView(),
 						  'user' => $current_user,
-						  'error' => "A group with the specified name already exist, please choose another one."));
+						  'error' => "Un groupe avec le même nom existe déjà, veuillez en choisir un autre s'il vous plait."));
 				}
 
 				if ($req->getMethod() == 'POST') {	
@@ -172,7 +174,7 @@ class GroupController extends Controller {
 							return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(
 							  'form' => $form->createView(),
 							  'user' => $current_user,
-							  'error' => "A group with the specified name already exist, please choose another one."));
+							  'error' => "Un groupe avec le même nom existe déjà, veuillez en choisir un autre s'il vous plait."));
 					}
 			  
 					$group->setAdministrator($current_user);
@@ -206,7 +208,7 @@ class GroupController extends Controller {
 						return $this->render('MlGroupBundle:Group:creation_group.html.twig', array(
 						  'form' => $form->createView(),
 						  'user' => $current_user,
-						  'error' => "A group with the specified name already exist, please choose another one."));
+						  'error' => "Un groupe avec le même nom existe déjà, veuillez en choisir un autre s'il vous plait."));
 				}
 		  
 				$group->setAdministrator($current_user);
@@ -508,6 +510,7 @@ class GroupController extends Controller {
 			$request_group_user->setGroupp($group_data);
 			$request_group_user->setUser($user);
 			$request_group_user->setAccepted(false);
+			$request_group_user->setMessage($request->request->get("message_join_group"));
 			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($request_group_user);

@@ -20,15 +20,15 @@
 							<h4 class = "service">Date de création :</h4> {{ carpool.creationDate|date("d/m/Y") }}
 							<h4 class = "service">Commentaire :</h4> 
 							{% if carpool.comment is null %} 
-								Pas de commentaires
+								Pas de commentaire
 							{% endif %} 
 							{% if carpool.comment is not null %} 
 								{{ carpool.comment }}
 							{% endif %}
 							<h4 class = "service">Prix :</h4> {{ carpool.price }} ₱
-							<h4 class = "service">Groupes associés :</h4> 
+							<h4 class = "service">Groupe associé :</h4> 
 							{% if carpool.associatedGroup is null %} 
-								Pas de groupes associé 
+								Pas de groupe associé 
 							{% else %} 
 								{{ carpool.associatedGroup.name }}
 							{% endif %} 
@@ -44,7 +44,7 @@
 							{% if carpool.bends is not null %} 
 								{{ carpool.bends }} 
 							{% else %}
-								Pas de détours
+								Pas de détour
 							{% endif %}
 						</div>
 					</td>
@@ -60,11 +60,11 @@
 								Pas de transport de colis
 							{% endif %}
 							{% if carpool.packageTransport is not null %} 
-								<h4 class = "service">Taille bagages (kg) :</h4> 
+								<h4 class = "service">Taille des bagages (kg) :</h4> 
 								{% if carpool.packageSize is not null %} 
 									{{ carpool.packageSize }} 
 								{% else %}
-									Pas de bagages
+									Pas de bagage
 								{% endif %}
 							{% endif %}
 							<h4 class = "service">Voiture :</h4> {{ carpool.car }} 
@@ -72,21 +72,21 @@
 					</td>
 					<td>
 						<div class = "well">
-							<h4 class = "service">Fumer :</h4> 
+							<h4 class = "service">Fumeur :</h4> 
 							{% if carpool.smoker == true %} 
 								Oui
 							{% endif %}
 							{% if carpool.smoker == false %} 
 								Non
 							{% endif %}
-							<h4 class = "service">Pets :</h4> 
+							<h4 class = "service">Animaux :</h4> 
 							{% if carpool.pets == true %} 
 								Oui
 							{% endif %}
 							{% if carpool.pets == false %} 
 								Non
 							{% endif %}
-							<h4 class = "service">Music :</h4> 
+							<h4 class = "service">Musique :</h4> 
 							{% if carpool.music == true %}
 								Oui
 							{% endif %}

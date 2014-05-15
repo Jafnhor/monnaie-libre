@@ -26,7 +26,7 @@
 			<table class="table">
 				<tr>
 					<td>
-						<h4>Crée par {{ topic.author.login }} <div id = "date_location"> {{ topic.creationDate|date("Y/m/d H:i") }} </div></h4>
+						<h4>Créé par {{ topic.author.login }} <div id = "date_location"> {{ topic.creationDate|date("Y/m/d H:i") }} </div></h4>
 					</td>
 				</tr>
 			</table>
@@ -67,7 +67,7 @@
 									{{ form_label(form.message) }}<br>
 									{{ form_errors(form.message) }}
 									{{ form_widget(form.message) }}<br>
-									<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+									<button type="submit" value = "c"  id="form_validatation_topic" class="btn btn-primary btn-xs"  name = "createNewTopic">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 								</form>
 							</td>
 						</tr>
@@ -80,7 +80,7 @@
 									{{ form_label(form.message) }}<br>
 									{{ form_errors(form.message) }}
 									{{ form_widget(form.message) }}<br>
-									<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+									<button type="submit" value = "c"  id="form_validatation_topic" class="btn btn-primary btn-xs"  name = "createNewTopic">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 								</form>
 							</td>
 						</tr>
@@ -94,7 +94,7 @@
 								{{ form_label(form.message) }}<br>
 								{{ form_errors(form.message) }}
 								{{ form_widget(form.message) }}<br>
-								<button name = "createNewTopic" id="form_validatation_topic" class="btn btn-primary btn-xs" type="submit">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+								<button type="submit" value = "c"  id="form_validatation_topic" class="btn btn-primary btn-xs"  name = "createNewTopic">Valider <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
 							</form>
 						</td>
 					</tr>

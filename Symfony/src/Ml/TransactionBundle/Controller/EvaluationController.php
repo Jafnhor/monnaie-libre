@@ -20,18 +20,37 @@ class EvaluationController extends Controller {
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
 
-            $basic = $this->getDoctrine()
-	            ->getRepository('MlTransactionBundle:BasicEval')
-	            ->findBy(array('subscriber'=>$user,'payed'=>false));
-            $carpooling = $this->getDoctrine()
-	            ->getRepository('MlTransactionBundle:CarpoolingEval')
-	            ->findBy(array('subscriber'=>$user,'payed'=>false));		
-            $couchsurfing = $this->getDoctrine()
-	            ->getRepository('MlTransactionBundle:CouchsurfingEval')
-	            ->findBy(array('subscriber'=>$user,'payed'=>false));
-            $sale = $this->getDoctrine()
-	            ->getRepository('MlTransactionBundle:SaleEval')
-	            ->findBy(array('subscriber'=>$user,'payed'=>false));
+		$basic = $this->getDoctrine()
+			->getRepository('MlTransactionBundle:BasicEval')
+			->findBy(array('subscriber'=>$user,'payed'=>false));
+			
+		$carpooling = $this->getDoctrine()
+			->getRepository('MlTransactionBundle:CarpoolingEval')
+			->findBy(array('subscriber'=>$user,'payed'=>false));	
+			
+		$couchsurfing = $this->getDoctrine()
+			->getRepository('MlTransactionBundle:CouchsurfingEval')
+			->findBy(array('subscriber'=>$user,'payed'=>false));
+			
+		$sale = $this->getDoctrine()
+			->getRepository('MlTransactionBundle:SaleEval')
+			->findBy(array('subscriber'=>$user,'payed'=>false));
+		
+		if ($basic == NULL) {
+			$basic = NULL;
+		}
+		
+		if ($carpooling == NULL) {
+			$carpooling = NULL;
+		}
+		
+		if ($couchsurfing == NULL) {
+			$couchsurfing = NULL;
+		}
+		
+		if ($sale == NULL) {
+			$sale = NULL;
+		}
 	    
 		return $this->render('MlTransactionBundle:Transaction:index_eval.html.twig',array('user'=>$user,'basic'=>$basic,'carpooling'=>$carpooling,'couchsurfing'=>$couchsurfing,'sale'=>$sale));
     }
@@ -50,7 +69,7 @@ class EvaluationController extends Controller {
         $user = $this->getDoctrine()
 			->getRepository('MlUserBundle:User')
 			->findOneByLogin($login);
-		
+
 		switch($serviceType) {
 		    case 'basic':
 		        $eval = $this->getDoctrine()

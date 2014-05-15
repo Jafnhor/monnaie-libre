@@ -14,17 +14,29 @@
                 <td align = "center"><b>Commentaire</b></td>
                 <td align = "center"><b>Prix</b></td>
             </tr>
-            {% for service in services %}
-			<tr>
-				<td align = "center">{{service.title}}</td>
-				{% if service.comment is not null %}
-					<td align = "center">{{service.comment}}</td>
+			{% if services is defined %}
+				{% if services is not null %}
+					{% for service in services %}
+						<tr>
+							<td align = "center">{{service.title}}</td>
+							{% if service.comment is not null %}
+								<td align = "center">{{service.comment}}</td>
+							{% else %}
+								<td align = "center">Aucun commentaire</td>
+							{% endif %}
+							<td align = "center">{{service.price}} ₱</td>
+						</tr>
+					{% endfor %}
 				{% else %}
-					<td align = "center">Aucun commentaire</td>
+					<tr>
+						<td align = "center" colspan="3">Vous ne proposez aucun service que l'on ne vous ait pas réservé</td>
+					</tr>
 				{% endif %}
-				<td align = "center">{{service.price}} ₱</td>
-			</tr>
-            {% endfor %}
+			{% else %}
+				<tr>
+					<td align = "center" colspan="3">Vous ne proposez aucun service que l'on ne vous ait pas réservé</td>
+				</tr>
+			{% endif %}
         </table>
     </div>
     
@@ -46,8 +58,8 @@
                         <form action="{{path('ml_service_done')}}" method="post">
                             <input type="hidden" name="id" value="{{reservation.basic.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
-                            <input type="hidden" name= "type" value="sale" />
-                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+                            <input type="hidden" name= "type" value="basic" />
+                            <button type="submit" value = "SE" class="btn btn-primary btn-xs" name = "SE">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
@@ -74,7 +86,7 @@
                             <input type="hidden" name="id" value="{{reservation.sale.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="sale" />
-                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+                             <button type="submit" value = "SE" class="btn btn-primary btn-xs" name = "SE">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
@@ -101,7 +113,7 @@
                             <input type="hidden" name="id" value="{{reservation.couchsurfing.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="couchsurfing" />
-                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+                             <button type="submit" value = "SE" class="btn btn-primary btn-xs" name = "SE">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>
@@ -128,7 +140,7 @@
                             <input type="hidden" name="id" value="{{reservation.carpooling.id}}" />
                             <input type="hidden" name="reservation-id" value="{{reservation.id}}" />
                             <input type="hidden" name= "type" value="carpooling" />
-                            <button class="btn btn-primary btn-xs" type="submit">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+                             <button type="submit" value = "SE" class="btn btn-primary btn-xs" name = "SE">Service effectué <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
                         </form>
                     </td>
                 </tr>

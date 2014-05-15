@@ -118,10 +118,10 @@
 											<tr class = "liste_services" onclick="document.location.href='./service/see/sale/{{ service.id }}'">
 										{% endif %}
 												<td>
-													<center>{{ service.title }}</a></center>
+													<center>{{ service.title }}</center>
 												</td>
 												<td>
-													<center>{{ service.user.login }}</a></center>
+													<center>{{ service.user.login }}</center>
 												</td>
 												{% if service.comment is not null %}
 													<td>
@@ -137,10 +137,29 @@
 													<center>{{ service.creationDate|date("d/m/y") }}</center>
 												</td>
 												<td>
-													<center>{{ service.price }} ₱</a></center>
+													<center>{{ service.price }} ₱</center>
 												</td>
 												<td>
-													<center>{{ service.type }}</a></center>
+													{% if service.type is sameas('Basic') %}
+														<center>
+															Basique
+														</center>
+													{% endif %}
+													{% if service.type is sameas('Carpooling') %}
+														<center>
+															Covoiturage
+														</center>
+													{% endif %}
+													{% if service.type is sameas('Sale') %}
+														<center>
+															Vente
+														</center>
+													{% endif %}
+													{% if service.type is sameas('CouchSurfing') %}
+														<center>
+															{{ service.type }}
+														</center>
+													{% endif %}
 												</td>
 											</tr>
 									{% endfor %}

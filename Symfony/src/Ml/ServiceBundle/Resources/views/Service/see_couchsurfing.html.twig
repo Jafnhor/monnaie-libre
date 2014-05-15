@@ -26,7 +26,7 @@
 								{{ couchsurfing.comment }}
 							{% endif %}
 							<h4 class = "service">Prix :</h4> {{ couchsurfing.price }} ₱
-							<h4 class = "service">Groupes associé :</h4> 
+							<h4 class = "service">Groupe associé :</h4> 
 							{% if couchsurfing.associatedGroup is null %} 
 								Pas de groupe associé 
 							{% else %} 
@@ -44,7 +44,7 @@
 							{% if couchsurfing.limitGuest is sameas(true) %}
 								<h4 class = "service">Nombre d'invités (maximum) :</h4> {{ couchsurfing.limitNumberOfGuest }}
 							{% else %}
-								<h4 class = "service">Nombre d'invités (maximum) :</h4> Pas de limites
+								<h4 class = "service">Nombre d'invités (maximum) :</h4> Pas de limite
 							{% endif %}
 						</div>
 					</td>

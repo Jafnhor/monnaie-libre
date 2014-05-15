@@ -90,21 +90,21 @@ class CarpoolingType extends AbstractType
 		}
 	
         $builder
-            ->add('title', ' ', array(
+            ->add('title', 'text', array(
 										'label' => "Titre"))
-            ->add('comment', ' ', array(
+            ->add('comment', 'text', array(
 										'label' => "Commentaire"))
-            ->add('price', ' ', array(
+            ->add('price', 'integer', array(
 										'label' => "Prix"))
-            ->add('departure', ' ', array(
+            ->add('departure', 'text', array(
 											'label' => "Départ de"))
-            ->add('arrival', ' ', array(
-										'label' => "Arrivée "))
-            ->add('meetingPoint', ' ', array(
+            ->add('arrival', 'text', array(
+										'label' => "Arrivée à"))
+            ->add('meetingPoint', 'text', array(
 												'label' => "Lieu de rendez-vous"))
-            ->add('arrivalPoint', ' ', array(
+            ->add('arrivalPoint', 'text', array(
 												'label' => "Lieu de dépose"))
-            ->add('bends', ' ', array(
+            ->add('bends', 'text', array(
 										'label' => "Détours"))
             ->add('departureDate', 'date', array(
 													'label' => "Date de départ"))
@@ -112,12 +112,13 @@ class CarpoolingType extends AbstractType
 														'label' => "Durée estimée"))
             ->add('estimatedDistance', 'integer', array(
 														'label' => "Distance estimée (km)"))
-            ->add('packageTransport', ' ', array(
+            ->add('packageTransport', 'text', array(
 													'label' => "Transport de colis"))
             ->add('packageSize', 'integer', array(
-													'label' => "Taille des bagages",
+													'label' => "Taille des bagages (kg)",
 													'required' => false))
-            ->add('car')
+            ->add('car', 'text', array(
+										'label' => 'Voiture'))
             ->add('smoker', 'choice', array(
 										'label' => "Fumeur",
 										'choices' => array(true => "Oui", false => "Oui")))

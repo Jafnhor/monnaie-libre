@@ -47,7 +47,7 @@ class ForumController extends Controller
 		$last_message = NULL;
 		
 		if ($topics == NULL) {
-			$message = "No topics already created, be first, create one.";
+			$message = "Pas de sujet créé à ce jour, soyez le premier à en créer un.";
 		}
 		else {
 			foreach ($topics as $key => $value) {

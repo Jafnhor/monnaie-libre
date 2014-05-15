@@ -155,7 +155,7 @@ class Account
      */    
     public function payment(&$target,$amount,$flag="") {
         /* Test des préconditions : la cible existe, le montant est positif et le compte peut effectuer le paiement. */
-        if($amount <= 0) throw new TransactionException("Amount has to be positive.");
+        if($amount < 0) throw new TransactionException("Amount has to be positive.");
         if($this->getAmount()-$amount < $this->authorizedOverdraft) throw new RefusedTransactionException("Insufficient fund.");
         if($this === $target) throw new RefusedTransactionException("Cannot send money to yourself.");
         

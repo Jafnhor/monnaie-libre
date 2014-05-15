@@ -26,9 +26,9 @@
 								{{ sale.comment }}
 							{% endif %}
 							<h4 class = "service">Prix :</h4> {{ sale.price }} ₱
-							<h4 class = "service">Groupes associés :</h4> 
+							<h4 class = "service">Groupe associé :</h4> 
 							{% if sale.associatedGroup is null %} 
-								Pas de groupes associé
+								Pas de groupe associé
 							{% else %} 
 								{{ sale.associatedGroup.name }}
 							{% endif %} 

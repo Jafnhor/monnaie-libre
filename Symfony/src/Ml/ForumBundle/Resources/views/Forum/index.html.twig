@@ -11,7 +11,7 @@
 			<b>Forum</b> 
 			<div id = "new_topic">
 				<form action="{{ path('ml_forum_new_topic') }}">
-					<input type = "submit" value = "Create a new topic" class = "btn btn-warning btn-medium-large">
+					<input type = "submit" value = "Créer un nouveau sujet" class = "btn btn-warning btn-medium-large">
 				</form>
 			</div>
 		</legend>
@@ -54,7 +54,11 @@
 									{% for topic in topics %}
 										<tr class = "list_topics" onclick="document.location.href='{{ path('ml_forum_see_topic', { 'topic': topic.id }) }}'">
 											<td>
-												<center><h5>{{ ratios[cpt] }}</h5></center>
+												{% if ratios[cpt] > 0 %}
+													<center><h5>+{{ ratios[cpt] }}</h5></center>
+												{% else %}
+													<center><h5>{{ ratios[cpt] }}</h5></center>
+												{% endif %}
 											</td>
 											<td>
 												<center><h5>{{ topic.name }}</h5></center>
