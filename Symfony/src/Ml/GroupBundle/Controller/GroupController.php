@@ -306,7 +306,7 @@ class GroupController extends Controller {
 			
 			$couchsurfings = $this->getDoctrine()
 				->getRepository('MlServiceBundle:CouchSurfing')
-				->findByAssociatedGroup($group_data);
+				->findBy(array("associatedGroup" => $group_data, "visibility" => true));
 			
 			if ($couchsurfings != NULL) {
 				foreach($couchsurfings as $key => $value) {
@@ -316,7 +316,7 @@ class GroupController extends Controller {
 			
 			$carpoolings = $this->getDoctrine()
 				->getRepository('MlServiceBundle:Carpooling')
-				->findByAssociatedGroup($group_data);
+				->findBy(array("associatedGroup" => $group_data, "visibility" => true));
 			
 			if ($carpoolings != NULL) {
 				foreach($carpoolings as $key => $value) {

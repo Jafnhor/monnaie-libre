@@ -725,6 +725,16 @@ class ServiceController extends Controller {
 			return $this->redirect($this->generateUrl('ml_service_homepage'));
 		}
 		
+		$current_date = date_create(date('Y-m-d'));
+		$end_date = $data_carpooling->getDepartureDate();
+		
+		if (strtotime($end_date->format("d-m-y")) < strtotime($current_date->format("d-m-y"))) {
+			$data_carpooling->setVisibility(false);
+			$em->persist($data_carpooling);
+			$em->flush();
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
 		if($req->getMethod() != 'POST'){			
 			return $this->render('MlServiceBundle:Service:see_carpooling.html.twig', array('user' => $user,'carpool' => $data_carpooling));
 		}
@@ -732,7 +742,7 @@ class ServiceController extends Controller {
 			if ($user == $data_carpooling->getUser()) {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
-			
+
 			if($this->container->get('ml.reservation')->canReserve($user,$data_carpooling,$em)) {
 			    $carpoolingUser = new CarpoolingUser;
 			
@@ -927,6 +937,16 @@ class ServiceController extends Controller {
 			return $this->redirect($this->generateUrl('ml_service_homepage'));
 		}
 		
+		$current_date = date_create(date('Y-m-d'));
+		$end_date = $data_couchsurfing->getDateStart();
+		
+		if (strtotime($end_date->format("d-m-y")) < strtotime($current_date->format("d-m-y"))) {
+			$data_couchsurfing->setVisibility(false);
+			$em->persist($data_couchsurfing);
+			$em->flush();
+			return $this->redirect($this->generateUrl('ml_service_homepage'));
+		}
+		
 		if($req->getMethod() != 'POST'){			
 			return $this->render('MlServiceBundle:Service:see_couchsurfing.html.twig', array('user' => $user,'couchsurfing' => $data_couchsurfing));
 		}
@@ -934,6 +954,7 @@ class ServiceController extends Controller {
 			if ($user == $data_couchsurfing->getUser()) {
 				return $this->redirect($this->generateUrl('ml_service_homepage'));
 			}
+
 			if($this->container->get('ml.reservation')->canReserve($user,$data_couchsurfing,$em)) {
 			    $couchSurfingUser = new CouchSurfingUser;
 			
