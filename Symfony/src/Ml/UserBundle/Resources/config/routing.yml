@@ -19,13 +19,9 @@ ml_user_add:
     defaults: { _controller: MlUserBundle:User:add }
 
 ml_user_delete:
-    pattern: /user/delete/{id}
+    pattern: /user/delete
     defaults: { _controller: MlUserBundle:User:delete }
-    requirements:
-        id:  \d+
 
 ml_user_edit:
-    pattern: /user/edit/{id}
+    pattern: /user/edit
     defaults: { _controller: MlUserBundle:User:edit }
-    requirements:
-        id:  \d+

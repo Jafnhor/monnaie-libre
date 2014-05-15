@@ -28,7 +28,16 @@ class HomeController extends Controller
 			*/
 			return $this->render('MlHomeBundle:Home:index.html.twig');
 		}
-	
-        return $this->redirect($this->generateUrl('ml_user_see'));
+		else {
+			$user = $this->getDoctrine()
+				->getRepository('MlUserBundle:User')
+				->findOneBy(array("login" => $login, "visible" => true));
+			
+			if ($user != NULL) {
+				return $this->redirect($this->generateUrl('ml_user_see'));
+			} else {
+				return $this->render('MlHomeBundle:Home:index.html.twig');
+			}
+		}
     }
 }

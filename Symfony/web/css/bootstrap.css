@@ -153,6 +153,15 @@ form {
 	margin-bottom: 20px;
 }
 
+#form_lastName, #form_firstName, #form_password {
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+#validate {
+	margin-right: 10px;
+}
+
 /* css Group */
  
  form.creation_group #form_name {

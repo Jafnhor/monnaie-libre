@@ -1,13 +1,25 @@
 {% extends "MlUserBundle::layout.html.twig" %}
 
 {% block title %}
- {{ parent() }} - Supprimer compte
+ {{ parent() }} - Suppression du compte
 {% endblock %}
 	
 {% block user_body %}
-
-<h2>Voulez vous nous quitter, {{ user.firstName }}?</h2>
-
-{{ form }}
-
+	<div class="jumbotron">
+		<h1 style="text-align:center">Voulez vous réellement supprimer votre compte?</h1>
+	</div>
+	<div>
+		<center>
+			{% if message is defined %}
+				<font color = "red">{{ message }}</font>
+				<br><br>
+			{% endif %}
+			<form action="{{ path('ml_user_delete') }}" method="post">
+				<input type = "submit" value = "Oui" class = "btn btn-lg btn-danger">
+			</form>
+			<form action="{{ path('ml_user_see') }}" method="get">
+				<input type = "submit" value = "Non" class = "btn btn-lg btn-success">
+			</form>
+		</center>
+	</div>
 {% endblock %}

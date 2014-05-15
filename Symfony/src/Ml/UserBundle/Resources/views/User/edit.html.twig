@@ -1,18 +1,18 @@
 {% extends "MlUserBundle::layout.html.twig" %}
 
 {% block title %}
-	{{ parent() }} - Editer compte membre
+	{{ parent() }} - Edition du compte membre
 {% endblock %}
 	
 {% block user_body %}
 	<div class="jumbotron">
-		<h1 style="text-align:center">Editer profil </h1>
+		<h1 style="text-align:center">Editez votre profil </h1>
 	</div>
-	<div class="well">
+	<div class="well" align = "center">
 		<form action="{{ path('ml_user_edit', {'id': user.id}) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_widget(form) }}
-			<button type="submit" class="btn btn-success"> Valider </button>
-			<button type="reset"class="btn btn-danger">Remise a zéro </button>
+			<button type = "submit" class = "btn btn-success" id = "validate"> Valider</button>
+			<button type  = "reset" class = "btn btn-danger" id = "zero">Remettre a zéro</button>
 		</form>
 	</div>
 {% endblock %}
