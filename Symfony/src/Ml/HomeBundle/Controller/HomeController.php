@@ -40,4 +40,9 @@ class HomeController extends Controller
 			}
 		}
     }
+	
+	public function developersAction()
+    {	
+		return $this->render('MlHomeBundle:Home:developers.html.twig');
+    }
 }

@@ -1,0 +1,45 @@
+{% extends "::simple.html.twig" %}
+
+{% block title %}
+ {{ parent() }} - Developers
+{% endblock %}
+
+{% block body %}
+	<div class = "well">
+		<h1 align="center"><b>Poavre</b></h1>
+	</div>
+
+	<hr>
+	<tr>
+		<td>
+			<div class="well">
+				<center>
+					Poavre est conçu par huit étudiants en Licence Informatique de la faculté des Sciences de Montpellier<br><br>
+					<h4><b>Galinier Florian (chef de projet)</b></h4><br>
+					<img src="{{ asset('img/florian.jpg') }}" />
+					<br><br><br>
+					<h4><b>Plazas Adrien (chef de projet)</b></h4><br>
+					<img src="{{ asset('img/adrien.jpg') }}" />
+					<br><br><br>
+					<h4><b>Brisset Fabien</b></h4><br>
+					<a href = "http://fabien34090.host56.com/PortFolio/index.php" target = "blank"><img src="{{ asset('img/fabien.jpg') }}" /></a>
+					<br><br><br>
+					<h4><b>Philbert Quentin</b></h4><br>
+					<img src="{{ asset('img/quentin.jpg') }}" />
+					<br><br><br>
+					<h4><b>Lamrani Rime</b></h4><br>
+					<img src="{{ asset('img/rime.jpg') }}" />
+					<br><br><br>
+					<h4><b>Thin-Hinen Hedli</b></h4><br>
+					<img src="{{ asset('img/thin.jpg') }}" />
+					<br><br><br>
+					<h4><b>Manaï Oualid</b></h4><br>
+					<img src="{{ asset('img/oualid.jpg') }}" />
+					<br><br><br>
+					<h4><b>Simon Clément</b></h4><br>
+					<img src="{{ asset('img/clement.jpg') }}" />
+				</center>
+			</div>
+		</td>
+	</tr>
+{% endblock %}
