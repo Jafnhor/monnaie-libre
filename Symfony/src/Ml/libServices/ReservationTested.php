@@ -10,7 +10,11 @@ class ReservationTested {
 	/**
 	 * Return true only if the $user can reserve the $service
 	 */
-	public function canReserve($user,$service,$em) {	    
+	public function canReserve($user,$service,$em) {	    	    
+	    return $this->canPay($user,$service->getPrice(),$em); 
+	}
+	
+	public function canPay($user,$amount,$em) {	    
 	    $basicReserved = $em->getRepository('MlServiceBundle:BasicUser')
 						   ->findByApplicant($user);
 		
@@ -47,7 +51,7 @@ class ReservationTested {
 	        }
 	    }
 	    	    
-	    $sum += $service->getPrice();
+	    $sum += $amount;
 	    
 	    return $sum <= $user->getAccount()->getAmount(); 
 	}

@@ -4,3 +4,5 @@ parameters:
 services:
     ml.session:
         class: Ml\libServices\SessionTested
+    ml.reservation:
+        class: Ml\libServices\ReservationTested

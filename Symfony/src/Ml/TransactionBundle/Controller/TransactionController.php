@@ -86,29 +86,35 @@ class TransactionController extends Controller
 			    $recipient = $this->getDoctrine()
 						->getRepository('MlUserBundle:User')
 						->findOneBy(array('login' => $req->request->get('recipient')));
-				
-				if($recipient != null) {
-					try {
-						$amount = $req->request->get('amount');
-						$flag = $req->request->get('flag');
-						$account = &$recipient->getAccount();
-						$ret = $user->getAccount()->payment($account,$amount,$flag);
-						$this->getDoctrine()->getManager()->persist($ret);
-						$this->getDoctrine()->getManager()->persist($user->getAccount());
-						$this->getDoctrine()->getManager()->persist($account);
-						$this->getDoctrine()->getManager()->flush();
+												
+				$amount = $req->request->get('amount');
+				$flag = $req->request->get('flag');
 						
-		   				return $this->redirect($this->generateUrl('ml_transaction_homepage'));		
-					}
-					catch(\Exception $e) {
-						return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>$e->getMessage()));
-					}
-				}
-				else {	
-				    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>
-				    																	'User '.$req->request->get('recipient').'does not exist.'));
-				}
-			    
+			    if($this->container->get('ml.reservation')->canPay($user,$amount,$this->getDoctrine()->getManager())) {
+				
+				    if($recipient != null) {
+					    try {
+						    $account = &$recipient->getAccount();
+						    $ret = $user->getAccount()->payment($account,$amount,$flag);
+						    $this->getDoctrine()->getManager()->persist($ret);
+						    $this->getDoctrine()->getManager()->persist($user->getAccount());
+						    $this->getDoctrine()->getManager()->persist($account);
+						    $this->getDoctrine()->getManager()->flush();
+						
+		       				return $this->redirect($this->generateUrl('ml_transaction_homepage'));		
+					    }
+					    catch(\Exception $e) {
+						    return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>$e->getMessage()));
+					    }
+				    }
+				    else {	
+				        return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>'L\'utilisateur '.$req->request->get('recipient').' n\'existe pas.'));
+				    }
+			        
+			    }
+			    else {	
+			        return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users,'error'=>'Vous n\'avez pas les moyens d\'effectuer cette transaction.'));
+			    }
 			}
 		
 		return $this->render('MlTransactionBundle:Transaction:payment.html.twig', array('user'=>$user,'users'=>$users));
