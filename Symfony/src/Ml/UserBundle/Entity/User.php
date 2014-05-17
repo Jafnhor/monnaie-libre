@@ -104,8 +104,10 @@ class User
 	private $visible;
 	
 	public function __construct() {
-		$this->karma = 0;
-		$this->account = new Account(100.0);
+        $text = file_get_contents(__DIR__."/default_value.json");
+        $json = json_decode($text,true);
+		$this->karma = $json['karma'];
+		$this->account = new Account($json['account'],$json['overdraft']);
 		$this->premium = false;
 		$this->moderator = false;
 		$this->visible = true;
