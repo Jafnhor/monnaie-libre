@@ -6,6 +6,9 @@
  use Symfony\Component\Form\FormBuilderInterface;
  use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  
+ /**
+ * Basic form
+ */
  class BasicType extends AbstractType
  {
 	  /**
@@ -104,8 +107,9 @@
      }
      
      /**
-      * @param OptionsResolverInterface $resolver
-      */
+	 * Set Default options
+     * @param OptionsResolverInterface $resolver
+     */
 	 public function setDefaultOptions(OptionsResolverInterface $resolver)
      {
          $resolver->setDefaults(array(
@@ -114,8 +118,9 @@
      }
  
      /**
-      * @return string
-      */
+	 * Get name
+     * @return string
+     */
      public function getName()
      {
          return 'ml_servicebundle_basic';

@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Carpooling form
+ */
 class CarpoolingType extends AbstractType
 {
         /**
@@ -137,6 +140,7 @@ class CarpoolingType extends AbstractType
     }
     
     /**
+	 * Set Default options
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -147,6 +151,7 @@ class CarpoolingType extends AbstractType
     }
 
     /**
+	 * Get name
      * @return string
      */
     public function getName()

@@ -10,8 +10,16 @@ use Ml\ForumBundle\Form\CommentType;
 use Ml\ForumBundle\Entity\TopicComment;
 use Ml\ForumBundle\Entity\TopicUser;
 
+/**
+ * Forum Controller extending Controller
+ * This one is used to display the forum and its components (topics, comments, likes, dislikes, ...) and to manage it.
+ */
 class ForumController extends Controller
 {
+	/**
+	 * Display all topics ordered by ratio(likes/dislikers) and allow a user to access a topic or to create a new one
+	 * @return Twig template MlForumBundle:Forum:index.html.twig
+	 */
     public function indexAction() {
 		$request = $this->get('request');
 		
@@ -116,6 +124,10 @@ class ForumController extends Controller
 			'last_message' => $last_message));
     }
 	
+	/**
+	 * Display the form allowing a user to create a new topic
+	 * @return Twig template MlForumBundle:Forum:new_topic.html.twig
+	 */
 	public function newTopicAction() {
 		$request = $this->get('request');
 		
@@ -163,6 +175,10 @@ class ForumController extends Controller
 			'form' => $form->createView()));
 	}
 	
+	/**
+	 * Display a topic with its details and comments and allow a user to comment the topic or to like/dislike it
+	 * @return Twig template MlForumBundle:Forum:see_topic.html.twig
+	 */
 	public function seeTopicAction($topic = NULL) {
 		$request = $this->get('request');
 		

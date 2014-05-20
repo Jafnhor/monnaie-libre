@@ -5,7 +5,16 @@ namespace Ml\AdministrationBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Administration Controller extending Controller
+ * This one is used to manage exchanges between users (services, groups, topics, comments, ...) and users themselves
+ */
 class AdministrationController extends Controller {
+
+	/**
+	 * Display all data (services, groups, topics, comments and users) and allow administrators to manage them
+	 * @return Twig template MlAdministrationBundle:Administration:index.html.twig
+	 */
     public function indexAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -167,6 +176,10 @@ class AdministrationController extends Controller {
 						'ratios' => $ratios,));
     }
 	
+	/**
+	 * Ban an user (set visible attribute to false)
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function banAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -224,6 +237,10 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Grant an user to moderator
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function grantAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -261,7 +278,7 @@ class AdministrationController extends Controller {
 			->findOneById($user_id);
 		
 		if ($user_to_grant == NULL) {
-			return $this->redirect($this->generateUrl(ml_user_add));
+			return $this->redirect($this->generateUrl('ml_user_add'));
 		}
 		
 		if ($user_to_grant->getModerator() == false) {
@@ -277,6 +294,10 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Grant an user to Master
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function grantMasterAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -329,6 +350,11 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Delete a group from database
+	 * Set associatedGroup attribute from Services to NULL
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function deleteGroupAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -430,6 +456,10 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Delete a service from database
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function deleteServiceAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -500,6 +530,10 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Delete a comment from database
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function deleteCommentAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -568,6 +602,10 @@ class AdministrationController extends Controller {
 		return $this->redirect($this->generateUrl('ml_administration_homepage'));
 	}
 	
+	/**
+	 * Delete a topic from database
+	 * @return Redirection to ml_administration_homepage
+	 */
 	public function deleteTopicAction() {
 		/* Test connexion */
 		$req = $this->get('request');	

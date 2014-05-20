@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * User form
+ */
 class UserType extends AbstractType
 {
         /**
@@ -28,6 +31,7 @@ class UserType extends AbstractType
     }
     
     /**
+	 * Set Default options
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -38,6 +42,7 @@ class UserType extends AbstractType
     }
 
     /**
+	 * Get name
      * @return string
      */
     public function getName()

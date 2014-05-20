@@ -6,9 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Comment form
+ */
 class CommentType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -21,6 +24,7 @@ class CommentType extends AbstractType
     }
     
     /**
+	 * Set Default options
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -31,6 +35,7 @@ class CommentType extends AbstractType
     }
 
     /**
+	 * Get name
      * @return string
      */
     public function getName()

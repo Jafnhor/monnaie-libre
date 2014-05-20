@@ -6,6 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Sale form
+ */
 class SaleType extends AbstractType
 {
         /**
@@ -107,6 +110,7 @@ class SaleType extends AbstractType
     }
     
     /**
+	 * Set Default options
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -117,6 +121,7 @@ class SaleType extends AbstractType
     }
 
     /**
+	 * Get name
      * @return string
      */
     public function getName()

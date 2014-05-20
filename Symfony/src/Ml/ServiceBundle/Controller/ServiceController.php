@@ -25,8 +25,16 @@ use Ml\TransactionBundle\Entity\SaleEval;
 use Ml\TransactionBundle\Entity\CarpoolingEval;
 use Ml\ServiceBundle\Entity\Document;
 
+/**
+ * Service Controller extending Controller
+ * This one is used to manage service (create, delete, reserve a service) and to display them
+ */
 class ServiceController extends Controller {
 
+	/**
+	 * Display all services and data
+	 * @return Twig MlServiceBundle:Service:index.html.twig
+	 */
 	public function indexAction() {
 		/* Test connexion */
 		$req = $this->get('request');	
@@ -517,6 +525,10 @@ class ServiceController extends Controller {
 		  'couchsurfing' => $couchsurfing));
 	}
 	
+	/**
+	 * Add a service in database (user can choose the kind of service he wants to create)
+	 * @return Twig MlServiceBundle:Service:add_service.html.twig
+	 */
 	public function addServiceAction() {
 		$req = $this->get('request');		
 		try {		
@@ -550,7 +562,11 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
-
+	/**
+	 * Display a service and its data
+	 * @param int $basic
+	 * @return Twig MlServiceBundle:Service:see_basic.html.twig
+	 */
 	public function seeBasicAction($basic = null) {
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -608,6 +624,10 @@ class ServiceController extends Controller {
 		}
 	}
 	
+	/**
+	 * Add a basic service in database
+	 * @return Twig MlServiceBundle:Service:add_basic.html.twig
+	 */
 	public function addBasicAction(){
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -664,7 +684,11 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
-	public function deleteBasicAction(/*Service $service*/) {
+	/**
+	 * Delete a basic service from database
+	 * @return Redirection to ml_service_homepage
+	 */
+	public function deleteBasicAction() {
 		/* Test connexion */
 		$req = $this->get('request');		
 		try {		
@@ -697,7 +721,11 @@ class ServiceController extends Controller {
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 	
-	
+	/**
+	 * Display a carpooling service and its data
+	 * @param int $carpooling
+	 * @return Twig MlServiceBundle:Service:see_carpooling.html.twig
+	 */
 	public function seeCarpoolingAction($carpooling = null) {
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -765,6 +793,10 @@ class ServiceController extends Controller {
 		}
 	}
 	
+	/**
+	 * Add a carpooling service in database
+	 * @return Twig MlServiceBundle:Service:add_carpooling.html.twig
+	 */
 	public function addCarpoolingAction(){
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -822,7 +854,11 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
-	public function deleteCarpoolingAction(/*Service $service*/) {
+	/**
+	 * Delete a carpooling service from database
+	 * @return Redirection to ml_service_homepage
+	 */
+	public function deleteCarpoolingAction() {
 		/* Test connexion */
 		$req = $this->get('request');		
 		try {		
@@ -855,6 +891,10 @@ class ServiceController extends Controller {
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
+	/**
+	 * Add a couchsurfing service in database
+	 * @return Twig MlServiceBundle:Service:add_couchsurfing.html.twig
+	 */
 	public function addCouchSurfingAction(){
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -910,6 +950,11 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
+	/**
+	 * Display a couchsurfing service and its data
+	 * @param int $couchsurfing
+	 * @return Twig MlServiceBundle:Service:see_couchsurfing.html.twig
+	 */
 	public function seeCouchSurfingAction($couchsurfing = null) {
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -977,7 +1022,11 @@ class ServiceController extends Controller {
 		}
 	}
 	
-	public function deleteCouchsurfingAction(/*Service $service*/) {
+	/**
+	 * Delete a couchsurfing service from database
+	 * @return Redirection ml_service_homepage
+	 */
+	public function deleteCouchsurfingAction() {
 		/* Test connexion */
 		$req = $this->get('request');		
 		try {		
@@ -1010,6 +1059,10 @@ class ServiceController extends Controller {
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
+	/**
+	 * Add a sale service in database
+	 * @return Twig MlServiceBundle:Service:add_sale.html.twig
+	 */
 	public function addSaleAction(){
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -1067,6 +1120,11 @@ class ServiceController extends Controller {
 		    'user' => $user));
 	}
 
+	/**
+	 * Display a sale service and its data
+	 * @param int $sale
+	 * @return Twig MlServiceBundle:Service:see_sale.html.twig
+	 */
 	public function seeSaleAction($sale = null) {
 		/* Test connexion */
 		$req = $this->get('request');		
@@ -1124,7 +1182,11 @@ class ServiceController extends Controller {
 		}
 	}
 	
-	public function deleteSaleAction(/*Service $service*/) {
+	/**
+	 * Delete a sale service from database
+	 * @return Redirection ml_service_homepage
+	 */
+	public function deleteSaleAction() {
 		/* Test connexion */
 		$req = $this->get('request');		
 		try {		
@@ -1157,9 +1219,11 @@ class ServiceController extends Controller {
 		return $this->redirect($this->generateUrl('ml_service_homepage'));
 	}
 
-
+	/**
+	 * Display all services of current user
+	 * @return Twig MlServiceBundle:Service:index_my_services.html.twig
+	 */
     public function seeMyServicesAction() {
-        
         $req = $this->get('request');	
         	
 		try {		
@@ -1240,6 +1304,10 @@ class ServiceController extends Controller {
 		return $this->render('MlServiceBundle:Service:index_my_services.html.twig', array('user' => $user,'services' => $services,'basicReserved' => $basicReserved,'salesReserved' => $salesReserved,'couchsurfingsReserved' => $couchsurfingsReserved,'carpoolingsReserved' => $carpoolingsReserved));
     }
     
+	/**
+	 * Set a service as done
+	 * @return Redirection ml_service_see_mine
+	 */
     public function serviceDoneAction() {
          $req = $this->get('request');	
         	

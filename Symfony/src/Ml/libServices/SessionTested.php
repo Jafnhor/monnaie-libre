@@ -2,14 +2,16 @@
 
 namespace Ml\libServices;
 
+/**
+ * Check if a session is set (user is authenticated)
+ */
 class SessionTested{
-	/*
-	Vérifie si l'utilisateur en cours a sa session activée.
-	Si elle ne l'est pas, une exception indiquant que l'utilisateur ne possède pas de session en cours en généré.
-	*/
 
-
-	/* Verifie si le login existe dans la session.Si oui renvoi du login, sinon appel de l'exception */
+	/**
+	 * Check if a session is set (user is authenticated)
+	 * @param array $req
+	 * @return string $login
+	 */
 	public function sessionExist($req){
 		// On récupère la requête
 		$session = $req->getSession();		

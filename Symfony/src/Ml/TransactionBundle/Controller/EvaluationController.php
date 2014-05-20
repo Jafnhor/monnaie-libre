@@ -4,7 +4,16 @@ namespace Ml\TransactionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Evaluation Controller extending Controller
+ * This one is used to evaluate a service and to display all evaluations now requested from current user
+ */
 class EvaluationController extends Controller {
+
+	/**
+	 * Display all evaluations now requested from current user
+	 * @return Twig template MlTransactionBundle:Transaction:index_eval.html.twig
+	 */
     public function indexAction() {
         /* Test connexion */
 		$req = $this->get('request');
@@ -55,7 +64,13 @@ class EvaluationController extends Controller {
 		return $this->render('MlTransactionBundle:Transaction:index_eval.html.twig',array('user'=>$user,'basic'=>$basic,'carpooling'=>$carpooling,'couchsurfing'=>$couchsurfing,'sale'=>$sale));
     }
 
-    public function evaluationAction($serviceType,$id) {
+	/**
+	 * Allow current user to evaluate a service that another user made for him
+	 * @param string $serviceType
+	 * @param int $id
+	 * @return Twig template MlTransactionBundle:Transaction:evaluation.html.twig
+	 */
+    public function evaluationAction($serviceType, $id) {
         /* Test connexion */
 		$req = $this->get('request');
 		
@@ -121,6 +136,10 @@ class EvaluationController extends Controller {
 	    return $this->render('MlTransactionBundle:Transaction:evaluation.html.twig',array('user'=>$user,'evaluation'=>$eval,'serviceType'=>$serviceType));
     }
     
+	/**
+	 * Give karma from an eval to $user
+	 * @param User $user
+	 */
     public function evalKarma($user) {
         $basic = $this->getDoctrine()
 	            ->getRepository('MlTransactionBundle:BasicEval')

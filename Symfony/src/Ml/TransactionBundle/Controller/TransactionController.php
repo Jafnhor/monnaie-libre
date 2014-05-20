@@ -10,8 +10,16 @@ use Ml\TransactionBundle\Entity\Transaction;
 use Ml\TransactionBundle\Exception\TransactionException;
 use Ml\UserBundle\Entity\User;
 
+/**
+ * Transaction Controller extending Controller
+ * This one is used for transactions between current user and another users
+ */
 class TransactionController extends Controller
 {
+	/**
+	 * Display all transactions and able current user to pay someone
+	 * @return Twig template MlTransactionBundle:Transaction:index.html.twig
+	 */
     public function indexAction() {
 		/* Test connexion */
 		$req = $this->get('request');
@@ -53,6 +61,10 @@ class TransactionController extends Controller
 		  'user' => $user));
     }
     
+	/**
+	 * Pay someone (from current user to another one)
+	 * @return Twig template MlTransactionBundle:Transaction:payment.html.twig
+	 */
     public function paymentAction() {
         /* Test connexion */
 		$req = $this->get('request');

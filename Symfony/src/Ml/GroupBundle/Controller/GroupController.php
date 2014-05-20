@@ -8,8 +8,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Ml\GroupBundle\Entity\Groupp;
 use Ml\GroupBundle\Entity\GroupUser;
 
+/**
+ * Group Controller extending Controller
+ * This one is used to display groups and all its data and to manage groups for groups' creators or to join a group
+ */
 class GroupController extends Controller {	
-
+	
+	/**
+	 * Display all groups with data
+	 * @return Twig template MlGroupBundle:Group:groups.html.twig
+	 */
 	public function indexAction() {
 		$request = $this->get('request');
 		
@@ -48,6 +56,10 @@ class GroupController extends Controller {
 			'message' => $message));
 	}
 	
+	/**
+	 * Allow a user to create a group
+	 * @return Redirection to ml_group_display_group
+	 */
 	public function creationGroupAction() {
 		$req = $this->get('request');
 		
@@ -227,6 +239,10 @@ class GroupController extends Controller {
 		  'user' => $current_user));
 	}
 	
+	/**
+	 * Display a group with all its data
+	 * @return Twig template MlGroupBundle:Group:display_group.html.twig
+	 */
 	public function displayGroupAction($group_id = null) {
 		$request = $this->get('request');
 		
@@ -411,6 +427,10 @@ class GroupController extends Controller {
 		}
 	}
 	
+	/**
+	 * Add a user to the group
+	 * @return Redirection to ml_group_display_group
+	 */
 	public function addUserAction() {
 		$request = $this->get('request');
 		
@@ -470,6 +490,10 @@ class GroupController extends Controller {
 		return $this->redirect($this->generateUrl('ml_group_display_group', array('group_id' => $group_id)));
 	}
 	
+	/**
+	 * Send a request to join the group
+	 * @return Redirection to ml_group_display_group
+	 */
 	public function joinGroupAction($group_id = NULL) {
 		$request = $this->get('request');
 		
@@ -523,6 +547,10 @@ class GroupController extends Controller {
 		}
 	}
 	
+	/**
+	 * Remove a user from the group
+	 * @return Redirection to ml_group_display_group
+	 */
 	public function deleteUserAction() {
 		$request = $this->get('request');
 		
@@ -630,6 +658,10 @@ class GroupController extends Controller {
 		return $this->redirect($this->generateUrl('ml_group_display_group', array('group_id' => $group_id)));
 	}
 	
+	/**
+	 * Refuse a request to join the group
+	 * @return Redirection to ml_group_display_group
+	 */
 	public function refuseUserAction() {
 		$request = $this->get('request');
 		
@@ -671,6 +703,10 @@ class GroupController extends Controller {
 		return $this->redirect($this->generateUrl('ml_group_display_group', array('group_id' => $group_id)));
 	}
 	
+	/**
+	 * Delete a user from the group because he decided to leave the group
+	 * @return Redirection to ml_home_homepage
+	 */
 	public function leaveGroupAction($group_id = null) {
 		$request = $this->get('request');
 		
@@ -775,6 +811,10 @@ class GroupController extends Controller {
 		}
 	}
 	
+	/**
+	 * Delete a group and all its data (set associatedGroup of Services to NULL)
+	 * @return Redirection to ml_home_homepage
+	 */
 	public function deleteGroupAction($group_id = NULL) {
 		$request = $this->get('request');
 		

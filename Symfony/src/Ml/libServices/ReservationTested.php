@@ -2,18 +2,29 @@
 
 namespace Ml\libServices;
 
+/**
+ * Check if user can still reserve a service
+ */
 class ReservationTested {
-	/*
-	Vérifie si l'utilisateur peut encore réservé.
-	*/
 	
 	/**
-	 * Return true only if the $user can reserve the $service
+	 * Check if user can still reserve a service
+	 * @param User $user
+	 * @param Service $service
+	 * @param EntityManager $em
+	 * @return bool 
 	 */
 	public function canReserve($user,$service,$em) {	    	    
 	    return $this->canPay($user,$service->getPrice(),$em); 
 	}
 	
+	/**
+	 * Check if user can pay
+	 * @param User $user
+	 * @param int $amount
+	 * @param EntityManager $em
+	 * @return bool 
+	 */
 	public function canPay($user,$amount,$em) {	    
 	    $basicReserved = $em->getRepository('MlServiceBundle:BasicUser')
 						   ->findByApplicant($user);

@@ -4,8 +4,16 @@ namespace Ml\HomeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Home Controller extending Controller
+ * This one is used for redirections and to access homepage
+ */
 class HomeController extends Controller
 {
+	/**
+	 * Redirect to ml_user_see if connected, else, display MlHomeBundle:Home:index.html.twig
+	 * @return Twig template MlHomeBundle:Home:index.html.twig
+	 */
     public function indexAction()
     {
 		$req = $this->get('request');
@@ -41,6 +49,10 @@ class HomeController extends Controller
 		}
     }
 	
+	/**
+	 * Display MlHomeBundle:Home:developers.html.twig
+	 * @return Twig template MlHomeBundle:Home:developers.html.twig
+	 */
 	public function developersAction()
     {	
 		return $this->render('MlHomeBundle:Home:developers.html.twig');

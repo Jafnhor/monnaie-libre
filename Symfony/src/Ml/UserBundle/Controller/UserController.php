@@ -8,8 +8,17 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Ml\UserBundle\Entity\User;
 use Ml\UserBundle\Form\UserType;
 
+/**
+ * User Controller extending Controller
+ * This one is used to access all data about current user, to log him in, to log him out, to manage his account
+ */
 class UserController extends Controller
 {
+	/**
+	 * If connected display all data about current user and allow him to manage his account and to access all benefits of Poavre (Services, Groups, Forum, ...)
+	 * else allows current user to connect or to create an account
+	 * @return Twig template MlUserBundle:User:see.html.twig or Redirection to ml_user_add
+	 */
 	public function indexAction()
 	{
 		/* Test connexion */
@@ -34,6 +43,10 @@ class UserController extends Controller
 		}
 	}	
 
+	/**
+	 * Display all data about current user and allow him to manage his account and to access all benefits of Poavre (Services, Groups, Forum, ...)
+	 * @return Twig template MlUserBundle:User:see.html.twig
+	 */
 	public function seeAction()
 	{
 		/* Test connexion */
@@ -55,6 +68,10 @@ class UserController extends Controller
 
 	}
 	
+	/**
+	 * Add a user in database
+	 * @return Twig template MlUserBundle:User:add_user.html.twig or Redirection to ml_user_see
+	 */
 	public function addAction()
 	{
 		/* Test connexion */
@@ -109,6 +126,10 @@ class UserController extends Controller
 		return $this->redirect($this->generateUrl('ml_user_see'));		
 	}
 
+	/**
+	 * Delete a user from database
+	 * @return Twig template MlUserBundle:User:delete.html.twig if user can't leave Poavre or Redirection to ml_user_deconnexion
+	 */
 	public function deleteAction() {
 		/* Test connexion*/
 		$req = $this->get('request');
@@ -227,6 +248,10 @@ class UserController extends Controller
 			'form' => $form->createView()));
 	}
 	
+	/**
+	 * Connect a user (set session)
+	 * @return Twig template MlUserBundle:User:see.html.twig
+	 */
 	public function connexionAction() {
 		// On récupère la requête
 		$request = $this->get('request');
@@ -257,6 +282,10 @@ class UserController extends Controller
 		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
 	
+	/**
+	 * Disconnect a user (destroy session)
+	 * @return Redirection to ml_user_add
+	 */
 	public function deconnexionAction() {
 		// On récupère la requête
 		$request = $this->get('request');
@@ -267,6 +296,10 @@ class UserController extends Controller
 		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
 	
+	/**
+	 * Edit current user's profile
+	 * @return Twig Template MlUserBundle:User:edit.html.twig
+	 */
     public function editAction(){
 	    /* Test connexion*/
 		$req = $this->get('request');
