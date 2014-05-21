@@ -9,15 +9,14 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 	
     <link href="{{ asset('css/carousel.css') }}" rel="stylesheet">
   </head>
   <body bgcolor = "#777">
+   <div align="right">
+    <ul class="pager">
+  <li><a href="{{ path('ml_user_add') }}">Connexion / Inscription</a></li>
+</ul></div>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="item active">

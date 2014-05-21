@@ -3,47 +3,82 @@
 {% block shell %}
 	{% block header %}
 		<header>
-			<div id='homepage' class='pack-start' title="Poavre, le compagnon de votre SEL">
-				<a href="{{ path('ml_service_add') }}"><img src="{{ asset('img/poavr-24.png') }}"/></a>
-				<a href="{{ path('ml_service_add') }}">Poavre</a>
-			</div>
-			<div id='prestations' class='pack-start'>
-				<a href="{{ path('ml_service_homepage') }}" title="Les prestations disponibles">Prestations</a>
-				<a href="{{ path('ml_service_add') }}" title="Proposer une prestation !"><i class="glyphicon glyphicon-plus-sign"></i></a>
-			</div>
-			<div id='groups' class='pack-start' title="Regroupez-vous et proposez vos prestations !">
-				<a href="{{ path('ml_group_homepage') }}">Groupes</a>
-				<a href="{{ path('ml_group_creation_group') }}" title="Créez votre propre groupe !"><i class="glyphicon glyphicon-plus-sign"></i></a>
-			</div>
-			<div id='forum' class='pack-start' title="Discutez de tout et n'importe quoi !"><a href="{{ path('ml_forum_homepage') }}">Forum</a></div>
-			<div id='logout' class='pack-end'>
-				<form action="{{ path('ml_user_deconnexion') }}" method="post">
-					<button class="btn btn-primary btn-xs" type="submit">Déconnexion <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
-				</form>
-			</div>
-			{% if user.master or user.moderator %}
-				<div id='admin' class='pack-end'>
-					<form action="{{ path('ml_administration_homepage') }}" method="post">
-						<button class="btn btn-primary btn-xs" type="submit">Administration <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
-					</form>
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<div id='homepage' class='navbar-brand' title="Poavre, le compagnon de votre SEL">
+						<a href="{{ path('ml_service_add') }}"><img src="{{ asset('img/poavr-24.png') }}"/></a>
+						<a href="{{ path('ml_service_add') }}">Poavre</a>
+					</div>
 				</div>
-			{% endif %}
-			<div class='pack-end'><img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}</div>
-			<div class='pack-end'><img src="{{ asset('img/portefeuille.png') }}"/> {{user.account.amount}} ₱</div>
-			<div id='profile' class='pack-end'><a href="{{ path('ml_user_homepage') }}">{{ user.firstName }} {{ user.lastName }}</a></div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="{{ path('ml_service_homepage') }}" title="Les prestations disponibles">Prestations</a>
+						</li>
+						<li>
+							<a href="{{ path('ml_service_add') }}" title="Proposer une prestation !"><i class="glyphicon glyphicon-plus-sign"></i></a>
+						</li>
+						<li>
+							<a href="{{ path('ml_group_homepage') }}" title="Regroupez-vous et proposez vos prestations !">Groupes</a>
+						</li>
+						<li>
+							<a href="{{ path('ml_group_creation_group') }}" title="Créez votre propre groupe !"><i class="glyphicon glyphicon-plus-sign"></i></a>
+						</li>
+						<li>
+							<a href="{{ path('ml_forum_homepage') }}" title="Discutez de tout et n'importe quoi !">Forum</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li style = "margin-right: 10px;">
+							<img src="{{ asset('img/portefeuille.png') }}"/> {{user.account.amount}} ₱
+						</li>
+						<li>
+							<img src="{{ asset('img/yinyang.png') }}"/> {{ user.karma }}
+						</li>
+						<li>
+							<a href="{{ path('ml_user_homepage') }}">{{ user.firstName }} {{ user.lastName }}</a>
+						</li>
+						<li>
+							<div id = "logout">
+								<form action="{{ path('ml_user_deconnexion') }}" method="post">
+									<button class="btn btn-primary btn-xs" type="submit">Déconnexion <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+								</form>
+							</div>
+						</li>
+						{% if user.master or user.moderator %}
+							<li>
+								<div id = 'admin' class = 'pack-end'>
+									<form action="{{ path('ml_administration_homepage') }}" method="post">
+										<button class="btn btn-primary btn-xs" type="submit">Administration <i class="icon-white glyphicon glyphicon-ok-sign"></i> </button>
+									</form>
+								</div>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
 		</header>
 	{% endblock %}
 	
-	<div id="sidebar" class="sidebar">
-		<div class="sidebar-container">
-			{% block sidebar %}
-			{% endblock %}
-		</div>
-	</div>
-	<div class="sidebar-right">
-		<div class="sidebar-container">
-			{% block body %}
-			{% endblock %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active"> <p> </p></li>
+					<li><a href="{{ path('ml_service_see_mine') }}">Mes services proposés</a></li>
+					<li><a href="{{ path('ml_transaction_eval_index') }}">Service à évaluer</a></li>
+					<li><a href="{{path('ml_transaction_homepage')}}">Transactions</a></li>
+				</ul>
+				{% block sidebar %}
+				{% endblock %}
+			</div>
+			<div class="sidebar-right">
+				<div class="sidebar-container">
+					{% block body %}
+					{% endblock %}
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
