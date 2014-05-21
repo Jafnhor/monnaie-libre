@@ -219,7 +219,7 @@ class UserController extends Controller
 			$em->flush();
 
 			/* Redirection vers l'accueil du site */
-			return $this->redirect($this->generateUrl('ml_user_deconnexion'));
+			return $this->redirect($this->generateUrl('ml_user_deconnection'));
 		}
 		/* Formulaire non valide -> rechargement de la page */
 		return $this->render('MlUserBundle:User:delete.html.twig', array(
@@ -227,7 +227,7 @@ class UserController extends Controller
 			'form' => $form->createView()));
 	}
 	
-	public function connexionAction() {
+	public function connectionAction() {
 		// On récupère la requête
 		$request = $this->get('request');
 
@@ -257,7 +257,7 @@ class UserController extends Controller
 		return $this->redirect($this->generateUrl('ml_user_add'));
 	}
 	
-	public function deconnexionAction() {
+	public function deconnectionAction() {
 		// On récupère la requête
 		$request = $this->get('request');
 		$session = $request->getSession();		
