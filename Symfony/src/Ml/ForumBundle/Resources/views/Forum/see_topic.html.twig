@@ -10,12 +10,12 @@
 		<div class="well">
 			<h3 id = "title_topic">
 				<b>
+					{{ topic.name }}
 					{% if topic.author is not sameas(user) %}
 						<form method = "POST" action = "{{ path('ml_forum_disliker_topic', { 'topic': topic.id }) }}">
 							<button type = "submit" value = "disliker" class = "btn  btn-link" name = "disliker"><i style = 'margin-bottom: 10px' class='glyphicon glyphicon-thumbs-down'></i></button>
 						</form>
 					{% endif %}
-					{{ topic.name }}
 					{% if topic.author is not sameas(user) %}
 						<form method = "POST" action = "{{ path('ml_forum_liker_topic', { 'topic': topic.id }) }}">
 							<button type = "submit" value = "liker" class = "btn  btn-link" name = "liker"><i style = 'margin-bottom: 10px' class='glyphicon glyphicon-thumbs-up'></i></button>
