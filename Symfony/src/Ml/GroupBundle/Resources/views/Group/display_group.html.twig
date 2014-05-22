@@ -10,13 +10,13 @@
 			<legend><b>Groupe {{ group_id }} : {{ group.name }}</b></legend>
 		{% endif %}
 		{% if group is not defined %}
-			<legend><b>Groupe {{ message }} n'existe pas</b></legend>
+			<legend><b>Groupe {{ message }} n'existe pas.</b></legend>
 		{% endif %}
 		<tr>
 			{% if message is defined %}
 				<div class = "well">
 					<center>
-						Il n'y a pas de groupe {{ message }}<br><br>
+						Il n'y a pas de groupe {{ message }}.<br><br>
 						<a href='../groups'>Revenir à la liste des groupes</a>
 					</center>
 				</div>
@@ -149,7 +149,7 @@
 															<center><b>Prix</b></center>
 														</td>
 														<td>
-															<center><b>Createur</b></center>
+															<center><b>Créateur</b></center>
 														</td>
 														{% if is_administrator is defined %}
 															{% if is_administrator is sameas(true) %}
@@ -226,11 +226,11 @@
 											</center>
 										{% endif %}
 										{% if associated_services is null %}
-											Pas de service associé à ce groupe
+											Pas de service associé à ce groupe.
 										{% endif %}
 									{% endif %}   
 									{% if associated_services is not defined %}
-										Pas de service associé à ce groupe
+										Pas de service associé à ce groupe.
 									{% endif %}
 								</div>
 								{% if is_administrator is defined %}
@@ -304,7 +304,7 @@
 										{% endif %}
 										{% if requests is null %}
 											<div>
-												Pas de demande d'adhésion au {{ group.name }}
+												Pas de demande d'adhésion au {{ group.name }}.
 											</div>
 										{% endif %}
 										{% if users is not null %}

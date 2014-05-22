@@ -109,7 +109,7 @@ class CouchSurfingType extends AbstractType
             ->add('hourEnd', 'time', array(
 										'label' => "Heure de départ"))
             ->add('limitGuest', 'choice', array( 
-										'label' => "Invités",
+										'label' => "Limite d'invités",
 										'choices' => array(true => "Oui", false => "Non")))
             ->add('limitNumberOfGuest', 'integer', array(
 													'label' => "Nombre d'invités (maximum)",
