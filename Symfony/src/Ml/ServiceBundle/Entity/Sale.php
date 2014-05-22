@@ -30,7 +30,7 @@ class Sale extends Service
     protected $type;
 	
 	/**
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="6000000",mimeTypes = {"image/jpeg", "image/png", "image/gif"})
 	 * @ORM\Column(name="file", type="string", length=255, nullable=true)
      */
     protected $file;
