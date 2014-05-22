@@ -1,10 +1,10 @@
-ml_user_connexion:
-    pattern: /connexion
-    defaults: { _controller: MlUserBundle:User:connexion }
+ml_user_connection:
+    pattern: /connection
+    defaults: { _controller: MlUserBundle:User:connection }
 
-ml_user_deconnexion:
-    pattern: /deconnexion
-    defaults: { _controller: MlUserBundle:User:deconnexion }
+ml_user_deconnection:
+    pattern: /deconnection
+    defaults: { _controller: MlUserBundle:User:deconnection }
 
 ml_user_homepage:
     pattern: /user
