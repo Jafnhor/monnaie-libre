@@ -32,7 +32,7 @@ FICHIERS= \
 
 all: $(DOC)
 
-.PHONY: all clean
+.PHONY: all clean documentation.tex
 
 %.pdf: %.tex
 	$(LATEXC) $< && $(LATEXC) $<
@@ -43,6 +43,10 @@ clean:
 #Les règles suivantes représentent l'arbre de dépendances du document :
 #si une partie d'une partie droite d'une règle est mise à jour, la partie
 #gauche devra être mise à jour aussi (@touch)
+
+documentation.tex:
+	cd .. && doxygen doc && cd rapport
+	python3 extracteur-refman.py
 
 rapport.tex: $(FICHIERS)
 	@touch $@

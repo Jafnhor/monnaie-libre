@@ -7,7 +7,20 @@
 \usepackage{hyperref}
 \usepackage[a4paper,vmargin={20mm,20mm},hmargin={30mm,20mm},includeheadfoot]{geometry}
 \usepackage{graphicx}
-\usepackage{listingsutf8,xcolor}
+
+% Paquets requis par Doxygen
+\usepackage{import}
+\usepackage{calc}
+\usepackage{doxygen}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+\usepackage{ifpdf}
+%\usepackage[pdftex,pagebackref=true]{hyperref}
+
+\usepackage{listingsutf8}
 \definecolor{dkgreen}{rgb}{0,.6,0}
 \definecolor{dkblue}{rgb}{0,0,.6}
 \definecolor{dkyellow}{cmyk}{0,0,.8,.3}
@@ -26,6 +39,12 @@
     emphstyle=[2]\color{dkyellow},
 	tabsize=1
 }
+
+% Commande pour Doxygen
+\providecommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
 
 \graphicspath{ {images/} }
 
