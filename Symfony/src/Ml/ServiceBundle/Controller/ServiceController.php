@@ -1331,6 +1331,7 @@ class ServiceController extends Controller {
                     $reservation = $this->getDoctrine()
                             ->getRepository('MlServiceBundle:BasicUser')
                             ->findOneById($req->request->get('reservation-id'));
+                    $service->setVisibility(true);
 		            break;
 		        case 'sale':
 		            $eval = new SaleEval();
@@ -1375,9 +1376,7 @@ class ServiceController extends Controller {
 		    $eval->setSubscriber($reservation->getApplicant());
 		    $eval->setOwner($service->getUser());
 		    $eval->setEval(0);
-		    
-		    $service->setVisibility(true);
-		    
+		    		    
 		    $this->getDoctrine()->getManager()->remove($reservation);
 		    $this->getDoctrine()->getManager()->persist($eval);
 		    $this->getDoctrine()->getManager()->persist($service);
