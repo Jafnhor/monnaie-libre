@@ -128,7 +128,7 @@ class ServiceController extends Controller {
 						if ($creator == NULL) {
 							$basic = $this->getDoctrine()
 										   ->getManager()
-										   ->getRepository('MlServiceBundle:BAsic')
+										   ->getRepository('MlServiceBundle:Basic')
 										   ->findByVisibility(true);
 						}
 						else {
