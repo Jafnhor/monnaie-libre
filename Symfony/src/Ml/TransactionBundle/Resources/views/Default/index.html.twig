@@ -1,7 +1,0 @@
-Payeur : {{ transaction.debitedAccount.id }} <br />
-Paye : {{ transaction.creditedAccount.id }} <br />
-Montant de la transaction : {{transaction.amount}} <br /> 
-Le {{transaction.date|date("d/m/Y")}} <br />
-{% if transaction.flag != "" %}
-Libellé : {{transaction.flag}}
-{% endif %}
