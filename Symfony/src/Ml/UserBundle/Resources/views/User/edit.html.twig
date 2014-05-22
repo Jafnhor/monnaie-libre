@@ -6,7 +6,7 @@
 	
 {% block user_body %}
 	<div class="jumbotron">
-		<h1 style="text-align:center">Editez votre profil </h1>
+		<h3 style="text-align:center">Editez votre profil </h3>
 	</div>
 	<div class="well" align = "center">
 		<form action="{{ path('ml_user_edit', {'id': user.id}) }}" method="post" {{ form_enctype(form) }}>
