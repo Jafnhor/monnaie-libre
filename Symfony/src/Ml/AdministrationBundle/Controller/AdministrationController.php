@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * \class AdministrationController
  * Administration Controller extending Controller
  * This one is used to manage exchanges between users (services, groups, topics, comments, ...) and users themselves
  */
