@@ -18,9 +18,9 @@
 						<div class = "well">
 							<h4 class = "service">Créateur :</h4> {{ sale.user.login }}
 							<h4 class = "service">Date de création :</h4> {{ sale.creationDate|date("d/m/Y") }}
-							<h4 class = "service">Commentaire :</h4> 
+							<h4 class = "service">Description :</h4> 
 							{% if sale.comment is null %} 
-								Pas de commentaires 
+								Pas de description 
 							{% endif %} 
 							{% if sale.comment is not null %} 
 								{{ sale.comment }}

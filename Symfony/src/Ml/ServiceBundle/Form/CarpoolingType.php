@@ -95,8 +95,8 @@ class CarpoolingType extends AbstractType
         $builder
             ->add('title', 'text', array(
 										'label' => "Titre"))
-            ->add('comment', 'text', array(
-										'label' => "Commentaire"))
+            ->add('comment', 'textarea', array(
+										'label' => "Description"))
             ->add('price', 'integer', array(
 										'label' => "Prix"))
             ->add('departure', 'text', array(
