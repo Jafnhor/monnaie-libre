@@ -4,8 +4,17 @@ LATEXC=pdflatex
 DOC=rapport.pdf
 
 FICHIERS= \
+	Makefile \
 	contenu.tex \
+	introduction.tex \
+	organisation.tex \
+	analyse.tex \
+	realisation.tex \
+	manuel.tex \
+	bilan.tex \
+	conclusion.tex \
 	code.tex \
+	documentation.tex \
 	../Symfony/src/Ml/TransactionBundle/Entity/Transaction.php \
 	../Symfony/src/Ml/TransactionBundle/Entity/Account.php \
 	../Symfony/src/Ml/TransactionBundle/Entity/Evaluation.php \
