@@ -1,8 +1,13 @@
+%%%
+%%% Ce chapitre est terminé, il a été intégré au rapport.
+%%% Toute modification ultérieure devra être signalée à Adrien qui s'occupe de son intégration.
+%%%
+
 \chapter{Réalisation du projet}
 
 \section{Les bundles}
 % auteur : Clément
-% relu par : Fabien, Adrien
+% relu par : Fabien, Adrien, Oualid
 
 Afin de réaliser le projet, nous avons décidé de découper le travail en bundles s'occupant chacun d'une partie précise du site, afin de simplifier la naviguation entre ces parties.
 Chaque bundle gère une partie du modèle, de la vue et du contrôleur de l'application. Un bundle possède son propre nom de la manière suivante, suffixé par \verb|Bundle| (par exemple, le bundle \verb|User| est nommé \verb|UserBundle|).
@@ -20,7 +25,7 @@ Les vues sont répertoriées dans le dossier \verb|Ressources/views|, on y retro
 
 \subsection{Le bundle User}
 % auteur : Clément
-% relu par : Florian, Fabien, Adrien
+% relu par : Florian, Fabien, Adrien, Oualid
 
 Le bundle \verb|UserBundle| implémente l'entité utilisateur qui comporte les attributs types d'un utilisateur~: pseudo, mot de passe (encodé en MD5), nom, prénom, date de naissance, karma, ...
 
@@ -37,9 +42,9 @@ Le contrôleur permet d'effectuer différentes opérations liées à un utilisat
 
 \subsection{Le bundle Service}
 % auteur : Clément
-% relu par : Fabien, Adrien
+% relu par : Fabien, Adrien, Oualid
 
-Ce bundle catégorise les différents types de service existants sur le site, implémentés par des entités séparées, qui sont~: service de base, covoiturage, vente et couchsurfing.
+Ce bundle catégorise les différents types de service existants sur le site, implémentés par des entités séparées, que sont~: service de base, covoiturage, vente et couchsurfing.
 
 Chaque service contient~:
 \begin{itemize}
@@ -67,11 +72,11 @@ Le contrôleur quant à lui, fonctionne via les méthodes suivantes~:
 
 \subsection{Le bundle Transaction}
 % auteur : Florian
-% relu par : Clément, Fabien, Adrien
+% relu par : Clément, Fabien, Adrien, Oualid
 
 Ce bundle avait pour objectif premier la gestion des comptes «~monétaires~» des utilisateurs. Par la suite, la partie évaluation s'est ajoutée à ce bundle, afin de faire le lien entre un service et un paiement.
 
-Les différentes entités de ce bundle sont~:
+Les différentes entitées de ce bundle sont~:
 \begin{description}
     \item [Account] cette entité contient un identifiant de compte, un montant de compte ainsi qu'un découvert autorisé~;
     \item [Transaction] cette entité est chargée de stocker une transaction entre deux comptes, c'est à dire les deux comptes concernés, le montant de la transaction ainsi qu'un libellé optionnel~;
@@ -95,9 +100,9 @@ Il existe ainsi dans ce bundle deux contrôleurs~:
 
 \subsection{Le bundle Group}
 % auteur : Fabien
-% relu par : Clément, Adrien
+% relu par : Clément, Adrien, Oualid
 
-Ce bundle est utilisé pour le groupement d'utilisateurs autour de services.
+Ce bundle est utilisé pour regrouper les utilisateurs autour de services.
 
 \begin{description}
     \item [Groupp] est une entité qui permet le groupement d'utilisateurs par un identifiant unique, un nom et une description ainsi qu'un administrateur, cette entité se nomme \verb|Groupp| car \verb|Group| est un terme réservé par Symfony2~;
@@ -109,7 +114,7 @@ Ce bundle est utilisé pour le groupement d'utilisateurs autour de services.
 \subsection{Le bundle Forum}
 
 % auteur : Fabien
-% relu par : Clément, Adrien
+% relu par : Clément, Adrien, Oualid
 
 Ce bundle est utilisé pour la communication entre les membres de Poavre sur divers sujets, cela peut être de la communication pure (chat), de la communication sur les services proposés ou encore débattre sur des sujets et proposer des nouveautés à apporter au site.
 
@@ -127,7 +132,7 @@ Ce bundle est utilisé pour la communication entre les membres de Poavre sur div
 \subsection{Le bundle Home}
 
 % auteur : Fabien
-% relu par : Clément, Adrien
+% relu par : Clément, Adrien, OUalid
 
 Ce bundle est utilisé pour l'affichage de la page d'accueil du site ainsi que pour l'accès à l'onglet «~Développeurs~».
 Ainsi la majeure partie des redirections se font soit vers la création de compte utilisateur ou de connexion, soit vers la page d'accueil.
@@ -137,7 +142,7 @@ Ainsi la majeure partie des redirections se font soit vers la création de compt
 \subsection{Le bundle Administration}
 
 % auteur : Fabien
-% relu par : Clément, Adrien
+% relu par : Clément, Adrien, Oualid
 
 Ce bundle est utilisé pour la gestion de Poavre par les modérateurs du site.
 
@@ -149,7 +154,7 @@ Ce bundle est utilisé pour la gestion de Poavre par les modérateurs du site.
 
 \section{Les services Symfony}
 % auteur : Clément
-% relu par : Fabien, Adrien
+% relu par : Fabien, Adrien, Oualid
 
 Symfony2 permet d'implémenter des services qui sont des fonctions appelables depuis un contrôleur quelconque. Ceci est réalisable grâce à l'«~importation~» du service dans le fichier \verb|service.yml| présent dans tous bundle généré par Symfony2.
 
@@ -157,7 +162,7 @@ Ici dans chaque bundle et avant chaque méthode d'un contrôleur, un service est
 
 \section{L'implémentation du modèle}
 % auteur : Clément
-% relu par : Fabien, Adrien
+% relu par : Fabien, Adrien, Oualid
 
 La partie modèle de Symfony2 contient 2 parties, les classes d'entités et les \verb|entityRepository| contenant notamment des requêtes personnalisées avec la base de donnée et les formulaires d'entités.
 
@@ -170,10 +175,10 @@ Les attributs sont alors demandés ainsi que leurs types et quelques spécialisa
 
 \subsection{Les «~Repositories~»}
 % auteur : Florian
-% relu par : Fabien, Adrien
+% relu par : Fabien, Adrien, Oualid
 
 Les \verb|repositories| sont des «~dépôts~» qui sont interrogés par les contrôleurs. Ces dépôts requêtent la base de données et créent les objets demandés. Cela dit, les requêtes héritées de \verb|EntityRepository| ne permettent que des requêtes simples.
-Des requêtes plus complexes (personnalisées), peuvent être créé grâce au DQL (Doctrine Query Language), notamment dans les sujets pour calculer les ratios (likes/dislikes) de chaque sujet (voir figure \ref{fig:dql}).
+Des requêtes plus complexes (personnalisées), peuvent être créés grâce au DQL (Doctrine Query Language), notamment dans les sujets pour calculer les ratios (likes/dislikes) de chaque sujet (voir figure \ref{fig:dql}).
 
 \begin{figure}[h]
 \centering
@@ -259,7 +264,6 @@ Le découpage de la vue s'est fait en différents layouts s'occupant d'une parti
 \subsection{Les vues spécifiques}
 
 Chaque bundle définit un lot de vues spécifiques, spécialisant selon le besoin soit \verb|simple.html.twig|, soit \verb|headerbar.html.twig|.
-
 La spécialisation de \verb|simple.html.twig| est réalisée en définissant la section de corps du document, le terminant ainsi.
 
 La spécialisation de \verb|headerbar.html.twig| est réalisée en deux étapes, un fichier Twig spécifique au bundle redéfinit la barre latérale, puis est hérité par les vues du bundle qui définissent le corps du document, le terminant ainsi. Ceci permet d'avoir une barre d'en-tête commune à toutes les vues d'un bundle.
@@ -268,19 +272,19 @@ La spécialisation de \verb|headerbar.html.twig| est réalisée en deux étapes,
 
 \subsection{Version 0.1}
 % auteur : Thin
-% relu par : Clément, Florian, Oualid, Adrien
+% relu par : Clément, Florian, Oualid, Adrien, Fabien
 
 La première version du projet a été programmée début mars après trois à quatre semaines d'analyse. Cette première version faisant office de socle pour la suite de l'avancement de notre projet, celle-ci fut centrée sur les fondements du projet et réalisée sur une période de trois semaines.
 
-L'objectif de cette version était donc l'implémentation des modèles utilisateur, prestation et transaction. Pour cela, nous avons dû créer un bundle correspondant à ces 3 modèles~; les bundles \verb|User|, \verb|Prestation| et \verb|Transaction|. Le travail fut réparti en fonction des préférences, des curiosités ou encore selon les connaissances de chacun et fut facilité par le biais de la structuration de Symfony, en effet un certain nombre de personnes étaient rattachées à un bundle ce qui permit d'éviter les conflits.
+L'objectif de cette version était donc l'implémentation des modèles Utilisateur, Prestation et Transaction. Pour cela, nous avons dû créer un bundle correspondant à ces 3 modèles~; les bundles \verb|User|, \verb|Prestation| et \verb|Transaction|. Le travail fut réparti en fonction des préférences, des curiosités ou encore selon les connaissances de chacun et fut facilitée par le biais de la structuration de Symfony, en effet un certain nombre de personnes étaient rattachées à un bundle ce qui permis d'éviter les conflits.
 
-Concernant la partie modèle, le modèle \verb|Prestation| implémenté par Oualid, Rime et Quentin fut enrichi par des services comme le covoiturage, le bricolage ou les cours particuliers, seul le service covoiturage a été retenu. Le modèle \verb|User| fut implémenté par Clément et Thin-hinen et le modèle \verb|Transaction| par Florian.
+Concernant la partie modèle, le modèle \verb|Prestation| implémenté par Oualid, Rime et Quentin fut enrichi par des services comme le covoiturage, le bricolage ou les cours particuliers, seul le service covoiturage a été retenu. Le modèle \verb|User| fut implémenté par Clément et Thin-Hinen et le modèle \verb|Transaction| par Florian.
 
 La vue a été prise en main d’une part par Fabien en structurant les layouts principaux et secondaires et d’autre part par Adrien qui avait pour rôle de coder les vues relatives aux modèles implémentés.
 
 Enfin le contrôleur du bundle utilisateur a été implémenté par Clément pour permettre d’inscrire un utilisateur et par la suite d’être complété pour répondre aux fonctionnalités définies.
 
-Dans un premier temps la version 0.1 a permis la structuration de base du site et l'implémentation des éléments de base mais aussi la prise en main des nouveaux outils (pour la plupart du groupe) que sont Symfony2, Git (et GitHub) et Producteev. De plus la version 0.1 a permis d'établir les conventions nécessaires à l'homogénéisation du projet ainsi il a été décidé que les commentaires et la documentation se feraient en français quant au site il serait en anglais mais disponible en français.
+Dans un premier temps la version 0.1 a permis la structuration de base du site et l'implémentation des éléments de base mais aussi la prise en main des nouveaux outils (pour la plupart des membres du groupe) que sont Symfony2, Git (et GitHub) et Producteev. De plus la version 0.1 a permis d'établir les conventions nécessaires à l'homogénéisation du projet ainsi il a été décidé que les commentaires et la documentation se feraient en français quant au site il serait en anglais mais disponible en français.
 
 Dans un second temps, lors de l'élaboration de la version 0.1, le but fut son intégration, guidée par Adrien et Fabien, tout le groupe était alors concerné par la résolution des bugs mais aussi par l'ajout de certaines fonctionnalités (formulaire de prestation...), l'ajout de la base du site (vue des prestations) et la vérification de la validité des données récupérées au niveau du contrôleur.
 
@@ -288,9 +292,9 @@ Dans un second temps, lors de l'élaboration de la version 0.1, le but fut son i
 % auteur : Thin
 % relu par : Clément, Florian, Oualid, Adrien
 
-En début avril l'avancement du projet et l'aboutissement de la version 0.2 du site amena la question du nom~; «~Poavre~» a alors été proposé par Adrien, qui est un jeu de mot lié au mot «~SEL~». La «~faute~» a été choisie pour permettre une meilleure identification du projet.
+Début Avril l'avancement du projet et l'aboutissement de la version 0.2 du site amena la question du nom~; «~Poavre~» a alors été proposé par Adrien, qui est un jeu de mots lié au mot «~SEL~». La «~faute~» a été choisie pour permettre une meilleure identification du projet.
 
-La 0.2 fut l'occasion d'une amélioration de la vue, proposée par Adrien, tandis qu'en collaboration avec Clément et Thin-Hinen le site était réorganisé. Fabien, Quentin, Rime et Oualid ont étoffé le bundle Service en proposant de généraliser la proposition de service et en ne conservant que deux services types, le covoiturage et le couchsurfing, tout en adaptant le contrôleur et les vues associés.
+La 0.2 fut l'occasion d'une amélioration de la vue, proposée par Adrien, tandis qu'en collaboration avec Clément et Thin-Hinen le site était réorganisé. Fabien, Quentin, Rime et Oualid ont étoffé le bundle Service en proposant de généraliser la proposition de service et en ne conservant que deux services types, le covoiturage et le couchsurfing, tout en adaptant le contrôleur et les vues associées.
 La partie transaction, encore en cours d'évolution, était toujours en développement par Florian.
 
 Ainsi, cette partie fut principalement un renforcement de la version précédente, seules quelques légères améliorations ont été apportées.
@@ -301,10 +305,10 @@ Elle fut réalisée en deux semaines.
 % auteur : Thin
 % relu par : Florian, Clément, Adrien
 
-La version 0.3 a été l'occasion d'un enrichissement au niveau de la vue, où les prestations (renommés services à partir de cette version) sont alors complètes tant au niveau de la vue que du contrôleur. L'implémentation des transactions est également terminée.
+La version 0.3 a été l'occasion d'un enrichissement au niveau de la vue, où les prestations (renommées services à partir de cette version) sont alors complètes tant au niveau de la vue que du contrôleur. L'implémentation des transactions est également terminée.
 Arrivé à cette version, les outils sont bien compris rendant le travail plus efficace et dynamique.
 
-Une épuration du code s'est faite lors de cette version~: la factorisation du code est alors réalisée (mise en place du service \verb|ml_session| qui teste si un utilisateur est connecté). De plus, les pages \verb|TWIG| reçoivent désormais des entités complètes et non plus chaque attribut d'une entité.
+Une épuration du code s'est faite lors de cette version~: la factorisation du code est alors réalisée (mise en place du service \verb|ml_session| qui teste si un utilisateur est connecté). De plus, les pages \verb|Twig| reçoivent désormais des entités complètes et non plus chaque attribut d'une entité.
 
 \subsection{Version 0.4}
 % auteur : Thin
@@ -324,9 +328,9 @@ Cette version fut également l'occasion de la mise en ligne du site. Adrien deva
 
 Cette version étant une finalisation du projet, certains points on été améliorés pour plus de clarté et de sécurité à l'interieur du site.
 
-Une vérification de la capacité de paiement des utilisateurs fut implémentée par Florian. En effet, un utilisateur ne peut pas réserver de nouveaux services si ses moyens ne sont pas suffisants~; les transactions encore en cours mais non payées sont maintenant prises en compte pour calculer le solde disponible de l'utilisateur lors d'une nouvelle demande de service. 
+Une vérification de la capacité de paiement des utilisateurs fut implémentée par Florian. En effet, un utilisateur ne peut pas réserver de nouveaux services si ses moyens ne sont pas suffisants~; les transactions encore en cours mais non-payées sont maintenant prises en compte pour calculer le solde disponible de l'utilisateur lors d'une nouvelle demande de service. 
 
-La désactivation du compte (si l'utilisateur n'a pas de transactions en cours) a également été ajouté. Nous n'avons pas implémenté la suppression totale du compte (pour garder une trace des transactions en cas de litige), mais avons cependant laisser cette possibilité à l'utilisateur via un mail de contact, afin de rester conformes aux règles de la CNIL.
+La désactivation du compte (si l'utilisateur n'a pas de transactions en cours) a également été ajoutée. Nous n'avons pas implémentés la suppression totale du compte (pour garder une trace des transactions en cas de litige), mais avons cependant laissé cette possibilité à l'utilisateur via un mail de contact, afin de rester en conformité avec les règles de la CNIL.
 
 Oualid et Fabien ont été chargés de la transition vers la dernière version de \verb|Bootstrap| pour un meilleur rendu. La \verb|side-bar| a été allégée et la page d’accueil fut également modifiée pour être plus attractive.
 

@@ -1,4 +1,4 @@
-\documentclass[22pt, a4paper]{report}
+\documentclass[a4paper]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -18,17 +18,16 @@
 \usepackage{textcomp}
 \usepackage[table]{xcolor}
 \usepackage{ifpdf}
-%\usepackage[pdftex,pagebackref=true]{hyperref}
 
 \usepackage{listingsutf8}
 \definecolor{dkgreen}{rgb}{0,.6,0}
 \definecolor{dkblue}{rgb}{0,0,.6}
 \definecolor{dkyellow}{cmyk}{0,0,.8,.3}
 \lstset{
-	language=php,
-	breaklines=true,
-	inputencoding=utf8/latin1,
-	basicstyle=\footnotesize,
+    language=php,
+    breaklines=true,
+    inputencoding=utf8/latin1,
+    basicstyle=\footnotesize,
     keywordstyle=\color{dkblue},
     stringstyle=\color{red},
     identifierstyle=\color{dkgreen},
@@ -37,7 +36,7 @@
     emphstyle=[1]\color{black},
     emph=[2]{if,and,or,else},
     emphstyle=[2]\color{dkyellow},
-	tabsize=1
+    tabsize=1
 }
 
 % Commande pour Doxygen
@@ -45,6 +44,13 @@
   \newpage{\pagestyle{empty}\cleardoublepage}%
 }
 
+%BIBLATEX
+\usepackage[backend=bibtex,
+style=numeric
+%style=alphabetic
+%style=reading
+]{biblatex}
+\addbibresource{ref}
 
 \graphicspath{ {images/} }
 
@@ -63,7 +69,7 @@
 
 \begin{document}
 
-\input{contenu.tex}
+\input{contenu}
 
 \end{document}
 

@@ -24,13 +24,12 @@ for line in lines:
 	result = docchapterline.match(line)
 	if (result):
 		accepted_chapter = True
+		sortie.write(line)
 	
 	# Transformer les input en import (définit le dossier pour les inclusions récursives)
 	result = inputline.match(line)
-	if (result):
+	if (result and accepted_chapter):
 		line = "\\import{latex/}{" + result.group(1) + "\n"
-	
-	if (accepted_chapter):
 		sortie.write(line)
 
 refman.close()

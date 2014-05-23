@@ -34,7 +34,9 @@ all: $(DOC)
 
 .PHONY: all clean documentation.tex
 
-%.pdf: %.tex
+rapport.pdf: rapport.tex
+	$(LATEXC) $< && $(LATEXC) $<
+	bibtex rapport
 	$(LATEXC) $< && $(LATEXC) $<
 
 clean:
