@@ -1,0 +1,338 @@
+\chapter{Réalisation du projet}
+
+\section{Les bundles}
+% auteur : Clément
+% relu par : Fabien, Adrien
+
+Afin de réaliser le projet, nous avons décidé de découper le travail en bundles s'occupant chacun d'une partie précise du site, afin de simplifier la naviguation entre ces parties.
+Chaque bundle gère une partie du modèle, de la vue et du contrôleur de l'application. Un bundle possède son propre nom de la manière suivante, suffixé par \verb|Bundle| (par exemple, le bundle \verb|User| est nommé \verb|UserBundle|).
+
+Le modèle est géré dans le dossier \verb|Entity|, où toutes les classes seront implémentées.
+
+Le contrôleur se trouve dans le dossier \verb|Controller|, un contrôleur effectue des contrôles sur le modèle avant d'envoyer les données à la partie vue.
+Dans Symfony, les opérations d'un contrôleur sont sous forme de méthodes suffixées par \verb|Action|.
+
+Les vues sont répertoriées dans le dossier \verb|Ressources/views|, on y retrouve donc les différentes vues en lien avec le contrôleur et les modèles donnés.
+
+% Ici Adrien :
+% Je vous propose d'expliquer ce que fais spécifiquement chaque bundle dans la partie bundle sans rentrer dans le détail de comment fonctionne un bundle de manière globale pour le faire dans les trois sections suivantes (M, V et C)
+% Ainsi on pourra expliquer ce que font les bundles (exemple: se connecter, échanger de l'argent...) plutôt que comment ils fonctionnent
+
+\subsection{Le bundle User}
+% auteur : Clément
+% relu par : Florian, Fabien, Adrien
+
+Le bundle \verb|UserBundle| implémente l'entité utilisateur qui comporte les attributs types d'un utilisateur~: pseudo, mot de passe (encodé en MD5), nom, prénom, date de naissance, karma, ...
+
+Le contrôleur permet d'effectuer différentes opérations liées à un utilisateur. En voici les différentes fonctionnalités~:
+\begin{description}
+    \item [indexAction] si un utilisateur vient de se connecter la méthode \verb|seeAction| est appelée, sinon la page d'inscription/connexion est affichée~;
+    \item [seeAction] affiche le profil d'un utilisateur~;
+    \item [addAction] vérifie si les données d'inscription ne sont pas redondantes avec des données déjà contenues dans la base de données~: si elles ne le sont pas un nouvel utilisateur est créé et la méthode \verb|seeAction| est appelée, sinon le formulaire est généré à nouveau dans le but d'être rempli correctement~;
+    \item [deleteAction] supprime l'utilisateur et tous les services qui y sont associés~;
+    \item [connectionAction] connecte un utilisateur en fonction de son login et de son mot de passe~;
+    \item [deconnectionAction] déconnecte un utilisateur du site et le redirige vers la page de connexion~;
+    \item [editAction] un utilisateur, une fois connecté, peut modifier son profil.
+\end{description}
+
+\subsection{Le bundle Service}
+% auteur : Clément
+% relu par : Fabien, Adrien
+
+Ce bundle catégorise les différents types de service existants sur le site, implémentés par des entités séparées, qui sont~: service de base, covoiturage, vente et couchsurfing.
+
+Chaque service contient~:
+\begin{itemize}
+    \item un identificateur~;
+    \item un titre~;
+    \item une date de création~;
+    \item une description~;
+    \item un prix~;
+    \item une visibilité~;
+    \item un groupe associé (ou non)~;
+    \item une liaison avec un utilisateur à travers l'entité \verb|ServiceUser| et ses dérivés~;
+    \item un type de service qui permet de définir s'il s'agit d'un service de base, d'une vente, d'un covoiturage ou d'un couchsurfing.
+\end{itemize}
+
+Le contrôleur quant à lui, fonctionne via les méthodes suivantes~:
+\begin{description}
+    \item [indexAction] énumère tous les services existants selon un type de classement choisi (par date de création par défaut, par créateur, par type de service, par prix croissant ou décroissant)~;
+    \item [addServiceAction] appelle la méthode de création du service que l'on veut créer~;
+    \item [seeBasicAction et ses dérivés] permet de voir son service~;
+    \item [addBasicAction et ses dérivés] permet d'ajouter son service, à un groupe si on le désire~;
+    \item [deleteBasicAction et ses dérivés] permet de supprimer son service~;
+    \item [seeMyServicesAction] répertorie tous les services que l'on propose, qu'ils soient réservés ou non~;
+    \item [serviceDoneAction] est appelé pour spécifier qu'un service a été effectué.
+\end{description}
+
+\subsection{Le bundle Transaction}
+% auteur : Florian
+% relu par : Clément, Fabien, Adrien
+
+Ce bundle avait pour objectif premier la gestion des comptes «~monétaires~» des utilisateurs. Par la suite, la partie évaluation s'est ajoutée à ce bundle, afin de faire le lien entre un service et un paiement.
+
+Les différentes entités de ce bundle sont~:
+\begin{description}
+    \item [Account] cette entité contient un identifiant de compte, un montant de compte ainsi qu'un découvert autorisé~;
+    \item [Transaction] cette entité est chargée de stocker une transaction entre deux comptes, c'est à dire les deux comptes concernés, le montant de la transaction ainsi qu'un libellé optionnel~;
+    \item [Evaluation et ses dérivés] cette entité fait le lien entre un service souscrit par un utilisateur ainsi qu'une note, précisant si le service a été payé ou non~; l'évaluation sera considérée comme «~à faire~» tant qu'elle n'aura pas été payée.
+\end{description}
+
+Il existe ainsi dans ce bundle deux contrôleurs~:
+\begin{description}
+    \item[TransactionController] ce contrôleur gère les actions effectuées entre deux comptes~:
+    \begin{description}
+        \item[indexAction] appelle la vue qui affiche, si l'utilisateur est connecté, la liste de ses transactions~;
+        \item[paymentAction] appelle la vue qui affiche un formulaire permettant de faire un virement vers un autre utilisateur et traite le formulaire lors de la soumission~;
+    \end{description}
+    \item[EvaluationController] ce contrôleur gère l'évaluation et le paiement lorsqu'un service est effectué~:
+    \begin{description}
+        \item[indexAction] appelle la vue qui affiche, si l'utilisateur est connecté, la liste de tous les services en attente d'évaluation~;
+        \item[evaluationAction] permet à l'utilisateur d'attribuer une note à un service effectué et de le payer, en gérant automatiquement la soumission du formulaire d'évaluation, effectuant le paiement et évaluant le karma (via la méthode \verb|evalKarma|)~;
+        \item[evalKarma] qui va recalculer le karma attribuées à l'utilisateur passé en paramètre en faisant une moyenne arithmétique de toutes les notes ramenées sur 100 (les notes sont sur 10, le karma est sur 100).
+    \end{description}
+\end{description}
+
+\subsection{Le bundle Group}
+% auteur : Fabien
+% relu par : Clément, Adrien
+
+Ce bundle est utilisé pour le groupement d'utilisateurs autour de services.
+
+\begin{description}
+    \item [Groupp] est une entité qui permet le groupement d'utilisateurs par un identifiant unique, un nom et une description ainsi qu'un administrateur, cette entité se nomme \verb|Groupp| car \verb|Group| est un terme réservé par Symfony2~;
+    \item [associatedGroup] est un attribut de l'entité \verb|Service| qui permet d'associer un service à un groupe~; ce service figurera dans la vue \verb|see_group.html.twig\verb| du groupe associé.
+\end{description} 
+
+\verb|GroupController| est le contrôleur qui permet de gérer les groupes, à savoir, les afficher, afficher un groupe en détails, ajouter un utilisateur, bannir un utilisateur, demander à rejoindre un groupe, supprimer une demande pour rejoindre un groupe et supprimer un groupe.
+
+\subsection{Le bundle Forum}
+
+% auteur : Fabien
+% relu par : Clément, Adrien
+
+Ce bundle est utilisé pour la communication entre les membres de Poavre sur divers sujets, cela peut être de la communication pure (chat), de la communication sur les services proposés ou encore débattre sur des sujets et proposer des nouveautés à apporter au site.
+
+\begin{description}
+    \item [Topic] (ou sujet) est une entité qui possède un identifiant unique, un ratio d'approbation (likes/dislikes), un nom, une description, une date de création, un nombre de vues et un auteur~;
+    \item [Comment] est une entité qui possède un identifiant unique, un message, une date de création et un auteur~;
+    \item [TopicComment] est une entité associative (une association) entre les entités \verb|Topic| et \verb|Comment|, ainsi un commentaire est propre à un sujet qui dispose de plusieurs commentaires~;
+    cette entité possède deux attributs, l'un référençant le sujet et l'autre référençant le commentaire~;
+    \item [TopicUser] est une entité associative (une association) entre les entités \verb|Topic| et \verb|User|, ainsi, un utilisateur peut commenter plusieurs sujets et même plusieurs fois le même sujet et chaque sujet est commenté par plusieurs utilisateurs~ ;
+    cette entité possède deux attributs, l'un référençant le sujet et l'autre référençant l'utilisateur.
+\end{description} 
+
+\verb|ForumController| est un contrôleur qui permet de gérer les sujets et commentaires, à savoir, afficher la liste des sujets, afficher, créer, commenter, «~liker~» et «~disliker~» un sujet.
+
+\subsection{Le bundle Home}
+
+% auteur : Fabien
+% relu par : Clément, Adrien
+
+Ce bundle est utilisé pour l'affichage de la page d'accueil du site ainsi que pour l'accès à l'onglet «~Développeurs~».
+Ainsi la majeure partie des redirections se font soit vers la création de compte utilisateur ou de connexion, soit vers la page d'accueil.
+
+\verb|HomeController| est un contrôleur qui permet l'affichage de la page d'accueil du site ainsi que l'accès à l'onglet «~Développeurs~».
+
+\subsection{Le bundle Administration}
+
+% auteur : Fabien
+% relu par : Clément, Adrien
+
+Ce bundle est utilisé pour la gestion de Poavre par les modérateurs du site.
+
+\verb|AdministrationController| est un contrôleur qui permet à un administrateur de bannir des membres, les nommer modérateur ou «~master~» (utilisateur suprême), supprimer des groupes, des services, des sujets du forum ou encore des commentaires sur les différents sujets du forum.
+
+% Ici Adrien :
+% Je propose que les trois prochaines sections soient dédiées à expliquer comment fonctionne notre application de manière globale et succinte.
+% Ce sera une sorte d'explication de comment Symfony fonctionne en gros.
+
+\section{Les services Symfony}
+% auteur : Clément
+% relu par : Fabien, Adrien
+
+Symfony2 permet d'implémenter des services qui sont des fonctions appelables depuis un contrôleur quelconque. Ceci est réalisable grâce à l'«~importation~» du service dans le fichier \verb|service.yml| présent dans tous bundle généré par Symfony2.
+
+Ici dans chaque bundle et avant chaque méthode d'un contrôleur, un service est appelé. Ce service, \verb|ml.session|, permet de vérifier au début de chaque méthode si la session d'un utilisateur est activée. Si c'est le cas la suite de la méthode se déroule sans problème, sinon l'utilisateur est redirigé vers la page d'inscription.
+
+\section{L'implémentation du modèle}
+% auteur : Clément
+% relu par : Fabien, Adrien
+
+La partie modèle de Symfony2 contient 2 parties, les classes d'entités et les \verb|entityRepository| contenant notamment des requêtes personnalisées avec la base de donnée et les formulaires d'entités.
+
+\subsection{Les classes d'entités}
+Un bundle contient les différentes entités concernées. Une entité représente une classe du modèle de classe.
+
+Après la création d'un bundle, Symfony2 propose la génération d'une entité grâce à une simple ligne de commande dans la console intégrée de Symfony2.
+
+Les attributs sont alors demandés ainsi que leurs types et quelques spécialisations. Les getters et setters sont ensuite automatiquement générés. Une entité peut être modifiée, suite à cela la base de donnée doit être mise à jour. Cette base de donnée est générée grâce à des commentaires (annotations) et à l'ORM Doctrine.
+
+\subsection{Les «~Repositories~»}
+% auteur : Florian
+% relu par : Fabien, Adrien
+
+Les \verb|repositories| sont des «~dépôts~» qui sont interrogés par les contrôleurs. Ces dépôts requêtent la base de données et créent les objets demandés. Cela dit, les requêtes héritées de \verb|EntityRepository| ne permettent que des requêtes simples.
+Des requêtes plus complexes (personnalisées), peuvent être créé grâce au DQL (Doctrine Query Language), notamment dans les sujets pour calculer les ratios (likes/dislikes) de chaque sujet (voir figure \ref{fig:dql}).
+
+\begin{figure}[h]
+\centering
+\begin{lstlisting}
+$likes = $em->createQuery(
+"SELECT COUNT(tu.avis) as nb_likes
+FROM MlForumBundle:TopicUser tu
+WHERE tu.avis = 1
+AND tu.topic = :value")
+->setParameter('value', $value);
+
+$count_likes = (int)$likes->getResult()[0]['nb_likes'];
+\end{lstlisting}
+\caption{Exemple d'utilisation du DQL}
+\label{fig:dql}
+\end{figure}
+
+% auteur : Clément
+% relu par : Florian, Fabien, Adrien
+
+Les formulaires peuvent être implémentés grâce à une méthode \verb|buildForm| de Symfony2 (voir \ref{fig:form}) qui permet de construire un formulaire ne contenant que les attributs désirés. La classe implémentant ce formulaire est alors stockée dans le dossier \verb|Form| d'un bundle et elle doit hériter de la classe \verb|AbstractType|, qui est la superclasse de tous les formulaires.
+Cette classe peut être générée automatiquement grâce à une commande dans la console de Symfony2.
+
+\begin{figure}[h]
+\centering
+\begin{lstlisting}
+class UserType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+            ->add('lastName','text', array('label' => "Nom"))
+            ->add('firstName','text', array('label' => "Prenom"))
+            ->add('login','text', array('label' => "Login"))
+            ->add('password','password', array('label' => "Mot de passe"));
+    }
+    ...
+}
+\end{lstlisting}
+\caption{Exemple d'utilisation d'un formulaire}
+\label{fig:form}
+\end{figure}
+
+\section{Le fonctionnement du contrôleur}
+% auteur : Florian
+% relu par : Clément, Fabien, Adrien
+
+Sous Symfony2, le contrôleur est une classe présente dans chaque bundle. Lorsqu'un visiteur du site cherchera à visiter une page, le routeur va analyser l'adresse entrée et utiliser les fichiers de routage pour déterminer quelle méthode (action) de quel contrôleur doit être appelée.
+
+Ainsi, avec la ligne du fichier présentée dans la figure \ref{fig:routing_exemple}, c'est la méthode \verb|evaluationAction| du contrôleur \verb|EvaluationController| qui sera appelée. De plus, \verb|{serviceType}| et \verb|{id}| indiquent que ces éléments de l'adresse seront passés en tant que paramètres \verb|$serviceType| et \verb|id| à la méthode \verb|evaluationAction|. Ainsi, si un visiteur se rend à l'adresse \verb|/evaluation/b/1|, c'est \verb|EvaluationController::evaluationAction| \verb|('b',1)| qui sera exécutée.
+
+\begin{figure}[h]
+\centering
+\begin{lstlisting}
+ml_transaction_evaluation:
+    pattern: /evaluation/{serviceType}/{id}
+    defaults: { _controller: MlTransactionBundle:Evaluation:evaluation }
+\end{lstlisting}
+\caption{Extrait du fichier routing.yml du bundle}
+\label{fig:routing_exemple}
+\end{figure}
+
+\section{L'organisation des vues}
+% auteur : Adrien
+% relu par : Florian, Clément, Fabien
+
+Les vues sous Symfony sont gérées par Twig qui ajoute de nombreuses fonctionnalités à HTML~:
+\begin{itemize}
+    \item variables passées en paramètre par le contrôleur~;
+    \item conditions~;
+    \item boucles~;
+    \item nommage de sections de document~;
+    \item hiérarchie de documents Twig~: héritage d'un document pour en modifier les sections.
+\end{itemize}
+
+\subsection{Le layout}
+
+Le découpage de la vue s'est fait en différents layouts s'occupant d'une partie non-métier de la vue~:
+\begin{description}
+    \item [layout.html.twig] est la racine de l'arbre Twig, il déclare le corps du document (header, body) sans le définir et déclare les sections de titre, de shell (interface utilisateur), de style et de scripts~;
+    \item [simple.html.twig] définit un shell simple en spécialisant \verb|layout.html.twig|, définissant un pied de page et déclarant le corps de la page~;
+    \item [headerbar.html.twig]  définit un shell complexe en spécialisant \verb|layout.html.twig|, définissant une barre d'en-tête servant de menu principal, et déclarant une barre latérale et un corps de page à spécialiser.
+\end{description}
+
+\subsection{Les vues spécifiques}
+
+Chaque bundle définit un lot de vues spécifiques, spécialisant selon le besoin soit \verb|simple.html.twig|, soit \verb|headerbar.html.twig|.
+
+La spécialisation de \verb|simple.html.twig| est réalisée en définissant la section de corps du document, le terminant ainsi.
+
+La spécialisation de \verb|headerbar.html.twig| est réalisée en deux étapes, un fichier Twig spécifique au bundle redéfinit la barre latérale, puis est hérité par les vues du bundle qui définissent le corps du document, le terminant ainsi. Ceci permet d'avoir une barre d'en-tête commune à toutes les vues d'un bundle.
+
+\section{Les versions}
+
+\subsection{Version 0.1}
+% auteur : Thin
+% relu par : Clément, Florian, Oualid, Adrien
+
+La première version du projet a été programmée début mars après trois à quatre semaines d'analyse. Cette première version faisant office de socle pour la suite de l'avancement de notre projet, celle-ci fut centrée sur les fondements du projet et réalisée sur une période de trois semaines.
+
+L'objectif de cette version était donc l'implémentation des modèles utilisateur, prestation et transaction. Pour cela, nous avons dû créer un bundle correspondant à ces 3 modèles~; les bundles \verb|User|, \verb|Prestation| et \verb|Transaction|. Le travail fut réparti en fonction des préférences, des curiosités ou encore selon les connaissances de chacun et fut facilité par le biais de la structuration de Symfony, en effet un certain nombre de personnes étaient rattachées à un bundle ce qui permit d'éviter les conflits.
+
+Concernant la partie modèle, le modèle \verb|Prestation| implémenté par Oualid, Rime et Quentin fut enrichi par des services comme le covoiturage, le bricolage ou les cours particuliers, seul le service covoiturage a été retenu. Le modèle \verb|User| fut implémenté par Clément et Thin-hinen et le modèle \verb|Transaction| par Florian.
+
+La vue a été prise en main d’une part par Fabien en structurant les layouts principaux et secondaires et d’autre part par Adrien qui avait pour rôle de coder les vues relatives aux modèles implémentés.
+
+Enfin le contrôleur du bundle utilisateur a été implémenté par Clément pour permettre d’inscrire un utilisateur et par la suite d’être complété pour répondre aux fonctionnalités définies.
+
+Dans un premier temps la version 0.1 a permis la structuration de base du site et l'implémentation des éléments de base mais aussi la prise en main des nouveaux outils (pour la plupart du groupe) que sont Symfony2, Git (et GitHub) et Producteev. De plus la version 0.1 a permis d'établir les conventions nécessaires à l'homogénéisation du projet ainsi il a été décidé que les commentaires et la documentation se feraient en français quant au site il serait en anglais mais disponible en français.
+
+Dans un second temps, lors de l'élaboration de la version 0.1, le but fut son intégration, guidée par Adrien et Fabien, tout le groupe était alors concerné par la résolution des bugs mais aussi par l'ajout de certaines fonctionnalités (formulaire de prestation...), l'ajout de la base du site (vue des prestations) et la vérification de la validité des données récupérées au niveau du contrôleur.
+
+\subsection{Version 0.2}
+% auteur : Thin
+% relu par : Clément, Florian, Oualid, Adrien
+
+En début avril l'avancement du projet et l'aboutissement de la version 0.2 du site amena la question du nom~; «~Poavre~» a alors été proposé par Adrien, qui est un jeu de mot lié au mot «~SEL~». La «~faute~» a été choisie pour permettre une meilleure identification du projet.
+
+La 0.2 fut l'occasion d'une amélioration de la vue, proposée par Adrien, tandis qu'en collaboration avec Clément et Thin-Hinen le site était réorganisé. Fabien, Quentin, Rime et Oualid ont étoffé le bundle Service en proposant de généraliser la proposition de service et en ne conservant que deux services types, le covoiturage et le couchsurfing, tout en adaptant le contrôleur et les vues associés.
+La partie transaction, encore en cours d'évolution, était toujours en développement par Florian.
+
+Ainsi, cette partie fut principalement un renforcement de la version précédente, seules quelques légères améliorations ont été apportées.
+
+Elle fut réalisée en deux semaines.
+
+\subsection{Version 0.3}
+% auteur : Thin
+% relu par : Florian, Clément, Adrien
+
+La version 0.3 a été l'occasion d'un enrichissement au niveau de la vue, où les prestations (renommés services à partir de cette version) sont alors complètes tant au niveau de la vue que du contrôleur. L'implémentation des transactions est également terminée.
+Arrivé à cette version, les outils sont bien compris rendant le travail plus efficace et dynamique.
+
+Une épuration du code s'est faite lors de cette version~: la factorisation du code est alors réalisée (mise en place du service \verb|ml_session| qui teste si un utilisateur est connecté). De plus, les pages \verb|TWIG| reçoivent désormais des entités complètes et non plus chaque attribut d'une entité.
+
+\subsection{Version 0.4}
+% auteur : Thin
+% relu par : Florian, Clément, Adrien
+
+Lors de cette version, Adrien et Thin-Hinen se sont chargés de peaufiner l’aspect visuel~; la barre d'en-tête a été remaniée ainsi que la navigation, pour donner un aspect plus épuré, simple et facile de prise en main pour l’utilisateur.
+
+Au niveau du modèle, les bundles \verb|Group| et \verb|Forum| ont vu le jour grâce à Fabien et Quentin~; Clément et Florian ont effectué l'implémentation de l'évaluation et du paiement des services réalisés~; ces évaluations influent également sur le karma du prestataire, calculé grâce aux notes attribuées par les utilisateurs ayant eu recours à un service.
+
+Oualid et Quentin ont factorisé les services en types de service pour faciliter la gestion aux utilisateurs. Quant à la réalisation des interfaces des services, elle fut réalisée par Rime.
+
+Cette version fut également l'occasion de la mise en ligne du site. Adrien devait à l'origine la réaliser, mais suite à un problème de compatibilité de la version de PHP présente sur le serveur qui nous a été prêté, ce fut Fabien qui s'en chargea finalement sur un autre serveur auquel il avait accès.
+
+\subsection{Version 1.0}
+% auteur : Thin
+% relu par : Florian, Clément, Adrien
+
+Cette version étant une finalisation du projet, certains points on été améliorés pour plus de clarté et de sécurité à l'interieur du site.
+
+Une vérification de la capacité de paiement des utilisateurs fut implémentée par Florian. En effet, un utilisateur ne peut pas réserver de nouveaux services si ses moyens ne sont pas suffisants~; les transactions encore en cours mais non payées sont maintenant prises en compte pour calculer le solde disponible de l'utilisateur lors d'une nouvelle demande de service. 
+
+La désactivation du compte (si l'utilisateur n'a pas de transactions en cours) a également été ajouté. Nous n'avons pas implémenté la suppression totale du compte (pour garder une trace des transactions en cas de litige), mais avons cependant laisser cette possibilité à l'utilisateur via un mail de contact, afin de rester conformes aux règles de la CNIL.
+
+Oualid et Fabien ont été chargés de la transition vers la dernière version de \verb|Bootstrap| pour un meilleur rendu. La \verb|side-bar| a été allégée et la page d’accueil fut également modifiée pour être plus attractive.
+
+\subsection{Version 1.0.1}
+% auteur : Clément
+% relu par : Adrien, Florian
+
+La version 1.0.1 fut une version de correction de bug. Rien n'a réellement été ajouté, seuls quelques bugs encore présents dans la version 1.0 ont été corrigés.
+
